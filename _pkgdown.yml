@@ -1,0 +1,53 @@
+url: https://www.ahl27.com/IntroPhylogenetics
+
+template:
+  bootstrap: 5
+  bootswatch: united
+  #bslib:
+    #pkgdown-nav-height: 122px
+    #ganalytics: UA-99999999-9
+
+home:
+  title: "Introduction to Phylogenetic Methods"
+  type: inverse
+
+
+navbar:
+  structure:
+    left: [intro, articles, reference, news, homepage]
+    right: [github, home]
+  components:
+    github:
+      icon: fa-github
+      href: https://github.com/ahl27/IntroPhylogenetics
+      aria-label: GitHub
+    home:
+      icon: fa-potato
+      href: https://www.ahl27.com
+      aria-label: My Website
+    intro:
+      text: Overview
+      href: https://www.ahl27.com/IntroPhylogenetics/articles/IntroPhylogenetics.html
+    articles:
+      text: Lessons
+      menu:
+        - text: Building Trees
+          href: https://www.ahl27.com/IntroPhylogenetics/articles/BuildingTrees.html
+        - text: Comparing Trees
+          href: https://www.ahl27.com/IntroPhylogenetics/articles/ComparingTrees.html
+    homepage:
+      text: Back to Website
+      href: https://www.ahl27.com/tutorials
+     
+reference:
+  - title: "Building Trees"
+    desc: >
+      Functions for building phylogenetic trees
+    contents:
+      - hclust
+
+  - title: "Comparing Trees"
+    desc: >
+      Functions for comparing phylogenetic trees
+    contents:
+      - hclust

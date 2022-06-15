@@ -1,0 +1,25 @@
+Package: IntroPhylogenetics
+Title: Introduction to Phylogeitics
+Version: 1.0.0
+Authors@R: 
+    person(given = "Aidan",
+           family = "Lakshman",
+           role = c("aut", "cre"),
+           email = "ahl27@pitt.edu",
+           comment = c(ORCID = "0000-0002-9465-6785"))
+Description: This package contains an interactive tutorial to phylogenetics, including creating and comparing phylogenetic trees. I may add more elements in the future depending on where my research takes me. 
+License: file LICENSE
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.0
+Depends: 
+    Biobase,
+    DECIPHER
+Suggests: 
+    knitr,
+    rmarkdown,
+    pkgdown
+URL: https://www.ahl27.com/IntroPhylogenetics/
+BugReports: https://github.com/ahl27/IntroPhylogenetics/issues/new/choose
+VignetteBuilder: knitr

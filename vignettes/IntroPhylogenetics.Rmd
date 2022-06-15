@@ -1,0 +1,12 @@
+---
+title: "Introduction"
+output: html_document
+date: "2022-06-15"
+---
+
+Welcome to my tutorial on phylogenetics! This is designed to be a ground-up explanation
+of common methods used for phylogenetics, including building and comparing phylogenetic
+trees. I'm setting this tutorial up as an ongoing repository of tutorials and workshops
+I construct, so expect this to be updated as my research progresses!
+
+Check the News page to see what's new, or check out the Lessons tab to jump in!
