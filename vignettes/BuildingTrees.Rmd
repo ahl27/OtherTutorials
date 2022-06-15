@@ -10,7 +10,7 @@ editor_options:
   markdown: 
     wrap: 72
 resource_files:
-  - man/resources/TreeLine.R
+  - data/TreeLine.R
 ---
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(

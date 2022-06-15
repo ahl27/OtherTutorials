@@ -10,8 +10,8 @@ editor_options:
   markdown: 
     wrap: 72
 resource_files:
-  - man/resources/TreeLine.R
-  - man/resources/Simulated_v1.fas
+  - data/TreeLine.R
+  - data/Simulated_v1.fas
 ---
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(
@@ -27,7 +27,7 @@ In this discussion I'll cover two common ways of calculating distances between t
 # Package imports
 library(ape)
 library(DECIPHER)
-source('TreeLine.R')
+source('data/TreeLine.R')
 
 # Helper plotting function
 plot_tree_unrooted <- function(dend, title){
@@ -48,7 +48,7 @@ We'll start with a slightly larger test dataset so that we can more clearly see 
 
 ```{r, results='hide'}
 # External data file, contains simulated alignment
-simSeqsFile <- 'Simulated_v1.fas'
+simSeqsFile <- 'data/Simulated_v1.fas'
 
 simAli <- suppressWarnings(readDNAStringSet(simSeqsFile))[1:25]
 names(simAli) <- 1:25
