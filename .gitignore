@@ -1,3 +1,4 @@
+
 # History files
 .Rhistory
 .Rapp.history
@@ -37,3 +38,7 @@ vignettes/*.pdf
 
 # R Environment Variables
 .Renviron
+
+# I don't know what this is but I don't like it
+.DS_Store
+/.DS_Store

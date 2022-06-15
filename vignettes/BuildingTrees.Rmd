@@ -9,6 +9,8 @@ vignette: >
 editor_options: 
   markdown: 
     wrap: 72
+resource_files:
+  - man/resources/TreeLine.R
 ---
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(
@@ -16,7 +18,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup, include=TRUE, warning=FALSE, message=FALSE}
+```{r warning=FALSE, message=FALSE}
 # Package imports
 library(ape)
 library(DECIPHER)

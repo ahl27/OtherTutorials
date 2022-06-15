@@ -9,6 +9,9 @@ vignette: >
 editor_options: 
   markdown: 
     wrap: 72
+resource_files:
+  - man/resources/TreeLine.R
+  - man/resources/Simulated_v1.fas
 ---
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(
@@ -20,7 +23,7 @@ Making trees is nice, but how do we compare them? Comparing trees is a difficult
 
 In this discussion I'll cover two common ways of calculating distances between trees: Robinson-Foulds (RF) Distance and Kuhner-Felsenstein (KF) distance.
 
-```{r setup, include=TRUE, warning=FALSE, message=FALSE}
+```{r warning=FALSE, message=FALSE}
 # Package imports
 library(ape)
 library(DECIPHER)
