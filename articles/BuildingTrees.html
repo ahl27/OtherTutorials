@@ -174,14 +174,14 @@ weighted by the number of leaves in each pair being combined, so if the
 two rows are each clusters with multiple leaves, the average should be
 weighted accordingly.</p></li>
 </ol>
-<p><img src="../../../../tmp/RtmpWTe8yu/temp_libpath26424b90035/IntroPhylogenetics/figures/upgma1.png" width="90%"></p>
+<p><img src="../../../../tmp/RtmpTbE6UY/temp_libpath25d2cd3cbf6/IntroPhylogenetics/figures/upgma1.png" width="90%"></p>
 <ol start="4" style="list-style-type: decimal">
 <li>Repeat above steps until all nodes are combined and the distance
 matrix is a single row and column.</li>
 </ol>
-<p><img src="../../../../tmp/RtmpWTe8yu/temp_libpath26424b90035/IntroPhylogenetics/figures/upgma4.png" width="90%"></p>
-<p><img src="../../../../tmp/RtmpWTe8yu/temp_libpath26424b90035/IntroPhylogenetics/figures/upgma5.png" width="90%"></p>
-<p><img src="../../../../tmp/RtmpWTe8yu/temp_libpath26424b90035/IntroPhylogenetics/figures/upgma6.png" width="90%"></p>
+<p><img src="../../../../tmp/RtmpTbE6UY/temp_libpath25d2cd3cbf6/IntroPhylogenetics/figures/upgma4.png" width="90%"></p>
+<p><img src="../../../../tmp/RtmpTbE6UY/temp_libpath25d2cd3cbf6/IntroPhylogenetics/figures/upgma5.png" width="90%"></p>
+<p><img src="../../../../tmp/RtmpTbE6UY/temp_libpath25d2cd3cbf6/IntroPhylogenetics/figures/upgma6.png" width="90%"></p>
 <p>Note that UPGMA methods always create an ultrametric tree, which
 means the tree is rooted and all leaves are equidistant from the root.
 This implies a molecular clock (rate of mutation is the same across all
@@ -260,7 +260,7 @@ visualization). The algorithm proceeds in the following steps:</p>
 <li>Start with a star tree (all connected to a single root node), and
 record the row and column sums for each row/column of the matrix.</li>
 </ol>
-<p><img src="../../../../tmp/RtmpWTe8yu/temp_libpath26424b90035/IntroPhylogenetics/figures/nj1.png" width="90%"></p>
+<p><img src="../../../../tmp/RtmpTbE6UY/temp_libpath25d2cd3cbf6/IntroPhylogenetics/figures/nj1.png" width="90%"></p>
 <ol start="2" style="list-style-type: decimal">
 <li>Create a Q-matrix, which is a matrix of the same dimensions as the
 distance matrix, and each element given by the following formula:</li>
@@ -278,7 +278,7 @@ in the Q-matrix, and combine the corresponding nodes by adding an
 intermediate node <span class="math inline">\(N_{int}\)</span> between
 them in the tree.</li>
 </ol>
-<p><img src="../../../../tmp/RtmpWTe8yu/temp_libpath26424b90035/IntroPhylogenetics/figures/nj2.png" width="90%"></p>
+<p><img src="../../../../tmp/RtmpTbE6UY/temp_libpath25d2cd3cbf6/IntroPhylogenetics/figures/nj2.png" width="90%"></p>
 <ol start="4" style="list-style-type: decimal">
 <li>Calculate edge lengths from <span class="math inline">\(N_{int}\)</span> to <span class="math inline">\(f,g\)</span> with the following formula:</li>
 </ol>
@@ -303,14 +303,14 @@ d[h,f] - d[f,g])\]</span></p>
 <ol start="6" style="list-style-type: decimal">
 <li>Repeat until the full tree has been constructed.</li>
 </ol>
-<p><img src="../../../../tmp/RtmpWTe8yu/temp_libpath26424b90035/IntroPhylogenetics/figures/nj3.png" width="90%"></p>
+<p><img src="../../../../tmp/RtmpTbE6UY/temp_libpath25d2cd3cbf6/IntroPhylogenetics/figures/nj3.png" width="90%"></p>
 <div class="line-block"> Once we only have three nodes left, we just
 need to figure out the</div>
 <p>branch lengths.</p>
 <div class="line-block"> We can do this in the exact same way as
 before.</div>
-<p><img src="../../../../tmp/RtmpWTe8yu/temp_libpath26424b90035/IntroPhylogenetics/figures/nj4.png" width="90%"></p>
-<p><img src="../../../../tmp/RtmpWTe8yu/temp_libpath26424b90035/IntroPhylogenetics/figures/nj5.png" width="90%"></p>
+<p><img src="../../../../tmp/RtmpTbE6UY/temp_libpath25d2cd3cbf6/IntroPhylogenetics/figures/nj4.png" width="90%"></p>
+<p><img src="../../../../tmp/RtmpTbE6UY/temp_libpath25d2cd3cbf6/IntroPhylogenetics/figures/nj5.png" width="90%"></p>
 <hr>
 <p>This can be done in R with the following commands. Note that the
 output is slightly different due to a different method for calculating
@@ -333,13 +333,13 @@ number of changes on the tree. Such a tree is called the most
 initial set of sequences. I’ve also included a distance matrix
 corresponding to the number of state transitions required to switch from
 one sequence to another (the Hamming distance).</p>
-<p><img src="../../../../tmp/RtmpWTe8yu/temp_libpath26424b90035/IntroPhylogenetics/figures/mp1.png" width="90%"></p>
+<p><img src="../../../../tmp/RtmpTbE6UY/temp_libpath25d2cd3cbf6/IntroPhylogenetics/figures/mp1.png" width="90%"></p>
 <p>Notice how sequences 1 and 2 are very similar, and sequences 4 and 5
 are very similar. An optimal reconstruction would place sequences 1 and
 2 close together and sequences 4 and 5 close together, since these pairs
 require the fewer transitions to convert between. For a set of 4 nodes,
 we have four possible topologies:</p>
-<p><img src="../../../../tmp/RtmpWTe8yu/temp_libpath26424b90035/IntroPhylogenetics/figures/mp2.png" width="90%"></p>
+<p><img src="../../../../tmp/RtmpTbE6UY/temp_libpath25d2cd3cbf6/IntroPhylogenetics/figures/mp2.png" width="90%"></p>
 <p>Three of these are trees with a single internal branch, and one is a
 star tree with no branches. The top left tree is the most parsimonious,
 because it minimizes the transition cost along any particular path of

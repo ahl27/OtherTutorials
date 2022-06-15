@@ -146,7 +146,7 @@ phylogenetic trees using the three methods discussed previously.</p>
 concept of partitions. In a bifurcating unrooted tree, every edge
 divides the set of leaf nodes into two sets. These form the basis of
 many tree comparison algorithms. Let’s look at a toy example:</p>
-<p><img src="reference/figures/part1.png"></p>
+<p><img src="part1.png"></p>
 <p>Note how each numbered edge of the tree splits the labeled leaf nodes
 into two distinct groups to either side of it. Leaf edges trivially
 split the tree into a partition of just the leaf and everything else,
@@ -160,7 +160,7 @@ partitions.</p>
 partitions in a tree. Let’s look at a toy example with two small trees
 and their internal partitions labeled (internal edges circled in
 green):</p>
-<p><img src="reference/figures/part1.png"></p>
+<p><img src="part2.png"></p>
 <p>Now let <span class="math inline">\(A\)</span> be the number of
 partitions unique to the first tree, and <span class="math inline">\(B\)</span> the number of partitions unique to the
 second tree. The RF distance (also called the symmetric difference
@@ -196,11 +196,11 @@ the RF distance is <span class="math inline">\(0.5\)</span>.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">RF_dist_external</span><span class="op">(</span><span class="va">UPGMAtree</span>, <span class="va">MPtree</span><span class="op">)</span></code></pre></div>
 <pre><code><span class="co">##       tree1</span>
-<span class="co">## tree2    18</span></code></pre>
+<span class="co">## tree2    20</span></code></pre>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">RF_dist_external</span><span class="op">(</span><span class="va">NJtree</span>, <span class="va">MPtree</span><span class="op">)</span></code></pre></div>
 <pre><code><span class="co">##       tree1</span>
-<span class="co">## tree2    12</span></code></pre>
+<span class="co">## tree2    10</span></code></pre>
 <div class="section level4">
 <h4 id="drawbacks">Drawbacks<a class="anchor" aria-label="anchor" href="#drawbacks"></a>
 </h4>
@@ -242,7 +242,7 @@ in the two trees. If a partition is a unique to a particular tree, it is
 taken as having a branch length of 0 in the other tree. Below is an
 updated version of our previous example with branch lengths added in
 pink (partitions labeled):</p>
-<p><img src="reference/figures/part3.png"></p>
+<p><img src="part3.png"></p>
 <p>Here we will also examine the leaf branches, but since the leaf set
 is the same and branch lengths are identical, all of these branches
 cancel each other out. One pair of branches is an equivalent partition
@@ -278,11 +278,11 @@ small differences in topology and upweight large differences.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">RF_dist_external</span><span class="op">(</span><span class="va">UPGMAtree</span>, <span class="va">MPtree</span><span class="op">)</span></code></pre></div>
 <pre><code><span class="co">##       tree1</span>
-<span class="co">## tree2    18</span></code></pre>
+<span class="co">## tree2    20</span></code></pre>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">RF_dist_external</span><span class="op">(</span><span class="va">NJtree</span>, <span class="va">MPtree</span><span class="op">)</span></code></pre></div>
 <pre><code><span class="co">##       tree1</span>
-<span class="co">## tree2    12</span></code></pre>
+<span class="co">## tree2    10</span></code></pre>
 <hr>
 </div>
 </div>
@@ -439,15 +439,15 @@ by default. Click “Code” to show this content.</p>
 
 <span class="va">RFDists</span></code></pre></div>
 <pre><code><span class="co">##           UPGMA        NJ        MP</span>
-<span class="co">## UPGMA 0.0000000 0.2608696 0.3913043</span>
-<span class="co">## NJ    0.2608696 0.0000000 0.2608696</span>
-<span class="co">## MP    0.3913043 0.2608696 0.0000000</span></code></pre>
+<span class="co">## UPGMA 0.0000000 0.2608696 0.4347826</span>
+<span class="co">## NJ    0.2608696 0.0000000 0.2173913</span>
+<span class="co">## MP    0.4347826 0.2173913 0.0000000</span></code></pre>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">KFDists</span></code></pre></div>
 <pre><code><span class="co">##           UPGMA        NJ        MP</span>
-<span class="co">## UPGMA 0.0000000 0.9712953 0.9392875</span>
-<span class="co">## NJ    0.9712953 0.0000000 0.3434324</span>
-<span class="co">## MP    0.9392875 0.3434324 0.0000000</span></code></pre>
+<span class="co">## UPGMA 0.0000000 0.9712953 1.0070683</span>
+<span class="co">## NJ    0.9712953 0.0000000 0.3837622</span>
+<span class="co">## MP    1.0070683 0.3837622 0.0000000</span></code></pre>
 <hr>
 </div>
 </div>
