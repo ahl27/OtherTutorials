@@ -36,11 +36,7 @@ plot_tree_unrooted <- function(dend, title){
 }
 ```
 
-## &nbsp; {.tabset .tabset-fade .tabset-pills}
-
-***
-
-### Setup
+## Setup
 
 We'll start with a slightly larger test dataset so that we can more clearly see differences between tree constructions. The following codeblocks read in a set of 25 simulated alignments, then constructs phylogenetic trees using the three methods discussed previously.
 
@@ -66,24 +62,20 @@ plot_tree_unrooted(NJtree, 'NJ')
 plot_tree_unrooted(MPtree, 'MP')
 ```
 
-### Partitions
+## Partitions
 
 Before we dive into tree distances, it's important to understand the concept of
 partitions. In a bifurcating unrooted tree, every edge divides the set of leaf nodes into two sets. These form the basis of many tree comparison algorithms. Let's look at a toy example:
 
-```{r part1, echo=FALSE, out.width = '90%'}
-knitr::include_graphics('part1.png')
-```
+![](man/figures/part1.png)
 
 Note how each numbered edge of the tree splits the labeled leaf nodes into two distinct groups to either side of it. Leaf edges trivially split the tree into a partition of just the leaf and everything else, but internal edges split the leaves into more interesting partitions.
 
-### RF Distance
+## RF Distance
 
 Robinson-Foulds (RF) distance measures the similarity of these partitions in a tree. Let's look at a toy example with two small trees and their internal partitions labeled (internal edges circled in green):
 
-```{r part2, echo=FALSE, out.width = '90%'}
-knitr::include_graphics('part2.png')
-```
+![](man/figures/part1.png)
 
 Now let $A$ be the number of partitions unique to the first tree, and $B$ the number of partitions unique to the second tree. The RF distance (also called the symmetric difference metric) is simply the quantity $(A+B)$.
 
@@ -91,7 +83,7 @@ For this example, note that edge 2 is an identical partition to edge II. Thus, t
 
 Some implementations change the metric slightly by scaling it, either by dividing by two or scaling the metric to have a maximum value of 1. The latter operation can be done by dividing by the maximum possible score, which is just the sum of the total number of branches. In this case, the total number of internal branches is 4 (2 from each tree), so the RF distance is $0.5$.
 
-#### R implementation
+### R implementation
 ```{r, warning=FALSE}
 RF_dist_external <- function(dend1, dend2){
   tf <- tempfile()
@@ -126,15 +118,13 @@ Some of these drawbacks have been accounted for with subsequent optimization, an
 
 ***
 
-### KF Distance
+## KF Distance
 
 The Kuhner-Felsenstein (KF) distance attempts to incorporate branch lengths into the RF distance to gain a richer description of the differences between two trees. 
 
 Recall that the RF distance is the number of unique (non-shared) partitions in the tree. The KF distance is instead taken as the sum of the squared difference of branch lengths for each equivalent partition in the two trees. If a partition is a unique to a particular tree, it is taken as having a branch length of 0 in the other tree. Below is an updated version of our previous example with branch lengths added in pink (partitions labeled):
 
-```{r part3, echo=FALSE, out.width = '90%'}
-knitr::include_graphics('part3.png')
-```
+![](man/figures/part3.png)
 
 Here we will also examine the leaf branches, but since the leaf set is the same and branch lengths are identical, all of these branches cancel each other out. One pair of branches is an equivalent partition (2 and II), and the other two are unique. The KF distance is then:
 
@@ -146,7 +136,7 @@ KF(Tr1, Tr2) &= (len(1) - 0)^2 + (0 - len(I))^2 + (len(2) - len(II))^2 \\
 
 The advantages of this over RF distance is that it can incorporate branch lengths in addition to topology, which allows it to downweight small differences in topology and upweight large differences.
 
-#### R Implementation
+### R Implementation
 ```{r, warning=FALSE}
 KF_dist_external <- function(dend1, dend2){
   tf <- tempfile()
@@ -167,11 +157,11 @@ RF_dist_external(NJtree, MPtree)
 
 ***
 
-### Manual Implementations
+## Manual Implementations
 
 I wrote implementations of both distances from scratch to illustrate how these functions are working under the hood. Note that external packages incorporate some optimizations I didn't implement that lead to different results.
 
-#### Helper functions
+### Helper functions
 
 This code block contains several helper functions and is compressed by default. Click "Code" to show this content.
 
@@ -240,7 +230,7 @@ get_branch_length <- function(dendNode){
 }
 ```
 
-#### Robinson-Foulds Distance
+### Robinson-Foulds Distance
 
 ```{r}
 RF_Distance <- function(dend1, dend2){
@@ -262,7 +252,7 @@ RF_Distance <- function(dend1, dend2){
 }
 ```
 
-#### Kuhner-Felsenstein Distance
+### Kuhner-Felsenstein Distance
 
 ```{r}
 KF_Distance <- function(dend1, dend2){
@@ -322,7 +312,7 @@ KFDists
 
 ***
 
-### Other Metrics
+## Other Metrics
 
 These are two commonly used metrics, but many more are implemented in the `TreeDist` package. Notable recent tree distance measures include:
 

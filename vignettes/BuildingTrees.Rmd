@@ -34,9 +34,7 @@ plot_tree_unrooted <- function(dend, title){
 }
 ```
 
-## &nbsp; {.tabset .tabset-fade .tabset-pills}
-
-### Distance Matrices
+## Distance Matrices
 
 Most phylogenetic reconstruction algorithms rely upon constructing
 distance matrices. There are a variety of way to do this, but for
@@ -53,9 +51,7 @@ sequenceSet <- DNAStringSet(c('AGACT',
 names(sequenceSet) <- 1:5
 ```
 
-```{r toydataset, echo=FALSE, out.width = '90%'}
-knitr::include_graphics('toydataset.png')
-```
+![](man/figures/toydataset.png)
 
 For each pair of sequences, we count the proportion of residues that do not match and mark this as the distance between them. As an example of calculating distance, consider the first two sequences in this set:
 
@@ -78,7 +74,7 @@ before. Now we can begin to create trees.
 
 ***
 
-### UPGMA/WPGMA
+## UPGMA/WPGMA
 
 The simplest tree building method is the Unweighted Pair Group Method
 with Arithmetic Means (UPGMA). This is a hierarchical clustering
@@ -188,7 +184,7 @@ page for `hclust` for other examples.
 
 ---------------------
 
-### Neighbor Joining Trees
+## Neighbor Joining Trees
 
 Another common approach to building trees is the Neighbor-Joining (NJ)
 method. This method also utilizes distance matrices, but proceeds from
@@ -274,7 +270,7 @@ plot_tree_unrooted(dend, 'NJ')
 
 ***
 
-### Maximum Parsimony Trees
+## Maximum Parsimony Trees
 
 The last way to construct phylogenies that I will discuss is maximum parsimony.
 This method relies on the assumption that the simplest method is likely the best, and thus tries to find a tree that minimizes the number of changes on the tree. Such a tree is called the most "parsimonious" tree.
