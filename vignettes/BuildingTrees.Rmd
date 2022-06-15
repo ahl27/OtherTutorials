@@ -10,20 +10,12 @@ editor_options:
   markdown: 
     wrap: 72
 ---
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(
-  fig.path = "man/figures/"
-)
+
+```{r setup, include=TRUE, warning=FALSE, message=FALSE}
+# Package imports
 library(ape)
 library(DECIPHER)
-source(system.file('extdata', 'TreeLine.R', package='IntroPhylogenetics', mustWork=TRUE))
-```
-
-```{r warning=FALSE, message=FALSE}
-# Package imports
-#library(ape)
-#library(DECIPHER)
-#source('TreeLine.R')
+source('TreeLine.R')
 
 # Helper plotting function
 plot_tree_unrooted <- function(dend, title){
@@ -51,7 +43,7 @@ sequenceSet <- DNAStringSet(c('AGACT',
 names(sequenceSet) <- 1:5
 ```
 
-![](man/figures/toydataset.png)
+![](toydataset.png)
 
 For each pair of sequences, we count the proportion of residues that do not match and mark this as the distance between them. As an example of calculating distance, consider the first two sequences in this set:
 
@@ -98,24 +90,16 @@ steps:
     the two rows are each clusters with multiple leaves, the average
     should be weighted accordingly.
 
-```{r upgma1, echo=FALSE, out.width = '90%'}
-knitr::include_graphics(system.file('figures/upgma1.png', package='IntroPhylogenetics'))
-```
+![](upgma1.png)
 
 4.  Repeat above steps until all nodes are combined and the distance
     matrix is a single row and column.
 
-```{r upgma4, echo=FALSE, out.width = '90%'}
-knitr::include_graphics(system.file('figures/upgma4.png', package='IntroPhylogenetics'))
-```
+![](upgma4.png)
 
-```{r upgma5, echo=FALSE, out.width = '90%'}
-knitr::include_graphics(system.file('figures/upgma5.png', package='IntroPhylogenetics'))
-```
+![](upgma5.png)
 
-```{r upgma6, echo=FALSE, out.width = '90%'}
-knitr::include_graphics(system.file('figures/upgma6.png', package='IntroPhylogenetics'))
-```
+![](upgma6.png)
 
 Note that UPGMA methods always create an ultrametric tree, which means the tree is rooted and all leaves are equidistant from the root. This implies a molecular clock (rate of mutation is the same across all lineages of a tree).
 
@@ -195,9 +179,7 @@ The algorithm proceeds in the following steps:
 1.  Start with a star tree (all connected to a single root node), and
     record the row and column sums for each row/column of the matrix.
 
-```{r nj1, echo=FALSE, out.width = '90%'}
-knitr::include_graphics(system.file('figures/nj1.png', package='IntroPhylogenetics'))
-```
+![](nj1.png)
 
 2.  Create a Q-matrix, which is a matrix of the same dimensions as the
     distance matrix, and each element given by the following formula:
@@ -213,9 +195,7 @@ $$Q[i,j] = (n-2)d(i,j) - R(i) - C(j)$$
     corresponding nodes by adding an intermediate node $N_{int}$ between
     them in the tree.
 
-```{r nj2, echo=FALSE, out.width = '90%'}
-knitr::include_graphics(system.file('figures/nj2.png', package='IntroPhylogenetics'))
-```
+![](nj2.png)
 
 4.  Calculate edge lengths from $N_{int}$ to $f,g$ with the following
     formula:
@@ -240,23 +220,15 @@ $$d(h, N_{int}) = \frac{1}{2}(d[h,g] + d[h,f] - d[f,g])$$
 
 6.  Repeat until the full tree has been constructed.
 
-```{r nj3, echo=FALSE, out.width = '90%'}
-knitr::include_graphics(system.file('figures/nj3.png', package='IntroPhylogenetics'))
-```
+![](nj3.png)
 
 |  Once we only have three nodes left, we just need to figure out the
 branch lengths.
 
 |  We can do this in the exact same way as before.
 
-```{r nj4, echo=FALSE, out.width = '90%'}
-knitr::include_graphics(system.file('figures/nj4.png', package='IntroPhylogenetics'))
-```
-
-
-```{r nj5, echo=FALSE, out.width = '90%'}
-knitr::include_graphics(system.file('figures/nj5.png', package='IntroPhylogenetics'))
-```
+![](nj4.png)
+![](nj5.png)
 
 ***
 
@@ -278,17 +250,13 @@ This method relies on the assumption that the simplest method is likely the best
 To illustrate what this looks like, we'll look at a subset of our initial set of sequences. I've also included a distance matrix corresponding to the number
 of state transitions required to switch from one sequence to another (the Hamming distance).
 
-```{r mp1, echo=FALSE, out.width = '90%'}
-knitr::include_graphics(system.file('figures/mp1.png', package='IntroPhylogenetics'))
-```
+![](mp1.png)
 
 Notice how sequences 1 and 2 are very similar, and sequences 4 and 5 are very
 similar. An optimal reconstruction would place sequences 1 and 2 close together and sequences 4 and 5 close together, since these pairs require the fewer transitions to convert between. For a set of 4 nodes, we have four possible
 topologies:
 
-```{r mp2, echo=FALSE, out.width = '90%'}
-knitr::include_graphics(system.file('figures/mp2.png', package='IntroPhylogenetics'))
-```
+![](mp2.png)
 
 Three of these are trees with a single internal branch, and one is a star tree
 with no branches. The top left tree is the most parsimonious, because it minimizes the transition cost along any particular path of the tree.

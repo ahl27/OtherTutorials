@@ -10,22 +10,16 @@ editor_options:
   markdown: 
     wrap: 72
 ---
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(
-  fig.path = "man/figures/"
-)
-
-# Package imports
-library(ape)
-library(DECIPHER)
-source(system.file('extdata', 'TreeLine.R', package='IntroPhylogenetics', mustWork=TRUE))
-```
 
 Making trees is nice, but how do we compare them? Comparing trees is a difficult problem, since they can contain significantly different topologies.
 
 In this discussion I'll cover two common ways of calculating distances between trees: Robinson-Foulds (RF) Distance and Kuhner-Felsenstein (KF) distance.
 
-```{r warning=FALSE, message=FALSE}
+```{r setup, include=TRUE, warning=FALSE, message=FALSE}
+# Package imports
+library(ape)
+library(DECIPHER)
+source(system.file('extdata', 'TreeLine.R', package='IntroPhylogenetics', mustWork=TRUE))
 
 # Helper plotting function
 plot_tree_unrooted <- function(dend, title){
