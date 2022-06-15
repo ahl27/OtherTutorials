@@ -15,7 +15,7 @@ editor_options:
 # Package imports
 library(ape)
 library(DECIPHER)
-source('TreeLine.R')
+source(system.file('extdata', 'TreeLine.R', package='IntroPhylogenetics', mustWork=TRUE))
 
 # Helper plotting function
 plot_tree_unrooted <- function(dend, title){
