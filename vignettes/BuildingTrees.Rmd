@@ -29,7 +29,9 @@ plot_tree_unrooted <- function(dend, title){
 
 Most phylogenetic reconstruction algorithms rely upon constructing
 distance matrices. There are a variety of way to do this, but for
-purposes of illustration we'll be using the simplest method.
+purposes of illustration we'll just be using Hamming Distance, which is one of 
+the simplest methods. More complex methods can use nucleotide or amino acid 
+substitution models.
 
 Let's construct a toy dataset for purposes of illustration:
 
@@ -131,7 +133,9 @@ distance from $u$ to $n_3$ would be calculated with the following formula:
 
 \begin{align*}
 d_{UPGMA}(u, n_3) &= \frac{1}{|n_1| + |n_2|} \left(|n_1|*d(n_1,n_3) + |n_2|*d(n_2,n_3) \right)\\ 
+\\
 &= \frac{1}{10+2} \left(10*5 + 2*3 \right) \\
+\\
 &= 4.67
 \end{align*} 
 
@@ -140,7 +144,9 @@ leaves in each cluster and just take the simple arithmetic average, as follows:
 
 \begin{align*}
 d_{WPGMA}(u, n_3) &= \frac{1}{2} \left(d(n_1,n_3) + d(n_2,n_3) \right)\\ 
+\\
 &= \frac{1}{2} \left(5 + 3 \right) \\
+\\
 &= 4
 \end{align*} 
 
@@ -229,9 +235,7 @@ branch lengths.
 ![](nj4.png)
 ![](nj5.png)
 
-***
-
-This can be done in R with the following commands. Note that the output is
+Neighbor-Joining trees can be created R with the following commands. Note that the output is
 slightly different due to a different method for calculating the initial distance matrix.
 
 ```{r, results='hide'}

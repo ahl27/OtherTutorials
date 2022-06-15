@@ -95,7 +95,7 @@ RF_dist_external(UPGMAtree, MPtree)
 RF_dist_external(NJtree, MPtree)
 ```
 
-#### Drawbacks
+### Drawbacks
 
 RF distance is widely used, but has some common issues that should be kept in mind while using it:
 
@@ -147,6 +147,16 @@ RF_dist_external(UPGMAtree, NJtree)
 RF_dist_external(UPGMAtree, MPtree)
 RF_dist_external(NJtree, MPtree)
 ```
+
+
+## Other Metrics
+
+These are two commonly used metrics, but many more are implemented in the `TreeDist` package. Notable recent tree distance measures include:
+
+- `TreeDist::TreeDistance` methods, using generalized RF distance from Smith (2020)
+- `TreeDist::JaccardRobinsonFoulds` and `TreeDist:NyeSimilarity`, both generalized RF distances.
+- `TreeDist::KendallColijn`, a distance that measures difference in path lengths between pairs of leaves
+- `TreeDist::MASTSize`, a distance that measures the largest agreement subtree between two trees
 
 ***
 
@@ -304,12 +314,3 @@ KFDists
 ```
 
 ***
-
-## Other Metrics
-
-These are two commonly used metrics, but many more are implemented in the `TreeDist` package. Notable recent tree distance measures include:
-
-- `TreeDist::TreeDistance` methods, using generalized RF distance from Smith (2020)
-- `TreeDist::JaccardRobinsonFoulds` and `TreeDist:NyeSimilarity`, both generalized RF distances.
-- `TreeDist::KendallColijn`, a distance that measures difference in path lengths between pairs of leaves
-- `TreeDist::MASTSize`, a distance that measures the largest agreement subtree between two trees
