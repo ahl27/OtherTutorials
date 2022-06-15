@@ -200,11 +200,11 @@ the RF distance is <span class="math inline">\(0.5\)</span>.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">RF_dist_external</span><span class="op">(</span><span class="va">UPGMAtree</span>, <span class="va">MPtree</span><span class="op">)</span></code></pre></div>
 <pre><code><span class="co">##       tree1</span>
-<span class="co">## tree2    18</span></code></pre>
+<span class="co">## tree2    20</span></code></pre>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">RF_dist_external</span><span class="op">(</span><span class="va">NJtree</span>, <span class="va">MPtree</span><span class="op">)</span></code></pre></div>
 <pre><code><span class="co">##       tree1</span>
-<span class="co">## tree2    14</span></code></pre>
+<span class="co">## tree2    12</span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="drawbacks">Drawbacks<a class="anchor" aria-label="anchor" href="#drawbacks"></a>
@@ -282,11 +282,11 @@ small differences in topology and upweight large differences.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">RF_dist_external</span><span class="op">(</span><span class="va">UPGMAtree</span>, <span class="va">MPtree</span><span class="op">)</span></code></pre></div>
 <pre><code><span class="co">##       tree1</span>
-<span class="co">## tree2    18</span></code></pre>
+<span class="co">## tree2    20</span></code></pre>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">RF_dist_external</span><span class="op">(</span><span class="va">NJtree</span>, <span class="va">MPtree</span><span class="op">)</span></code></pre></div>
 <pre><code><span class="co">##       tree1</span>
-<span class="co">## tree2    14</span></code></pre>
+<span class="co">## tree2    12</span></code></pre>
 </div>
 </div>
 <div class="section level2">
@@ -321,8 +321,7 @@ different results.</p>
 <div class="section level3">
 <h3 id="helper-functions">Helper functions<a class="anchor" aria-label="anchor" href="#helper-functions"></a>
 </h3>
-<p>This code block contains several helper functions and is compressed
-by default. Click “Code” to show this content.</p>
+<p>This code block contains several helper functions used later.</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">flatdendrapply</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">dend</span>, <span class="va">NODEFUN</span>, <span class="va">LEAFFUN</span><span class="op">=</span><span class="va">NODEFUN</span>, <span class="va">INCLUDEROOT</span><span class="op">=</span><span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span><span class="op">{</span>
   <span class="co">## Applies a function to each node (internal and leaf) of the tree</span>
@@ -464,15 +463,15 @@ by default. Click “Code” to show this content.</p>
 
 <span class="va">RFDists</span></code></pre></div>
 <pre><code><span class="co">##           UPGMA        NJ        MP</span>
-<span class="co">## UPGMA 0.0000000 0.2608696 0.3913043</span>
-<span class="co">## NJ    0.2608696 0.0000000 0.3043478</span>
-<span class="co">## MP    0.3913043 0.3043478 0.0000000</span></code></pre>
+<span class="co">## UPGMA 0.0000000 0.2608696 0.4130435</span>
+<span class="co">## NJ    0.2608696 0.0000000 0.2608696</span>
+<span class="co">## MP    0.4130435 0.2608696 0.0000000</span></code></pre>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">KFDists</span></code></pre></div>
 <pre><code><span class="co">##           UPGMA        NJ        MP</span>
-<span class="co">## UPGMA 0.0000000 0.9712953 0.9798610</span>
-<span class="co">## NJ    0.9712953 0.0000000 0.4184403</span>
-<span class="co">## MP    0.9798610 0.4184403 0.0000000</span></code></pre>
+<span class="co">## UPGMA 0.0000000 0.9712953 0.9737935</span>
+<span class="co">## NJ    0.9712953 0.0000000 0.3088127</span>
+<span class="co">## MP    0.9737935 0.3088127 0.0000000</span></code></pre>
 <hr>
 </div>
 </div>
