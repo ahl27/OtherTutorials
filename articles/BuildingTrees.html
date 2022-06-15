@@ -98,15 +98,14 @@ Lakshman<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-co
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Package imports</span>
-<span class="co">#library(ape)</span>
-<span class="co">#library(DECIPHER)</span>
-<span class="co">#source('TreeLine.R')</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://ape-package.ird.fr/" class="external-link">ape</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">DECIPHER</span><span class="op">)</span>
 
 <span class="co"># Helper plotting function</span>
 <span class="va">plot_tree_unrooted</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">dend</span>, <span class="va">title</span><span class="op">)</span><span class="op">{</span>
   <span class="va">tf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span><span class="op">)</span>
-  <span class="fu">WriteDendrogram</span><span class="op">(</span><span class="va">dend</span>, file<span class="op">=</span><span class="va">tf</span>, quoteLabels<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span>
-  <span class="va">predTree</span> <span class="op">&lt;-</span> <span class="fu">read.tree</span><span class="op">(</span><span class="va">tf</span><span class="op">)</span>
+  <span class="fu"><a href="https://rdrr.io/pkg/DECIPHER/man/WriteDendrogram.html" class="external-link">WriteDendrogram</a></span><span class="op">(</span><span class="va">dend</span>, file<span class="op">=</span><span class="va">tf</span>, quoteLabels<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span>
+  <span class="va">predTree</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/ape/man/read.tree.html" class="external-link">read.tree</a></span><span class="op">(</span><span class="va">tf</span><span class="op">)</span>
   <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">predTree</span>, <span class="st">'unrooted'</span>, main<span class="op">=</span><span class="va">title</span><span class="op">)</span>
 <span class="op">}</span></code></pre></div>
 <div class="section level2">
@@ -117,13 +116,13 @@ distance matrices. There are a variety of way to do this, but for
 purposes of illustration we’ll be using the simplest method.</p>
 <p>Let’s construct a toy dataset for purposes of illustration:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">sequenceSet</span> <span class="op">&lt;-</span> <span class="fu">DNAStringSet</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'AGACT'</span>,
+<code class="sourceCode R"><span class="va">sequenceSet</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/Biostrings/man/XStringSet-class.html" class="external-link">DNAStringSet</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'AGACT'</span>,
                               <span class="st">'AGACG'</span>,
                               <span class="st">'TCATT'</span>,
                               <span class="st">'TGCTG'</span>,
                               <span class="st">'AGCTG'</span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">sequenceSet</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span></code></pre></div>
-<p><img src="reference/figures/toydataset.png"></p>
+<p><img src="toydataset.png"></p>
 <p>For each pair of sequences, we count the proportion of residues that
 do not match and mark this as the distance between them. As an example
 of calculating distance, consider the first two sequences in this
@@ -137,7 +136,7 @@ distance is <span class="math inline">\(\frac{1}{5}=0.2\)</span>.</p>
 <p>We can quickly calculate a complete distance matrix between these
 sequences with the following:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">dm</span> <span class="op">&lt;-</span> <span class="fu">DistanceMatrix</span><span class="op">(</span><span class="va">sequenceSet</span>, type<span class="op">=</span><span class="st">'dist'</span>, verbose<span class="op">=</span><span class="cn">F</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">dm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/DECIPHER/man/DistanceMatrix.html" class="external-link">DistanceMatrix</a></span><span class="op">(</span><span class="va">sequenceSet</span>, type<span class="op">=</span><span class="st">'dist'</span>, verbose<span class="op">=</span><span class="cn">F</span><span class="op">)</span>
 <span class="va">dm</span></code></pre></div>
 <pre><code><span class="co">##     1   2   3   4   5</span>
 <span class="co">## 1 0.0 0.2 0.6 0.8 0.6</span>
@@ -174,14 +173,14 @@ weighted by the number of leaves in each pair being combined, so if the
 two rows are each clusters with multiple leaves, the average should be
 weighted accordingly.</p></li>
 </ol>
-<p><img src="../../../../tmp/RtmpKiiw7N/temp_libpath26877aeac80/IntroPhylogenetics/figures/upgma1.png" width="90%"></p>
+<p><img src="upgma1.png"></p>
 <ol start="4" style="list-style-type: decimal">
 <li>Repeat above steps until all nodes are combined and the distance
 matrix is a single row and column.</li>
 </ol>
-<p><img src="../../../../tmp/RtmpKiiw7N/temp_libpath26877aeac80/IntroPhylogenetics/figures/upgma4.png" width="90%"></p>
-<p><img src="../../../../tmp/RtmpKiiw7N/temp_libpath26877aeac80/IntroPhylogenetics/figures/upgma5.png" width="90%"></p>
-<p><img src="../../../../tmp/RtmpKiiw7N/temp_libpath26877aeac80/IntroPhylogenetics/figures/upgma6.png" width="90%"></p>
+<p><img src="upgma4.png"></p>
+<p><img src="upgma5.png"></p>
+<p><img src="upgma6.png"></p>
 <p>Note that UPGMA methods always create an ultrametric tree, which
 means the tree is rooted and all leaves are equidistant from the root.
 This implies a molecular clock (rate of mutation is the same across all
@@ -194,7 +193,7 @@ through above.</p>
 <code class="sourceCode R"><span class="co"># UPGMA Tree</span>
 <span class="va">dend</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/dendrogram.html" class="external-link">as.dendrogram</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/hclust.html" class="external-link">hclust</a></span><span class="op">(</span><span class="va">dm</span><span class="op">*</span><span class="fl">5</span>, method<span class="op">=</span><span class="st">'average'</span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">dend</span><span class="op">)</span></code></pre></div>
-<p><img src="reference/figures/unnamed-chunk-4-1.png" width="700"></p>
+<p><img src="BuildingTrees_files/figure-html/unnamed-chunk-3-1.png" width="700"></p>
 <p>A variation of UPGMA is WPGMA, where W stands for ‘weighted’. The
 difference between UPGMA and WPGMA is a bit counter-intuitive. Recall
 that when we combine two rows of the distance matrix in UPGMA, we weight
@@ -243,7 +242,7 @@ the same result in this example):</p>
 <code class="sourceCode R"><span class="co"># WPGMA Tree</span>
 <span class="va">dend</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/dendrogram.html" class="external-link">as.dendrogram</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/hclust.html" class="external-link">hclust</a></span><span class="op">(</span><span class="va">dm</span><span class="op">*</span><span class="fl">5</span>, method<span class="op">=</span><span class="st">'mcquitty'</span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">dend</span><span class="op">)</span></code></pre></div>
-<p><img src="reference/figures/unnamed-chunk-5-1.png" width="700"></p>
+<p><img src="BuildingTrees_files/figure-html/unnamed-chunk-4-1.png" width="700"></p>
 <p>There are also other methods for combining the distance matrices–see
 the help page for <code>hclust</code> for other examples.</p>
 <hr>
@@ -260,7 +259,7 @@ visualization). The algorithm proceeds in the following steps:</p>
 <li>Start with a star tree (all connected to a single root node), and
 record the row and column sums for each row/column of the matrix.</li>
 </ol>
-<p><img src="../../../../tmp/RtmpKiiw7N/temp_libpath26877aeac80/IntroPhylogenetics/figures/nj1.png" width="90%"></p>
+<p><img src="nj1.png"></p>
 <ol start="2" style="list-style-type: decimal">
 <li>Create a Q-matrix, which is a matrix of the same dimensions as the
 distance matrix, and each element given by the following formula:</li>
@@ -278,7 +277,7 @@ in the Q-matrix, and combine the corresponding nodes by adding an
 intermediate node <span class="math inline">\(N_{int}\)</span> between
 them in the tree.</li>
 </ol>
-<p><img src="../../../../tmp/RtmpKiiw7N/temp_libpath26877aeac80/IntroPhylogenetics/figures/nj2.png" width="90%"></p>
+<p><img src="nj2.png"></p>
 <ol start="4" style="list-style-type: decimal">
 <li>Calculate edge lengths from <span class="math inline">\(N_{int}\)</span> to <span class="math inline">\(f,g\)</span> with the following formula:</li>
 </ol>
@@ -303,22 +302,21 @@ d[h,f] - d[f,g])\]</span></p>
 <ol start="6" style="list-style-type: decimal">
 <li>Repeat until the full tree has been constructed.</li>
 </ol>
-<p><img src="../../../../tmp/RtmpKiiw7N/temp_libpath26877aeac80/IntroPhylogenetics/figures/nj3.png" width="90%"></p>
+<p><img src="nj3.png"></p>
 <div class="line-block"> Once we only have three nodes left, we just
 need to figure out the</div>
 <p>branch lengths.</p>
 <div class="line-block"> We can do this in the exact same way as
 before.</div>
-<p><img src="../../../../tmp/RtmpKiiw7N/temp_libpath26877aeac80/IntroPhylogenetics/figures/nj4.png" width="90%"></p>
-<p><img src="../../../../tmp/RtmpKiiw7N/temp_libpath26877aeac80/IntroPhylogenetics/figures/nj5.png" width="90%"></p>
+<p><img src="nj4.png"><img src="nj5.png"></p>
 <hr>
 <p>This can be done in R with the following commands. Note that the
 output is slightly different due to a different method for calculating
 the initial distance matrix.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">dend</span> <span class="op">&lt;-</span> <span class="fu">TreeLine</span><span class="op">(</span>myDistMatrix<span class="op">=</span><span class="va">dm</span>, method<span class="op">=</span><span class="st">'NJ'</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">dend</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/DECIPHER/man/TreeLine.html" class="external-link">TreeLine</a></span><span class="op">(</span>myDistMatrix<span class="op">=</span><span class="va">dm</span>, method<span class="op">=</span><span class="st">'NJ'</span><span class="op">)</span>
 <span class="fu">plot_tree_unrooted</span><span class="op">(</span><span class="va">dend</span>, <span class="st">'NJ'</span><span class="op">)</span></code></pre></div>
-<p><img src="reference/figures/unnamed-chunk-6-1.png" width="700"></p>
+<p><img src="BuildingTrees_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
 <hr>
 </div>
 <div class="section level2">
@@ -333,13 +331,13 @@ number of changes on the tree. Such a tree is called the most
 initial set of sequences. I’ve also included a distance matrix
 corresponding to the number of state transitions required to switch from
 one sequence to another (the Hamming distance).</p>
-<p><img src="../../../../tmp/RtmpKiiw7N/temp_libpath26877aeac80/IntroPhylogenetics/figures/mp1.png" width="90%"></p>
+<p><img src="mp1.png"></p>
 <p>Notice how sequences 1 and 2 are very similar, and sequences 4 and 5
 are very similar. An optimal reconstruction would place sequences 1 and
 2 close together and sequences 4 and 5 close together, since these pairs
 require the fewer transitions to convert between. For a set of 4 nodes,
 we have four possible topologies:</p>
-<p><img src="../../../../tmp/RtmpKiiw7N/temp_libpath26877aeac80/IntroPhylogenetics/figures/mp2.png" width="90%"></p>
+<p><img src="mp2.png"></p>
 <p>Three of these are trees with a single internal branch, and one is a
 star tree with no branches. The top left tree is the most parsimonious,
 because it minimizes the transition cost along any particular path of
@@ -357,9 +355,9 @@ of the other types are more parsimonious.</p>
 <p>We can do maximum parsimony reconstructions in R using the following
 code:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">dend</span> <span class="op">&lt;-</span> <span class="fu">TreeLine</span><span class="op">(</span><span class="va">sequenceSet</span>, method<span class="op">=</span><span class="st">'MP'</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">dend</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/DECIPHER/man/TreeLine.html" class="external-link">TreeLine</a></span><span class="op">(</span><span class="va">sequenceSet</span>, method<span class="op">=</span><span class="st">'MP'</span><span class="op">)</span>
 <span class="fu">plot_tree_unrooted</span><span class="op">(</span><span class="va">dend</span>, <span class="st">'MP'</span><span class="op">)</span></code></pre></div>
-<p><img src="reference/figures/unnamed-chunk-7-1.png" width="700"></p>
+<p><img src="BuildingTrees_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
 </div>
 
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
