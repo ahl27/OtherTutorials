@@ -9,9 +9,6 @@ vignette: >
 editor_options: 
   markdown: 
     wrap: 72
-resource_files:
-  - data/TreeLine.R
-  - data/Simulated_v1.fas
 ---
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(
