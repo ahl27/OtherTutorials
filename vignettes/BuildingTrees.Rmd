@@ -53,7 +53,7 @@ sequenceSet <- DNAStringSet(c('AGACT',
 names(sequenceSet) <- 1:5
 ```
 
-<center> ![](toydataset.png) </center>
+<center> ![](figures/toydataset.png) </center>
 
 For each pair of sequences, we count the proportion of residues that do not match and mark this as the distance between them. As an example of calculating distance, consider the first two sequences in this set:
 
@@ -100,16 +100,16 @@ steps:
     the two rows are each clusters with multiple leaves, the average
     should be weighted accordingly.
 
-![](./upgma1.png)
+![](figures/upgma1.png)
 
 4.  Repeat above steps until all nodes are combined and the distance
     matrix is a single row and column.
 
-![](./upgma4.png) 
+![](figures/upgma4.png) 
 
-![](./upgma5.png)
+![](figures/upgma5.png)
 
-<center>![](./upgma6.png)</center>
+<center>![](figures/upgma6.png)</center>
 
 Note that UPGMA methods always create an ultrametric tree, which means the tree is rooted and all leaves are equidistant from the root. This implies a molecular clock (rate of mutation is the same across all lineages of a tree).
 
@@ -189,7 +189,7 @@ The algorithm proceeds in the following steps:
 1.  Start with a star tree (all connected to a single root node), and
     record the row and column sums for each row/column of the matrix.
 
-![](./nj1.png)
+![](figures/nj1.png)
 
 2.  Create a Q-matrix, which is a matrix of the same dimensions as the
     distance matrix, and each element given by the following formula:
@@ -205,7 +205,7 @@ $$Q[i,j] = (n-2)d(i,j) - R(i) - C(j)$$
     corresponding nodes by adding an intermediate node $N_{int}$ between
     them in the tree.
 
-![](./nj2.png)
+![](figures/nj2.png)
 
 4.  Calculate edge lengths from $N_{int}$ to $f,g$ with the following
     formula:
@@ -230,16 +230,16 @@ $$d(h, N_{int}) = \frac{1}{2}(d[h,g] + d[h,f] - d[f,g])$$
 
 6.  Repeat until the full tree has been constructed.
 
-![](./nj3.png)
+![](figures/nj3.png)
 
 |  Once we only have three nodes left, we just need to figure out the
 branch lengths.
 
 |  We can do this in the exact same way as before.
 
-![](./nj4.png)
+![](figures/nj4.png)
 
-![](./nj5.png)
+![](figures/nj5.png)
 
 ***
 
@@ -261,13 +261,13 @@ This method relies on the assumption that the simplest method is likely the best
 To illustrate what this looks like, we'll look at a subset of our initial set of sequences. I've also included a distance matrix corresponding to the number
 of state transitions required to switch from one sequence to another (the Hamming distance).
 
-![](./mp1.png)
+![](figures/mp1.png)
 
 Notice how sequences 1 and 2 are very similar, and sequences 4 and 5 are very
 similar. An optimal reconstruction would place sequences 1 and 2 close together and sequences 4 and 5 close together, since these pairs require the fewer transitions to convert between. For a set of 4 nodes, we have four possible
 topologies:
 
-![](./mp2.png)
+![](figures/mp2.png)
 
 Three of these are trees with a single internal branch, and one is a star tree
 with no branches. The top left tree is the most parsimonious, because it minimizes the transition cost along any particular path of the tree.
