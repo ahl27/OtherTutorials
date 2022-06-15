@@ -12,7 +12,7 @@ editor_options:
 ---
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(
-  fig.path = system.file('figures', package='IntroPhylogenetics')
+  fig.path = "man/figures/"
 )
 library(ape)
 library(DECIPHER)
@@ -54,7 +54,7 @@ names(sequenceSet) <- 1:5
 ```
 
 ```{r toydataset, echo=FALSE, out.width = '90%'}
-knitr::include_graphics(system.file('figures/toydataset.png', package='IntroPhylogenetics'))
+knitr::include_graphics('toydataset.png')
 ```
 
 For each pair of sequences, we count the proportion of residues that do not match and mark this as the distance between them. As an example of calculating distance, consider the first two sequences in this set:
