@@ -19,7 +19,6 @@ In this discussion I'll cover two common ways of calculating distances between t
 # Package imports
 library(ape)
 library(DECIPHER)
-source(system.file('extdata', 'TreeLine.R', package='IntroPhylogenetics', mustWork=TRUE))
 
 # Helper plotting function
 plot_tree_unrooted <- function(dend, title){
