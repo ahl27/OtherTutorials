@@ -47,7 +47,7 @@ reference:
       - stats::hclust
       - DECIPHER::DistanceMatrix
       - DECIPHER::TreeLine
-      - as.dendrogram
+      - stats::as.dendrogram
       - DECIPHER::WriteDendrogram
 
   - title: "Comparing Trees"
