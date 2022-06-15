@@ -166,7 +166,7 @@ I wrote implementations of both distances from scratch to illustrate how these f
 
 ### Helper functions
 
-This code block contains several helper functions and is compressed by default. Click "Code" to show this content.
+This code block contains several helper functions used later.
 
 ```{r class.source= 'fold-hide'}
 flatdendrapply <- function(dend, NODEFUN, LEAFFUN=NODEFUN, INCLUDEROOT=TRUE, ...){
