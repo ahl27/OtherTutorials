@@ -35,23 +35,6 @@ plot_tree_unrooted <- function(dend, title){
 
 ## &nbsp; {.tabset .tabset-fade .tabset-pills}
 
-```{r setup, include=TRUE, warning=FALSE, message=FALSE}
-# Package imports
-library(ape)
-library(DECIPHER)
-source('./TreeLine.R')
-
-# Helper plotting function
-plot_tree_unrooted <- function(dend, title){
-  tf <- tempfile()
-  WriteDendrogram(dend, file=tf, quoteLabels=FALSE)
-  predTree <- read.tree(tf)
-  plot(predTree, 'unrooted', main=title)
-}
-```
-
-***
-
 ### Distance Matrices
 
 Most phylogenetic reconstruction algorithms rely upon constructing
