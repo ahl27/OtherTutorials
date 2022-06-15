@@ -21,7 +21,7 @@ knitr::opts_chunk$set(
 # Package imports
 library(ape)
 library(DECIPHER)
-source(system.file('data', 'TreeLine.R'))
+source(system.file('extdata', 'TreeLine.R', package='IntroPhylogenetics', mustWork=TRUE))
 ```
 
 Making trees is nice, but how do we compare them? Comparing trees is a difficult problem, since they can contain significantly different topologies.
@@ -49,7 +49,7 @@ We'll start with a slightly larger test dataset so that we can more clearly see 
 
 ```{r, results='hide'}
 # External data file, contains simulated alignment
-simSeqsFile <- 'Simulated_v1.fas'
+simSeqsFile <- system.file('extdata', 'Simulated_v1.fas', package='IntroPhylogenetics', mustWork=TRUE)
 
 simAli <- suppressWarnings(readDNAStringSet(simSeqsFile))[1:25]
 names(simAli) <- 1:25

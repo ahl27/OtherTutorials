@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 )
 library(ape)
 library(DECIPHER)
-source(system.file('data', 'TreeLine.R'))
+source(system.file('extdata', 'TreeLine.R', package='IntroPhylogenetics', mustWork=TRUE))
 ```
 
 ```{r warning=FALSE, message=FALSE}
