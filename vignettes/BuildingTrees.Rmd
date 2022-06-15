@@ -16,13 +16,16 @@ resource_files:
 knitr::opts_chunk$set(
   fig.path = "man/figures/"
 )
+library(ape)
+library(DECIPHER)
+source(system.file('data', 'TreeLine.R'))
 ```
 
 ```{r warning=FALSE, message=FALSE}
 # Package imports
-library(ape)
-library(DECIPHER)
-source('TreeLine.R')
+#library(ape)
+#library(DECIPHER)
+#source('TreeLine.R')
 
 # Helper plotting function
 plot_tree_unrooted <- function(dend, title){
