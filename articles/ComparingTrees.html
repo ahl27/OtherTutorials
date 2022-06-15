@@ -110,26 +110,9 @@ Kuhner-Felsenstein (KF) distance.</p>
   <span class="va">predTree</span> <span class="op">&lt;-</span> <span class="fu">read.tree</span><span class="op">(</span><span class="va">tf</span><span class="op">)</span>
   <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">predTree</span>, <span class="st">'unrooted'</span>, main<span class="op">=</span><span class="va">title</span><span class="op">)</span>
 <span class="op">}</span></code></pre></div>
-<div class="section level2 tabset tabset-fade tabset-pills">
-<h2 class="tabset tabset-fade tabset-pills" id="section"> <a class="anchor" aria-label="anchor" href="#section"></a>
+<div class="section level2">
+<h2 id="setup">Setup<a class="anchor" aria-label="anchor" href="#setup"></a>
 </h2>
-<hr>
-
-
-
-
-
-<ul class="nav nav-pills" id="section" role="tablist">
-<li role="presentation" class="nav-item"><button data-bs-toggle="tab" data-bs-target="#setup" id="setup-tab" type="button" role="tab" aria-controls="setup" aria-selected="true" class="active nav-link">Setup</button></li>
-<li role="presentation" class="nav-item"><button data-bs-toggle="tab" data-bs-target="#partitions" id="partitions-tab" type="button" role="tab" aria-controls="partitions" aria-selected="false" class="nav-link">Partitions</button></li>
-<li role="presentation" class="nav-item"><button data-bs-toggle="tab" data-bs-target="#rf-distance" id="rf-distance-tab" type="button" role="tab" aria-controls="rf-distance" aria-selected="false" class="nav-link">RF Distance</button></li>
-<li role="presentation" class="nav-item"><button data-bs-toggle="tab" data-bs-target="#kf-distance" id="kf-distance-tab" type="button" role="tab" aria-controls="kf-distance" aria-selected="false" class="nav-link">KF Distance</button></li>
-<li role="presentation" class="nav-item"><button data-bs-toggle="tab" data-bs-target="#manual-implementations" id="manual-implementations-tab" type="button" role="tab" aria-controls="manual-implementations" aria-selected="false" class="nav-link">Manual Implementations</button></li>
-<li role="presentation" class="nav-item"><button data-bs-toggle="tab" data-bs-target="#other-metrics" id="other-metrics-tab" type="button" role="tab" aria-controls="other-metrics" aria-selected="false" class="nav-link">Other Metrics</button></li>
-</ul>
-<div class="tab-content">
-<div class="active show fade tab-pane" id="setup" role="tabpanel" aria-labelledby="setup-tab">
-
 <p>We’ll start with a slightly larger test dataset so that we can more
 clearly see differences between tree constructions. The following
 codeblocks read in a set of 25 simulated alignments, then constructs
@@ -148,34 +131,36 @@ phylogenetic trees using the three methods discussed previously.</p>
 <p>Visualizing the trees we’ve made:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">plot_tree_unrooted</span><span class="op">(</span><span class="va">UPGMAtree</span>, <span class="st">'UPGMA'</span><span class="op">)</span></code></pre></div>
-<p><img src="../../../../tmp/Rtmp3sMFtq/temp_libpath81224cf61bb/IntroPhylogenetics/figuresunnamed-chunk-3-1.png" width="700"></p>
+<p><img src="reference/figures/unnamed-chunk-3-1.png" width="700"></p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">plot_tree_unrooted</span><span class="op">(</span><span class="va">NJtree</span>, <span class="st">'NJ'</span><span class="op">)</span></code></pre></div>
-<p><img src="../../../../tmp/Rtmp3sMFtq/temp_libpath81224cf61bb/IntroPhylogenetics/figuresunnamed-chunk-3-2.png" width="700"></p>
+<p><img src="reference/figures/unnamed-chunk-3-2.png" width="700"></p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">plot_tree_unrooted</span><span class="op">(</span><span class="va">MPtree</span>, <span class="st">'MP'</span><span class="op">)</span></code></pre></div>
-<p><img src="../../../../tmp/Rtmp3sMFtq/temp_libpath81224cf61bb/IntroPhylogenetics/figuresunnamed-chunk-3-3.png" width="700"></p>
+<p><img src="reference/figures/unnamed-chunk-3-3.png" width="700"></p>
 </div>
-<div class="fade tab-pane" id="partitions" role="tabpanel" aria-labelledby="partitions-tab">
-
+<div class="section level2">
+<h2 id="partitions">Partitions<a class="anchor" aria-label="anchor" href="#partitions"></a>
+</h2>
 <p>Before we dive into tree distances, it’s important to understand the
 concept of partitions. In a bifurcating unrooted tree, every edge
 divides the set of leaf nodes into two sets. These form the basis of
 many tree comparison algorithms. Let’s look at a toy example:</p>
-<p><img src="../../../../tmp/Rtmp3sMFtq/temp_libpath81224cf61bb/IntroPhylogenetics/figures/part1.png" width="90%"></p>
+<p><img src="reference/figures/part1.png"></p>
 <p>Note how each numbered edge of the tree splits the labeled leaf nodes
 into two distinct groups to either side of it. Leaf edges trivially
 split the tree into a partition of just the leaf and everything else,
 but internal edges split the leaves into more interesting
 partitions.</p>
 </div>
-<div class="fade tab-pane" id="rf-distance" role="tabpanel" aria-labelledby="rf-distance-tab">
-
+<div class="section level2">
+<h2 id="rf-distance">RF Distance<a class="anchor" aria-label="anchor" href="#rf-distance"></a>
+</h2>
 <p>Robinson-Foulds (RF) distance measures the similarity of these
 partitions in a tree. Let’s look at a toy example with two small trees
 and their internal partitions labeled (internal edges circled in
 green):</p>
-<p><img src="../../../../tmp/Rtmp3sMFtq/temp_libpath81224cf61bb/IntroPhylogenetics/figures/part2.png" width="90%"></p>
+<p><img src="reference/figures/part1.png"></p>
 <p>Now let <span class="math inline">\(A\)</span> be the number of
 partitions unique to the first tree, and <span class="math inline">\(B\)</span> the number of partitions unique to the
 second tree. The RF distance (also called the symmetric difference
@@ -189,9 +174,9 @@ The latter operation can be done by dividing by the maximum possible
 score, which is just the sum of the total number of branches. In this
 case, the total number of internal branches is 4 (2 from each tree), so
 the RF distance is <span class="math inline">\(0.5\)</span>.</p>
-<div class="section level4">
-<h4 id="r-implementation">R implementation<a class="anchor" aria-label="anchor" href="#r-implementation"></a>
-</h4>
+<div class="section level3">
+<h3 id="r-implementation">R implementation<a class="anchor" aria-label="anchor" href="#r-implementation"></a>
+</h3>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">RF_dist_external</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">dend1</span>, <span class="va">dend2</span><span class="op">)</span><span class="op">{</span>
   <span class="va">tf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span><span class="op">)</span>
@@ -211,12 +196,11 @@ the RF distance is <span class="math inline">\(0.5\)</span>.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">RF_dist_external</span><span class="op">(</span><span class="va">UPGMAtree</span>, <span class="va">MPtree</span><span class="op">)</span></code></pre></div>
 <pre><code><span class="co">##       tree1</span>
-<span class="co">## tree2    16</span></code></pre>
+<span class="co">## tree2    18</span></code></pre>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">RF_dist_external</span><span class="op">(</span><span class="va">NJtree</span>, <span class="va">MPtree</span><span class="op">)</span></code></pre></div>
 <pre><code><span class="co">##       tree1</span>
 <span class="co">## tree2    12</span></code></pre>
-</div>
 <div class="section level4">
 <h4 id="drawbacks">Drawbacks<a class="anchor" aria-label="anchor" href="#drawbacks"></a>
 </h4>
@@ -244,8 +228,10 @@ different leaf sets.</p>
 <hr>
 </div>
 </div>
-<div class="fade tab-pane" id="kf-distance" role="tabpanel" aria-labelledby="kf-distance-tab">
-
+</div>
+<div class="section level2">
+<h2 id="kf-distance">KF Distance<a class="anchor" aria-label="anchor" href="#kf-distance"></a>
+</h2>
 <p>The Kuhner-Felsenstein (KF) distance attempts to incorporate branch
 lengths into the RF distance to gain a richer description of the
 differences between two trees.</p>
@@ -256,7 +242,7 @@ in the two trees. If a partition is a unique to a particular tree, it is
 taken as having a branch length of 0 in the other tree. Below is an
 updated version of our previous example with branch lengths added in
 pink (partitions labeled):</p>
-<p><img src="../../../../tmp/Rtmp3sMFtq/temp_libpath81224cf61bb/IntroPhylogenetics/figures/part3.png" width="90%"></p>
+<p><img src="reference/figures/part3.png"></p>
 <p>Here we will also examine the leaf branches, but since the leaf set
 is the same and branch lengths are identical, all of these branches
 cancel each other out. One pair of branches is an equivalent partition
@@ -270,9 +256,9 @@ len(II))^2 \\
 <p>The advantages of this over RF distance is that it can incorporate
 branch lengths in addition to topology, which allows it to downweight
 small differences in topology and upweight large differences.</p>
-<div class="section level4">
-<h4 id="r-implementation-1">R Implementation<a class="anchor" aria-label="anchor" href="#r-implementation-1"></a>
-</h4>
+<div class="section level3">
+<h3 id="r-implementation-1">R Implementation<a class="anchor" aria-label="anchor" href="#r-implementation-1"></a>
+</h3>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">KF_dist_external</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">dend1</span>, <span class="va">dend2</span><span class="op">)</span><span class="op">{</span>
   <span class="va">tf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span><span class="op">)</span>
@@ -292,7 +278,7 @@ small differences in topology and upweight large differences.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">RF_dist_external</span><span class="op">(</span><span class="va">UPGMAtree</span>, <span class="va">MPtree</span><span class="op">)</span></code></pre></div>
 <pre><code><span class="co">##       tree1</span>
-<span class="co">## tree2    16</span></code></pre>
+<span class="co">## tree2    18</span></code></pre>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">RF_dist_external</span><span class="op">(</span><span class="va">NJtree</span>, <span class="va">MPtree</span><span class="op">)</span></code></pre></div>
 <pre><code><span class="co">##       tree1</span>
@@ -300,15 +286,16 @@ small differences in topology and upweight large differences.</p>
 <hr>
 </div>
 </div>
-<div class="fade tab-pane" id="manual-implementations" role="tabpanel" aria-labelledby="manual-implementations-tab">
-
+<div class="section level2">
+<h2 id="manual-implementations">Manual Implementations<a class="anchor" aria-label="anchor" href="#manual-implementations"></a>
+</h2>
 <p>I wrote implementations of both distances from scratch to illustrate
 how these functions are working under the hood. Note that external
 packages incorporate some optimizations I didn’t implement that lead to
 different results.</p>
-<div class="section level4">
-<h4 id="helper-functions">Helper functions<a class="anchor" aria-label="anchor" href="#helper-functions"></a>
-</h4>
+<div class="section level3">
+<h3 id="helper-functions">Helper functions<a class="anchor" aria-label="anchor" href="#helper-functions"></a>
+</h3>
 <p>This code block contains several helper functions and is compressed
 by default. Click “Code” to show this content.</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
@@ -375,9 +362,9 @@ by default. Click “Code” to show this content.</p>
   <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">l1</span>, <span class="va">l2</span><span class="op">)</span><span class="op">)</span>
 <span class="op">}</span></code></pre></div>
 </div>
-<div class="section level4">
-<h4 id="robinson-foulds-distance">Robinson-Foulds Distance<a class="anchor" aria-label="anchor" href="#robinson-foulds-distance"></a>
-</h4>
+<div class="section level3">
+<h3 id="robinson-foulds-distance">Robinson-Foulds Distance<a class="anchor" aria-label="anchor" href="#robinson-foulds-distance"></a>
+</h3>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">RF_Distance</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">dend1</span>, <span class="va">dend2</span><span class="op">)</span><span class="op">{</span>
   <span class="co"># Get all partitions</span>
@@ -397,9 +384,9 @@ by default. Click “Code” to show this content.</p>
   <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="op">(</span><span class="va">A</span><span class="op">+</span><span class="va">B</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">part1</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">part2</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
 <span class="op">}</span></code></pre></div>
 </div>
-<div class="section level4">
-<h4 id="kuhner-felsenstein-distance">Kuhner-Felsenstein Distance<a class="anchor" aria-label="anchor" href="#kuhner-felsenstein-distance"></a>
-</h4>
+<div class="section level3">
+<h3 id="kuhner-felsenstein-distance">Kuhner-Felsenstein Distance<a class="anchor" aria-label="anchor" href="#kuhner-felsenstein-distance"></a>
+</h3>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">KF_Distance</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">dend1</span>, <span class="va">dend2</span><span class="op">)</span><span class="op">{</span>
   <span class="co"># Get all branch lengths and partitions</span>
@@ -452,20 +439,21 @@ by default. Click “Code” to show this content.</p>
 
 <span class="va">RFDists</span></code></pre></div>
 <pre><code><span class="co">##           UPGMA        NJ        MP</span>
-<span class="co">## UPGMA 0.0000000 0.2608696 0.3478261</span>
+<span class="co">## UPGMA 0.0000000 0.2608696 0.3913043</span>
 <span class="co">## NJ    0.2608696 0.0000000 0.2608696</span>
-<span class="co">## MP    0.3478261 0.2608696 0.0000000</span></code></pre>
+<span class="co">## MP    0.3913043 0.2608696 0.0000000</span></code></pre>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">KFDists</span></code></pre></div>
-<pre><code><span class="co">##           UPGMA        NJ       MP</span>
-<span class="co">## UPGMA 0.0000000 0.9712953 1.001306</span>
-<span class="co">## NJ    0.9712953 0.0000000 0.383855</span>
-<span class="co">## MP    1.0013056 0.3838550 0.000000</span></code></pre>
+<pre><code><span class="co">##           UPGMA        NJ        MP</span>
+<span class="co">## UPGMA 0.0000000 0.9712953 0.9392875</span>
+<span class="co">## NJ    0.9712953 0.0000000 0.3434324</span>
+<span class="co">## MP    0.9392875 0.3434324 0.0000000</span></code></pre>
 <hr>
 </div>
 </div>
-<div class="fade tab-pane" id="other-metrics" role="tabpanel" aria-labelledby="other-metrics-tab">
-
+<div class="section level2">
+<h2 id="other-metrics">Other Metrics<a class="anchor" aria-label="anchor" href="#other-metrics"></a>
+</h2>
 <p>These are two commonly used metrics, but many more are implemented in
 the <code>TreeDist</code> package. Notable recent tree distance measures
 include:</p>
@@ -483,8 +471,6 @@ difference in path lengths between pairs of leaves</li>
 <code>TreeDist::MASTSize</code>, a distance that measures the
 largest agreement subtree between two trees</li>
 </ul>
-</div>
-</div>
 </div>
 
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

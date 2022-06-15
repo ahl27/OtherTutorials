@@ -109,22 +109,9 @@ Lakshman<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-co
   <span class="va">predTree</span> <span class="op">&lt;-</span> <span class="fu">read.tree</span><span class="op">(</span><span class="va">tf</span><span class="op">)</span>
   <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">predTree</span>, <span class="st">'unrooted'</span>, main<span class="op">=</span><span class="va">title</span><span class="op">)</span>
 <span class="op">}</span></code></pre></div>
-<div class="section level2 tabset tabset-fade tabset-pills">
-<h2 class="tabset tabset-fade tabset-pills" id="section"> <a class="anchor" aria-label="anchor" href="#section"></a>
+<div class="section level2">
+<h2 id="distance-matrices">Distance Matrices<a class="anchor" aria-label="anchor" href="#distance-matrices"></a>
 </h2>
-
-
-
-
-<ul class="nav nav-pills" id="section" role="tablist">
-<li role="presentation" class="nav-item"><button data-bs-toggle="tab" data-bs-target="#distance-matrices" id="distance-matrices-tab" type="button" role="tab" aria-controls="distance-matrices" aria-selected="true" class="active nav-link">Distance Matrices</button></li>
-<li role="presentation" class="nav-item"><button data-bs-toggle="tab" data-bs-target="#upgmawpgma" id="upgmawpgma-tab" type="button" role="tab" aria-controls="upgmawpgma" aria-selected="false" class="nav-link">UPGMA/WPGMA</button></li>
-<li role="presentation" class="nav-item"><button data-bs-toggle="tab" data-bs-target="#neighbor-joining-trees" id="neighbor-joining-trees-tab" type="button" role="tab" aria-controls="neighbor-joining-trees" aria-selected="false" class="nav-link">Neighbor Joining Trees</button></li>
-<li role="presentation" class="nav-item"><button data-bs-toggle="tab" data-bs-target="#maximum-parsimony-trees" id="maximum-parsimony-trees-tab" type="button" role="tab" aria-controls="maximum-parsimony-trees" aria-selected="false" class="nav-link">Maximum Parsimony Trees</button></li>
-</ul>
-<div class="tab-content">
-<div class="active show fade tab-pane" id="distance-matrices" role="tabpanel" aria-labelledby="distance-matrices-tab">
-
 <p>Most phylogenetic reconstruction algorithms rely upon constructing
 distance matrices. There are a variety of way to do this, but for
 purposes of illustration we’ll be using the simplest method.</p>
@@ -136,7 +123,7 @@ purposes of illustration we’ll be using the simplest method.</p>
                               <span class="st">'TGCTG'</span>,
                               <span class="st">'AGCTG'</span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">sequenceSet</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span></code></pre></div>
-<p><img src="../../../../tmp/Rtmp3sMFtq/temp_libpath81224cf61bb/IntroPhylogenetics/figures/toydataset.png" width="90%"></p>
+<p><img src="reference/figures/toydataset.png"></p>
 <p>For each pair of sequences, we count the proportion of residues that
 do not match and mark this as the distance between them. As an example
 of calculating distance, consider the first two sequences in this
@@ -162,8 +149,9 @@ sequences with the following:</p>
 calculated before. Now we can begin to create trees.</p>
 <hr>
 </div>
-<div class="fade tab-pane" id="upgmawpgma" role="tabpanel" aria-labelledby="upgmawpgma-tab">
-
+<div class="section level2">
+<h2 id="upgmawpgma">UPGMA/WPGMA<a class="anchor" aria-label="anchor" href="#upgmawpgma"></a>
+</h2>
 <p>The simplest tree building method is the Unweighted Pair Group Method
 with Arithmetic Means (UPGMA). This is a hierarchical clustering
 algorithm that sequentially builds a tree from the bottom up. The
@@ -186,14 +174,14 @@ weighted by the number of leaves in each pair being combined, so if the
 two rows are each clusters with multiple leaves, the average should be
 weighted accordingly.</p></li>
 </ol>
-<p><img src="../../../../tmp/Rtmp3sMFtq/temp_libpath81224cf61bb/IntroPhylogenetics/figures/upgma1.png" width="90%"></p>
+<p><img src="../../../../tmp/RtmpWTe8yu/temp_libpath26424b90035/IntroPhylogenetics/figures/upgma1.png" width="90%"></p>
 <ol start="4" style="list-style-type: decimal">
 <li>Repeat above steps until all nodes are combined and the distance
 matrix is a single row and column.</li>
 </ol>
-<p><img src="../../../../tmp/Rtmp3sMFtq/temp_libpath81224cf61bb/IntroPhylogenetics/figures/upgma4.png" width="90%"></p>
-<p><img src="../../../../tmp/Rtmp3sMFtq/temp_libpath81224cf61bb/IntroPhylogenetics/figures/upgma5.png" width="90%"></p>
-<p><img src="../../../../tmp/Rtmp3sMFtq/temp_libpath81224cf61bb/IntroPhylogenetics/figures/upgma6.png" width="90%"></p>
+<p><img src="../../../../tmp/RtmpWTe8yu/temp_libpath26424b90035/IntroPhylogenetics/figures/upgma4.png" width="90%"></p>
+<p><img src="../../../../tmp/RtmpWTe8yu/temp_libpath26424b90035/IntroPhylogenetics/figures/upgma5.png" width="90%"></p>
+<p><img src="../../../../tmp/RtmpWTe8yu/temp_libpath26424b90035/IntroPhylogenetics/figures/upgma6.png" width="90%"></p>
 <p>Note that UPGMA methods always create an ultrametric tree, which
 means the tree is rooted and all leaves are equidistant from the root.
 This implies a molecular clock (rate of mutation is the same across all
@@ -206,7 +194,7 @@ through above.</p>
 <code class="sourceCode R"><span class="co"># UPGMA Tree</span>
 <span class="va">dend</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/dendrogram.html" class="external-link">as.dendrogram</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/hclust.html" class="external-link">hclust</a></span><span class="op">(</span><span class="va">dm</span><span class="op">*</span><span class="fl">5</span>, method<span class="op">=</span><span class="st">'average'</span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">dend</span><span class="op">)</span></code></pre></div>
-<p><img src="../../../../tmp/Rtmp3sMFtq/temp_libpath81224cf61bb/IntroPhylogenetics/figuresunnamed-chunk-4-1.png" width="700"></p>
+<p><img src="reference/figures/unnamed-chunk-4-1.png" width="700"></p>
 <p>A variation of UPGMA is WPGMA, where W stands for ‘weighted’. The
 difference between UPGMA and WPGMA is a bit counter-intuitive. Recall
 that when we combine two rows of the distance matrix in UPGMA, we weight
@@ -255,13 +243,14 @@ the same result in this example):</p>
 <code class="sourceCode R"><span class="co"># WPGMA Tree</span>
 <span class="va">dend</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/dendrogram.html" class="external-link">as.dendrogram</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/hclust.html" class="external-link">hclust</a></span><span class="op">(</span><span class="va">dm</span><span class="op">*</span><span class="fl">5</span>, method<span class="op">=</span><span class="st">'mcquitty'</span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">dend</span><span class="op">)</span></code></pre></div>
-<p><img src="../../../../tmp/Rtmp3sMFtq/temp_libpath81224cf61bb/IntroPhylogenetics/figuresunnamed-chunk-5-1.png" width="700"></p>
+<p><img src="reference/figures/unnamed-chunk-5-1.png" width="700"></p>
 <p>There are also other methods for combining the distance matrices–see
 the help page for <code>hclust</code> for other examples.</p>
 <hr>
 </div>
-<div class="fade tab-pane" id="neighbor-joining-trees" role="tabpanel" aria-labelledby="neighbor-joining-trees-tab">
-
+<div class="section level2">
+<h2 id="neighbor-joining-trees">Neighbor Joining Trees<a class="anchor" aria-label="anchor" href="#neighbor-joining-trees"></a>
+</h2>
 <p>Another common approach to building trees is the Neighbor-Joining
 (NJ) method. This method also utilizes distance matrices, but proceeds
 from the top-down rather than UPGMA’s bottom-up approach. We’ll use the
@@ -271,7 +260,7 @@ visualization). The algorithm proceeds in the following steps:</p>
 <li>Start with a star tree (all connected to a single root node), and
 record the row and column sums for each row/column of the matrix.</li>
 </ol>
-<p><img src="../../../../tmp/Rtmp3sMFtq/temp_libpath81224cf61bb/IntroPhylogenetics/figures/nj1.png" width="90%"></p>
+<p><img src="../../../../tmp/RtmpWTe8yu/temp_libpath26424b90035/IntroPhylogenetics/figures/nj1.png" width="90%"></p>
 <ol start="2" style="list-style-type: decimal">
 <li>Create a Q-matrix, which is a matrix of the same dimensions as the
 distance matrix, and each element given by the following formula:</li>
@@ -289,7 +278,7 @@ in the Q-matrix, and combine the corresponding nodes by adding an
 intermediate node <span class="math inline">\(N_{int}\)</span> between
 them in the tree.</li>
 </ol>
-<p><img src="../../../../tmp/Rtmp3sMFtq/temp_libpath81224cf61bb/IntroPhylogenetics/figures/nj2.png" width="90%"></p>
+<p><img src="../../../../tmp/RtmpWTe8yu/temp_libpath26424b90035/IntroPhylogenetics/figures/nj2.png" width="90%"></p>
 <ol start="4" style="list-style-type: decimal">
 <li>Calculate edge lengths from <span class="math inline">\(N_{int}\)</span> to <span class="math inline">\(f,g\)</span> with the following formula:</li>
 </ol>
@@ -314,14 +303,14 @@ d[h,f] - d[f,g])\]</span></p>
 <ol start="6" style="list-style-type: decimal">
 <li>Repeat until the full tree has been constructed.</li>
 </ol>
-<p><img src="../../../../tmp/Rtmp3sMFtq/temp_libpath81224cf61bb/IntroPhylogenetics/figures/nj3.png" width="90%"></p>
+<p><img src="../../../../tmp/RtmpWTe8yu/temp_libpath26424b90035/IntroPhylogenetics/figures/nj3.png" width="90%"></p>
 <div class="line-block"> Once we only have three nodes left, we just
 need to figure out the</div>
 <p>branch lengths.</p>
 <div class="line-block"> We can do this in the exact same way as
 before.</div>
-<p><img src="../../../../tmp/Rtmp3sMFtq/temp_libpath81224cf61bb/IntroPhylogenetics/figures/nj4.png" width="90%"></p>
-<p><img src="../../../../tmp/Rtmp3sMFtq/temp_libpath81224cf61bb/IntroPhylogenetics/figures/nj5.png" width="90%"></p>
+<p><img src="../../../../tmp/RtmpWTe8yu/temp_libpath26424b90035/IntroPhylogenetics/figures/nj4.png" width="90%"></p>
+<p><img src="../../../../tmp/RtmpWTe8yu/temp_libpath26424b90035/IntroPhylogenetics/figures/nj5.png" width="90%"></p>
 <hr>
 <p>This can be done in R with the following commands. Note that the
 output is slightly different due to a different method for calculating
@@ -329,11 +318,12 @@ the initial distance matrix.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">dend</span> <span class="op">&lt;-</span> <span class="fu">TreeLine</span><span class="op">(</span>myDistMatrix<span class="op">=</span><span class="va">dm</span>, method<span class="op">=</span><span class="st">'NJ'</span><span class="op">)</span>
 <span class="fu">plot_tree_unrooted</span><span class="op">(</span><span class="va">dend</span>, <span class="st">'NJ'</span><span class="op">)</span></code></pre></div>
-<p><img src="../../../../tmp/Rtmp3sMFtq/temp_libpath81224cf61bb/IntroPhylogenetics/figuresunnamed-chunk-6-1.png" width="700"></p>
+<p><img src="reference/figures/unnamed-chunk-6-1.png" width="700"></p>
 <hr>
 </div>
-<div class="fade tab-pane" id="maximum-parsimony-trees" role="tabpanel" aria-labelledby="maximum-parsimony-trees-tab">
-
+<div class="section level2">
+<h2 id="maximum-parsimony-trees">Maximum Parsimony Trees<a class="anchor" aria-label="anchor" href="#maximum-parsimony-trees"></a>
+</h2>
 <p>The last way to construct phylogenies that I will discuss is maximum
 parsimony. This method relies on the assumption that the simplest method
 is likely the best, and thus tries to find a tree that minimizes the
@@ -343,13 +333,13 @@ number of changes on the tree. Such a tree is called the most
 initial set of sequences. I’ve also included a distance matrix
 corresponding to the number of state transitions required to switch from
 one sequence to another (the Hamming distance).</p>
-<p><img src="../../../../tmp/Rtmp3sMFtq/temp_libpath81224cf61bb/IntroPhylogenetics/figures/mp1.png" width="90%"></p>
+<p><img src="../../../../tmp/RtmpWTe8yu/temp_libpath26424b90035/IntroPhylogenetics/figures/mp1.png" width="90%"></p>
 <p>Notice how sequences 1 and 2 are very similar, and sequences 4 and 5
 are very similar. An optimal reconstruction would place sequences 1 and
 2 close together and sequences 4 and 5 close together, since these pairs
 require the fewer transitions to convert between. For a set of 4 nodes,
 we have four possible topologies:</p>
-<p><img src="../../../../tmp/Rtmp3sMFtq/temp_libpath81224cf61bb/IntroPhylogenetics/figures/mp2.png" width="90%"></p>
+<p><img src="../../../../tmp/RtmpWTe8yu/temp_libpath26424b90035/IntroPhylogenetics/figures/mp2.png" width="90%"></p>
 <p>Three of these are trees with a single internal branch, and one is a
 star tree with no branches. The top left tree is the most parsimonious,
 because it minimizes the transition cost along any particular path of
@@ -369,9 +359,7 @@ code:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">dend</span> <span class="op">&lt;-</span> <span class="fu">TreeLine</span><span class="op">(</span><span class="va">sequenceSet</span>, method<span class="op">=</span><span class="st">'MP'</span><span class="op">)</span>
 <span class="fu">plot_tree_unrooted</span><span class="op">(</span><span class="va">dend</span>, <span class="st">'MP'</span><span class="op">)</span></code></pre></div>
-<p><img src="../../../../tmp/Rtmp3sMFtq/temp_libpath81224cf61bb/IntroPhylogenetics/figuresunnamed-chunk-7-1.png" width="700"></p>
-</div>
-</div>
+<p><img src="reference/figures/unnamed-chunk-7-1.png" width="700"></p>
 </div>
 
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
