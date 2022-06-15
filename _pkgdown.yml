@@ -44,7 +44,7 @@ reference:
     desc: >
       Functions for building phylogenetic trees
     contents:
-      - hclust
+      - stats::hclust
       - DECIPHER::DistanceMatrix
       - DECIPHER::TreeLine
       - as.dendrogram
@@ -54,7 +54,5 @@ reference:
     desc: >
       Functions for comparing phylogenetic trees
     contents:
-      - hclust
       - Biostrings::readDNAStringSet
       - ape::dist.topo
-      - 
