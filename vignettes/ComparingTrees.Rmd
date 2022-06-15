@@ -67,7 +67,7 @@ plot_tree_unrooted(MPtree, 'MP')
 Before we dive into tree distances, it's important to understand the concept of
 partitions. In a bifurcating unrooted tree, every edge divides the set of leaf nodes into two sets. These form the basis of many tree comparison algorithms. Let's look at a toy example:
 
-![](man/figures/part1.png)
+![](part1.png)
 
 Note how each numbered edge of the tree splits the labeled leaf nodes into two distinct groups to either side of it. Leaf edges trivially split the tree into a partition of just the leaf and everything else, but internal edges split the leaves into more interesting partitions.
 
@@ -75,7 +75,7 @@ Note how each numbered edge of the tree splits the labeled leaf nodes into two d
 
 Robinson-Foulds (RF) distance measures the similarity of these partitions in a tree. Let's look at a toy example with two small trees and their internal partitions labeled (internal edges circled in green):
 
-![](man/figures/part1.png)
+![](part2.png)
 
 Now let $A$ be the number of partitions unique to the first tree, and $B$ the number of partitions unique to the second tree. The RF distance (also called the symmetric difference metric) is simply the quantity $(A+B)$.
 
@@ -124,7 +124,7 @@ The Kuhner-Felsenstein (KF) distance attempts to incorporate branch lengths into
 
 Recall that the RF distance is the number of unique (non-shared) partitions in the tree. The KF distance is instead taken as the sum of the squared difference of branch lengths for each equivalent partition in the two trees. If a partition is a unique to a particular tree, it is taken as having a branch length of 0 in the other tree. Below is an updated version of our previous example with branch lengths added in pink (partitions labeled):
 
-![](man/figures/part3.png)
+![](part3.png)
 
 Here we will also examine the leaf branches, but since the leaf set is the same and branch lengths are identical, all of these branches cancel each other out. One pair of branches is an equivalent partition (2 and II), and the other two are unique. The KF distance is then:
 
