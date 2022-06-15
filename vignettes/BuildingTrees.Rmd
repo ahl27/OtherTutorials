@@ -207,6 +207,7 @@ $$Q[i,j] = (n-2)d(i,j) - R(i) - C(j)$$
 
 \begin{align*}
 d(N_{int}, f) &= \frac{1}{2}(d[i,j]) + \frac{1}{2(n-2)}(R(i) - C(j))\\
+\\
 d(N_{int}, g) &= d[i,j] - d[N_{int}, f]
 \end{align*}
 
@@ -215,6 +216,7 @@ d(N_{int}, g) &= d[i,j] - d[N_{int}, f]
 ```{=tex}
 \begin{align*}
 d[u,1] &= \frac{1}{2}(2) + \frac{1}{2(3)}(20-22) &= \frac{2}{3} \\
+\\
 d[u,2] &= 2 - \frac{2}{3} &= \frac{4}{3}
 \end{align*}
 ```
