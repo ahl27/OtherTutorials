@@ -27,7 +27,7 @@ In this discussion I'll cover two common ways of calculating distances between t
 # Package imports
 library(ape)
 library(DECIPHER)
-source('man/resources/TreeLine.R')
+source('TreeLine.R')
 
 # Helper plotting function
 plot_tree_unrooted <- function(dend, title){
@@ -48,7 +48,7 @@ We'll start with a slightly larger test dataset so that we can more clearly see 
 
 ```{r, results='hide'}
 # External data file, contains simulated alignment
-simSeqsFile <- 'man/resources/Simulated_v1.fas'
+simSeqsFile <- 'Simulated_v1.fas'
 
 simAli <- suppressWarnings(readDNAStringSet(simSeqsFile))[1:25]
 names(simAli) <- 1:25

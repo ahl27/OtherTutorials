@@ -22,7 +22,7 @@ knitr::opts_chunk$set(
 # Package imports
 library(ape)
 library(DECIPHER)
-source('man/resources/TreeLine.R')
+source('TreeLine.R')
 
 # Helper plotting function
 plot_tree_unrooted <- function(dend, title){
