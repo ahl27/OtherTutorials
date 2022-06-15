@@ -204,10 +204,11 @@ the RF distance is <span class="math inline">\(0.5\)</span>.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">RF_dist_external</span><span class="op">(</span><span class="va">NJtree</span>, <span class="va">MPtree</span><span class="op">)</span></code></pre></div>
 <pre><code><span class="co">##       tree1</span>
-<span class="co">## tree2     8</span></code></pre>
-<div class="section level4">
-<h4 id="drawbacks">Drawbacks<a class="anchor" aria-label="anchor" href="#drawbacks"></a>
-</h4>
+<span class="co">## tree2    14</span></code></pre>
+</div>
+<div class="section level3">
+<h3 id="drawbacks">Drawbacks<a class="anchor" aria-label="anchor" href="#drawbacks"></a>
+</h3>
 <p>RF distance is widely used, but has some common issues that should be
 kept in mind while using it:</p>
 <ul>
@@ -230,7 +231,6 @@ optimization, and ‘generalized RF distances’ have been created that can
 account for similar sets while working on multifurcating trees with
 different leaf sets.</p>
 <hr>
-</div>
 </div>
 </div>
 <div class="section level2">
@@ -286,9 +286,30 @@ small differences in topology and upweight large differences.</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">RF_dist_external</span><span class="op">(</span><span class="va">NJtree</span>, <span class="va">MPtree</span><span class="op">)</span></code></pre></div>
 <pre><code><span class="co">##       tree1</span>
-<span class="co">## tree2     8</span></code></pre>
-<hr>
+<span class="co">## tree2    14</span></code></pre>
 </div>
+</div>
+<div class="section level2">
+<h2 id="other-metrics">Other Metrics<a class="anchor" aria-label="anchor" href="#other-metrics"></a>
+</h2>
+<p>These are two commonly used metrics, but many more are implemented in
+the <code>TreeDist</code> package. Notable recent tree distance measures
+include:</p>
+<ul>
+<li>
+<code>TreeDist::TreeDistance</code> methods, using generalized RF
+distance from Smith (2020)</li>
+<li>
+<code>TreeDist::JaccardRobinsonFoulds</code> and
+<code>TreeDist:NyeSimilarity</code>, both generalized RF distances.</li>
+<li>
+<code>TreeDist::KendallColijn</code>, a distance that measures
+difference in path lengths between pairs of leaves</li>
+<li>
+<code>TreeDist::MASTSize</code>, a distance that measures the
+largest agreement subtree between two trees</li>
+</ul>
+<hr>
 </div>
 <div class="section level2">
 <h2 id="manual-implementations">Manual Implementations<a class="anchor" aria-label="anchor" href="#manual-implementations"></a>
@@ -444,37 +465,16 @@ by default. Click “Code” to show this content.</p>
 <span class="va">RFDists</span></code></pre></div>
 <pre><code><span class="co">##           UPGMA        NJ        MP</span>
 <span class="co">## UPGMA 0.0000000 0.2608696 0.3913043</span>
-<span class="co">## NJ    0.2608696 0.0000000 0.1739130</span>
-<span class="co">## MP    0.3913043 0.1739130 0.0000000</span></code></pre>
+<span class="co">## NJ    0.2608696 0.0000000 0.3043478</span>
+<span class="co">## MP    0.3913043 0.3043478 0.0000000</span></code></pre>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">KFDists</span></code></pre></div>
 <pre><code><span class="co">##           UPGMA        NJ        MP</span>
-<span class="co">## UPGMA 0.0000000 0.9712953 0.9943099</span>
-<span class="co">## NJ    0.9712953 0.0000000 0.3796764</span>
-<span class="co">## MP    0.9943099 0.3796764 0.0000000</span></code></pre>
+<span class="co">## UPGMA 0.0000000 0.9712953 0.9798610</span>
+<span class="co">## NJ    0.9712953 0.0000000 0.4184403</span>
+<span class="co">## MP    0.9798610 0.4184403 0.0000000</span></code></pre>
 <hr>
 </div>
-</div>
-<div class="section level2">
-<h2 id="other-metrics">Other Metrics<a class="anchor" aria-label="anchor" href="#other-metrics"></a>
-</h2>
-<p>These are two commonly used metrics, but many more are implemented in
-the <code>TreeDist</code> package. Notable recent tree distance measures
-include:</p>
-<ul>
-<li>
-<code>TreeDist::TreeDistance</code> methods, using generalized RF
-distance from Smith (2020)</li>
-<li>
-<code>TreeDist::JaccardRobinsonFoulds</code> and
-<code>TreeDist:NyeSimilarity</code>, both generalized RF distances.</li>
-<li>
-<code>TreeDist::KendallColijn</code>, a distance that measures
-difference in path lengths between pairs of leaves</li>
-<li>
-<code>TreeDist::MASTSize</code>, a distance that measures the
-largest agreement subtree between two trees</li>
-</ul>
 </div>
 
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
