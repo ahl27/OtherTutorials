@@ -45,9 +45,16 @@ reference:
       Functions for building phylogenetic trees
     contents:
       - hclust
+      - DECIPHER::DistanceMatrix
+      - DECIPHER::TreeLine
+      - as.dendrogram
+      - DECIPHER::WriteDendrogram
 
   - title: "Comparing Trees"
     desc: >
       Functions for comparing phylogenetic trees
     contents:
       - hclust
+      - Biostrings::readDNAStringSet
+      - ape::dist.topo
+      - 

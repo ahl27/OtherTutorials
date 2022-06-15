@@ -1,7 +1,14 @@
 ---
 title: "Introduction"
-output: html_document
-date: "2022-06-15"
+author: Aidan Lakshman^[ahl27@pitt.edu]
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{IntroPhylogenetics}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  markdown: 
+    wrap: 72
 ---
 
 Welcome to my tutorial on phylogenetics! This is designed to be a ground-up explanation
