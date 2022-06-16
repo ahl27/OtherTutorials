@@ -33,6 +33,19 @@ plot_tree_unrooted <- function(dend, title){
 
 We'll start with a slightly larger test dataset so that we can more clearly see differences between tree constructions. The following codeblocks read in a set of 25 simulated alignments, then constructs phylogenetic trees using the three methods discussed previously.
 
+```{css, echo=FALSE}
+.btn-lg, .btn-group-lg>.btn{
+    padding: 0.5rem 1rem;
+    font-size: 1.25rem;
+    border-radius: 0.3rem;
+    width: 100%;
+}
+```
+
+<div class="d-grid gap-2">
+  <a href='extdata/Simulated_v1.fas' class="btn btn-lg btn-primary" type="button">Download Example Data</a>
+</div>
+
 ```{r, results='hide'}
 # External data file, contains simulated alignment
 simSeqsFile <- system.file('extdata', 'Simulated_v1.fas', package='IntroPhylogenetics', mustWork=TRUE)
