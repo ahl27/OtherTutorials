@@ -55,7 +55,7 @@ We'll start with a slightly larger test dataset so that we can more clearly see 
 fname <- system.file('extdata', 'Simulated_v1.fas', package='IntroPhylogenetics')
 link <- "https://github.com/ahl27/IntroPhylogenetics/blob/5347f97d4ad861a3055dbaa505205b5ce68ef93c/inst/extdata/Simulated_v1.fas"
 downloadthis::download_link(
-  path = link,
+  link = link,
   button_label = "Download simulated sequences",
   button_type = "success",
   has_icon = TRUE,
