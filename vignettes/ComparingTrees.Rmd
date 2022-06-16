@@ -70,6 +70,8 @@ downloadthis::download_file(
 
 &nbsp;
 
+&nbsp;
+
 ```{r, results='hide'}
 # External data file, contains simulated alignment
 simSeqsFile <- system.file('extdata', 'Simulated_v1.fas', package='IntroPhylogenetics', mustWork=TRUE)
