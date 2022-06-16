@@ -16,7 +16,8 @@ RoxygenNote: 7.1.0
 Depends: 
     Biobase,
     DECIPHER,
-    ape
+    ape,
+    downloadthis
 Suggests: 
     knitr,
     rmarkdown,
