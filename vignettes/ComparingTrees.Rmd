@@ -68,6 +68,7 @@ downloadthis::download_file(
 )
 ```
 
+&nbsp;
 
 ```{r, results='hide'}
 # External data file, contains simulated alignment
