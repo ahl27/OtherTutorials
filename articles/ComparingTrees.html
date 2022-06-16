@@ -149,6 +149,7 @@ phylogenetic trees using the three methods discussed previously.</p>
     });">
 <button class="btn btn-success hvr-grow-shadow"><i class="fa fa-download"></i> Download simulated sequences</button>
 </a>
+<p> </p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># External data file, contains simulated alignment</span>
 <span class="va">simSeqsFile</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'extdata'</span>, <span class="st">'Simulated_v1.fas'</span>, package<span class="op">=</span><span class="st">'IntroPhylogenetics'</span>, mustWork<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>
@@ -228,11 +229,11 @@ the RF distance is <span class="math inline">\(0.5\)</span>.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">RF_dist_external</span><span class="op">(</span><span class="va">UPGMAtree</span>, <span class="va">MPtree</span><span class="op">)</span></code></pre></div>
 <pre><code><span class="co">##       tree1</span>
-<span class="co">## tree2    16</span></code></pre>
+<span class="co">## tree2    20</span></code></pre>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">RF_dist_external</span><span class="op">(</span><span class="va">NJtree</span>, <span class="va">MPtree</span><span class="op">)</span></code></pre></div>
 <pre><code><span class="co">##       tree1</span>
-<span class="co">## tree2    12</span></code></pre>
+<span class="co">## tree2    14</span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="drawbacks">Drawbacks<a class="anchor" aria-label="anchor" href="#drawbacks"></a>
@@ -310,11 +311,11 @@ small differences in topology and upweight large differences.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">RF_dist_external</span><span class="op">(</span><span class="va">UPGMAtree</span>, <span class="va">MPtree</span><span class="op">)</span></code></pre></div>
 <pre><code><span class="co">##       tree1</span>
-<span class="co">## tree2    16</span></code></pre>
+<span class="co">## tree2    20</span></code></pre>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">RF_dist_external</span><span class="op">(</span><span class="va">NJtree</span>, <span class="va">MPtree</span><span class="op">)</span></code></pre></div>
 <pre><code><span class="co">##       tree1</span>
-<span class="co">## tree2    12</span></code></pre>
+<span class="co">## tree2    14</span></code></pre>
 </div>
 </div>
 <div class="section level2">
@@ -491,15 +492,15 @@ different results.</p>
 
 <span class="va">RFDists</span></code></pre></div>
 <pre><code><span class="co">##           UPGMA        NJ        MP</span>
-<span class="co">## UPGMA 0.0000000 0.2608696 0.3478261</span>
-<span class="co">## NJ    0.2608696 0.0000000 0.2608696</span>
-<span class="co">## MP    0.3478261 0.2608696 0.0000000</span></code></pre>
+<span class="co">## UPGMA 0.0000000 0.2608696 0.4347826</span>
+<span class="co">## NJ    0.2608696 0.0000000 0.3043478</span>
+<span class="co">## MP    0.4347826 0.3043478 0.0000000</span></code></pre>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">KFDists</span></code></pre></div>
 <pre><code><span class="co">##           UPGMA        NJ        MP</span>
-<span class="co">## UPGMA 0.0000000 0.9712953 0.9866529</span>
-<span class="co">## NJ    0.9712953 0.0000000 0.3073493</span>
-<span class="co">## MP    0.9866529 0.3073493 0.0000000</span></code></pre>
+<span class="co">## UPGMA 0.0000000 0.9712953 0.9697669</span>
+<span class="co">## NJ    0.9712953 0.0000000 0.3624896</span>
+<span class="co">## MP    0.9697669 0.3624896 0.0000000</span></code></pre>
 <hr>
 </div>
 </div>
