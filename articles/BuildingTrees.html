@@ -187,15 +187,9 @@ matrix is a single row and column.</li>
 means the tree is rooted and all leaves are equidistant from the root.
 This implies a molecular clock (rate of mutation is the same across all
 lineages of a tree).</p>
-<p>We can create a UPGMA tree in R with the below commands. Note that R
-doubles the lengths obtained by this, so I’m going to multiply the
-distance matrix by 5 to get the same scale factor as the example worked
-through above.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># UPGMA Tree</span>
-<span class="va">dend</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/dendrogram.html" class="external-link">as.dendrogram</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/hclust.html" class="external-link">hclust</a></span><span class="op">(</span><span class="va">dm</span><span class="op">*</span><span class="fl">5</span>, method<span class="op">=</span><span class="st">'average'</span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">dend</span><span class="op">)</span></code></pre></div>
-<p><img src="BuildingTrees_files/figure-html/unnamed-chunk-3-1.png" width="700"></p>
+<div class="section level3">
+<h3 id="wpgma">WPGMA<a class="anchor" aria-label="anchor" href="#wpgma"></a>
+</h3>
 <p>A variation of UPGMA is WPGMA, where W stands for ‘weighted’. The
 difference between UPGMA and WPGMA is a bit counter-intuitive. Recall
 that when we combine two rows of the distance matrix in UPGMA, we weight
@@ -242,6 +236,19 @@ other words, the combination is inherently weighted, and UPGMA uses a
 clever way to “undo” this combination. WPGMA, by contrast, does not
 weight by clade size, and thus the combinations are biased (weighted) by
 the number of leaves in each nodes.</p>
+</div>
+<div class="section level3">
+<h3 id="r-implementation">R Implementation<a class="anchor" aria-label="anchor" href="#r-implementation"></a>
+</h3>
+<p>We can create a UPGMA tree in R with the below commands. Note that R
+doubles the lengths obtained by this, so I’m going to multiply the
+distance matrix by 5 to get the same scale factor as the example worked
+through above.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># UPGMA Tree</span>
+<span class="va">dend</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/dendrogram.html" class="external-link">as.dendrogram</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/hclust.html" class="external-link">hclust</a></span><span class="op">(</span><span class="va">dm</span><span class="op">*</span><span class="fl">5</span>, method<span class="op">=</span><span class="st">'average'</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">dend</span><span class="op">)</span></code></pre></div>
+<p><img src="BuildingTrees_files/figure-html/unnamed-chunk-3-1.png" width="700"></p>
 <p>Implementing WPGMA trees is very similar to UPGMA trees (and gives
 the same result in this example):</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
@@ -252,6 +259,7 @@ the same result in this example):</p>
 <p>There are also other methods for combining the distance matrices–see
 the help page for <code>hclust</code> for other examples.</p>
 <hr>
+</div>
 </div>
 <div class="section level2">
 <h2 id="neighbor-joining-trees">Neighbor Joining Trees<a class="anchor" aria-label="anchor" href="#neighbor-joining-trees"></a>
@@ -316,7 +324,7 @@ need to figure out the</div>
 <p>branch lengths.</p>
 <div class="line-block"> We can do this in the exact same way as
 before.</div>
-<p><img src="nj4.png"><img src="nj5.png"></p>
+<p><img src="nj4.png"><img src="nj5.png"> ### R Implementation</p>
 <p>Neighbor-Joining trees can be created R with the following commands.
 Note that the output is slightly different due to a different method for
 calculating the initial distance matrix.</p>
@@ -334,37 +342,104 @@ parsimony. This method relies on the assumption that the simplest method
 is likely the best, and thus tries to find a tree that minimizes the
 number of changes on the tree. Such a tree is called the most
 “parsimonious” tree.</p>
-<p>To illustrate what this looks like, we’ll look at a subset of our
-initial set of sequences. I’ve also included a distance matrix
-corresponding to the number of state transitions required to switch from
-one sequence to another (the Hamming distance).</p>
-<p><img src="mp1.png"></p>
-<p>Notice how sequences 1 and 2 are very similar, and sequences 4 and 5
-are very similar. An optimal reconstruction would place sequences 1 and
-2 close together and sequences 4 and 5 close together, since these pairs
-require the fewer transitions to convert between. For a set of 4 nodes,
-we have four possible topologies:</p>
-<p><img src="mp2.png"></p>
-<p>Three of these are trees with a single internal branch, and one is a
-star tree with no branches. The top left tree is the most parsimonious,
-because it minimizes the transition cost along any particular path of
-the tree.</p>
-<p>Parsimony tree reconstructions don’t use distance matrices, and
-instead randomly walk through tree space to find a tree that is most
-parsimonious. A purely random strategy would take eons to complete, so
-modern methods use various optimizations. Common techniques include
-iteratively adding branches to maximize parsimony with each branch
-added, and/or perturb trees by performing nearest neighbor interchanges
-(NNIs). NNIs take a quartet in the tree and swap the partition to check
-if a rearrangement is more parsimonious. An example of an NNI would be
-taking any of the quartets in the previous graphic and checking if any
-of the other types are more parsimonious.</p>
+<div class="section level3">
+<h3 id="building-initial-tree">Building Initial Tree<a class="anchor" aria-label="anchor" href="#building-initial-tree"></a>
+</h3>
+<p>Let’s start by constructing a simple tree between our first two
+sequences. The intermediate node is labeled with a consensus sequence,
+which in this case is either sequence 1 or sequence 2. Both are equally
+parsimonious, since they minimize the total number of transitions on
+each branch.</p>
+<p>I’ve labelled in pink the state at each node, and in orange the
+number of transitions to go between the nodes connected by that
+edge.</p>
+<p><img src="mpn1.png"></p>
+<p>We’ll now add each subsequent sequence. Let’s move on to sequence
+3.</p>
+<p>There are 3 total ways to add sequence 3 to our tree:</p>
+<p><img src="mpn2.png"></p>
+<p>Two of these trees place sequence 3 closer to sequence 1/2 than
+sequence 2/1 (resp.), and the middle tree places all sequences equally
+far apart.</p>
+<p>Let’s now label these trees with intermediate states and see how
+parsimonious they are:</p>
+<p><img src="mpn3.png"></p>
+<p>Short digression on how we find intermediate/ancestral sequences:</p>
+<p>In the middle tree, there is only one choice for the ancestral
+sequence, which is the one where each position is seen in the majority
+of sequences. Each position in it (<span class="math inline">\(AGACT\)</span>) appears in <span class="math inline">\(2/3\)</span> of nodes connected to it (first
+position of 1 and 2 is <span class="math inline">\(A\)</span>, second of
+1 and 2 is <span class="math inline">\(G\)</span>, etc.). If there were
+a position where all nodes were different, we would be free to pick any
+of those bases (since all are equally represented and thus will be
+equally parsimonious). There are often multiple ways to construct
+ancestral states, but they should end up being equal. Look into Fitch
+Parsimony and/or Sankoff Parsimony for a more rigorous definition of how
+to find parsimonious ancestor states.</p>
+<p>So the star tree is the most parsimonious! Our tree now looks like
+this: <img src="mpn4.png"></p>
+<p>Just to really drive the point home, let’s walk through adding
+sequence 4 to the tree. There are now 4 options where we can put this
+sequence: <img src="mpn5.png"></p>
+<p>And again filling in ancestral states and finding transitions on each
+branch:</p>
+<p><img src="mpn6.png"></p>
+<p>I’m going to skip walking through adding sequence 5 since it begins
+to have a lot of possibilities, but suppose we arrive at the following
+tree after adding sequence 5:</p>
+<p><img src="mpn7.png"></p>
+<p>Now we have our initial tree, which has a total parsimony cost of 7.
+However, we’re not done yet. Adding branches sequentially doesn’t
+guarantee we get an optimal solution, especially if we incorporate
+optimizations to how we add branches. Many algorithms commonly only
+minimize the parsimony cost of the branch at each addition (rather than
+recalculating the entire tree) to speed up calculations. This can cause
+us to miss better solutions due to local maxima. One common solution to
+this is to perturb our initial tree.</p>
+</div>
+<div class="section level3">
+<h3 id="nearest-neighbor-interchanges">Nearest Neighbor Interchanges<a class="anchor" aria-label="anchor" href="#nearest-neighbor-interchanges"></a>
+</h3>
+<p>The most common way to perturb a phylogenetic tree is with Nearest
+Neighbor Interchanges (NNIs). For any particular set of 4 nodes, there
+are 3 distinct ways to partition them into pairs. An NNI changes this
+partition and rechecks the parsimony of the result to see if we can get
+an improvement.</p>
+<p>NNIs are significantly easier to explain with images. Suppose we have
+a set of nodes <span class="math inline">\(\{a, b, c, d\}\)</span> such
+that <span class="math inline">\(a,b\)</span> are separated from <span class="math inline">\(c,d\)</span>. Our possible NNIs then look like
+this:</p>
+<p><img src="nni1.png"></p>
+<p>Let’s explore this on our initial tree by making an NNI on the edge
+that separates <span class="math inline">\(\{4,5\}\)</span> from the
+rest of the nodes. We’ll have two trees to check:</p>
+<p><img src="nni2.png"></p>
+<p>As mentioned above, the total cost for our current tree is 7. Do any
+of these new trees do better?</p>
+<p><img src="nni3.png"></p>
+<p>So tree 2 is worse, but tree 1 is just as good as our initial tree!
+I’m going to skip walking through all the other NNIs on other branches,
+so let’s look at our final two equally parsimonious reconstructions
+(node labels blue, branch lengths in orange):</p>
+<p><img src="mptrees.png"></p>
+<p>Note that we can remove branches with length 0.</p>
+</div>
+<div class="section level3">
+<h3 id="r-implementation-1">R Implementation<a class="anchor" aria-label="anchor" href="#r-implementation-1"></a>
+</h3>
 <p>We can do maximum parsimony reconstructions in R using the following
 code:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">dend</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/DECIPHER/man/TreeLine.html" class="external-link">TreeLine</a></span><span class="op">(</span><span class="va">sequenceSet</span>, method<span class="op">=</span><span class="st">'MP'</span><span class="op">)</span>
 <span class="fu">plot_tree_unrooted</span><span class="op">(</span><span class="va">dend</span>, <span class="st">'MP'</span><span class="op">)</span></code></pre></div>
 <p><img src="BuildingTrees_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
+<p>Notice that this almost exactly matches one of our own
+reconstructions! Parsimony reconstructions can differ based on how you
+calculate parsimony, which can account for why the lengths in this plot
+are slightly different than ours. Using a different transition cost
+model (such as weighting transitions different than transversions) can
+lead to different results.</p>
+</div>
 </div>
 
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
