@@ -104,13 +104,7 @@ steps:
 
 Note that UPGMA methods always create an ultrametric tree, which means the tree is rooted and all leaves are equidistant from the root. This implies a molecular clock (rate of mutation is the same across all lineages of a tree).
 
-We can create a UPGMA tree in R with the below commands. Note that R doubles the lengths obtained by this, so I'm going to multiply the distance matrix by 5 to get the same scale factor as the example worked through above.
-
-```{r}
-# UPGMA Tree
-dend <- as.dendrogram(hclust(dm*5, method='average'))
-plot(dend)
-```
+### WPGMA
 
 A variation of UPGMA is WPGMA, where W stands for 'weighted'. The difference 
 between UPGMA and WPGMA is a bit counter-intuitive. Recall that when we combine 
@@ -158,6 +152,16 @@ In other words, the combination is inherently weighted, and UPGMA uses a clever
 way to "undo" this combination. WPGMA, by contrast, does not weight by clade 
 size, and thus the combinations are biased (weighted) by the number of leaves 
 in each nodes. 
+
+### R Implementation
+
+We can create a UPGMA tree in R with the below commands. Note that R doubles the lengths obtained by this, so I'm going to multiply the distance matrix by 5 to get the same scale factor as the example worked through above.
+
+```{r}
+# UPGMA Tree
+dend <- as.dendrogram(hclust(dm*5, method='average'))
+plot(dend)
+```
 
 Implementing WPGMA trees is very similar to UPGMA trees (and gives the same 
 result in this example):
@@ -236,6 +240,7 @@ branch lengths.
 
 ![](nj4.png)
 ![](nj5.png)
+### R Implementation
 
 Neighbor-Joining trees can be created R with the following commands. Note that the output is
 slightly different due to a different method for calculating the initial distance matrix.
@@ -252,25 +257,111 @@ plot_tree_unrooted(dend, 'NJ')
 The last way to construct phylogenies that I will discuss is maximum parsimony.
 This method relies on the assumption that the simplest method is likely the best, and thus tries to find a tree that minimizes the number of changes on the tree. Such a tree is called the most "parsimonious" tree.
 
-To illustrate what this looks like, we'll look at a subset of our initial set of sequences. I've also included a distance matrix corresponding to the number
-of state transitions required to switch from one sequence to another (the Hamming distance).
+### Building Initial Tree
 
-![](mp1.png)
+Let's start by constructing a simple tree between our first two sequences. 
+The intermediate node is labeled with a consensus sequence, which in this case
+is either sequence 1 or sequence 2. Both are equally parsimonious, since they
+minimize the total number of transitions on each branch.
 
-Notice how sequences 1 and 2 are very similar, and sequences 4 and 5 are very
-similar. An optimal reconstruction would place sequences 1 and 2 close together and sequences 4 and 5 close together, since these pairs require the fewer transitions to convert between. For a set of 4 nodes, we have four possible
-topologies:
+I've labelled in pink the state at each node, and in orange the number of transitions
+to go between the nodes connected by that edge.
 
-![](mp2.png)
+![](mpn1.png)
 
-Three of these are trees with a single internal branch, and one is a star tree
-with no branches. The top left tree is the most parsimonious, because it minimizes the transition cost along any particular path of the tree.
+We'll now add each subsequent sequence. Let's move on to sequence 3.
 
-Parsimony tree reconstructions don't use distance matrices, and instead randomly walk through tree space to find a tree that is most parsimonious. A purely random strategy would take eons to complete, so modern methods use various optimizations. Common techniques include iteratively adding branches to maximize parsimony with each branch added, and/or perturb trees by performing nearest neighbor interchanges (NNIs). NNIs take a quartet in the tree and swap the partition to check if a rearrangement is more parsimonious. An example of an NNI would be taking any of the quartets in the previous graphic and checking if any of the other types are more parsimonious.
+There are 3 total ways to add sequence 3 to our tree:
 
+![](mpn2.png)
+
+Two of these trees place sequence 3 closer to sequence 1/2 than sequence 2/1 (resp.),
+and the middle tree places all sequences equally far apart. 
+
+Let's now label these trees with intermediate states and see how parsimonious they 
+are:
+
+![](mpn3.png)
+
+Short digression on how we find intermediate/ancestral sequences: 
+
+In the middle tree, there is only one choice for the ancestral sequence, which is the one where each
+position is seen in the majority of sequences. Each position in it ($AGACT$)
+appears in $2/3$ of nodes connected to it (first position of 1 and 2 is $A$, 
+second of 1 and 2 is $G$, etc.). If there were a position where all nodes were
+different, we would be free to pick any of those bases (since all are equally
+represented and thus will be equally parsimonious). There are often multiple
+ways to construct ancestral states, but they should end up being equal. 
+Look into Fitch Parsimony and/or Sankoff Parsimony for a more rigorous definition
+of how to find parsimonious ancestor states.
+
+So the star tree is the most parsimonious! Our tree now looks like this:
+![](mpn4.png)
+
+Just to really drive the point home, let's walk through adding sequence 4 to the
+tree. There are now 4 options where we can put this sequence:
+![](mpn5.png)
+
+And again filling in ancestral states and finding transitions on each branch:
+
+![](mpn6.png)
+
+I'm going to skip walking through adding sequence 5 since it begins to have a 
+lot of possibilities, but suppose we arrive at the following tree after adding
+sequence 5:
+
+![](mpn7.png)
+
+Now we have our initial tree, which has a total parsimony cost of 7. However,
+we're not done yet. Adding branches sequentially doesn't guarantee we get an 
+optimal solution, especially if we incorporate optimizations to how we add branches.
+Many algorithms commonly only minimize the parsimony cost of the branch at each addition
+(rather than recalculating the entire tree) to speed up calculations. This can 
+cause us to miss better solutions due to local maxima. One common solution to this
+is to perturb our initial tree.
+
+### Nearest Neighbor Interchanges
+
+The most common way to perturb a phylogenetic tree is with Nearest Neighbor 
+Interchanges (NNIs). For any particular set of 4 nodes, there are 3 distinct 
+ways to partition them into pairs. An NNI changes this partition and rechecks
+the parsimony of the result to see if we can get an improvement. 
+
+NNIs are significantly easier to explain with images. Suppose we have a set of 
+nodes $\{a, b, c, d\}$ such that $a,b$ are separated from $c,d$. Our possible
+NNIs then look like this:
+
+![](nni1.png)
+
+Let's explore this on our initial tree by making an NNI on the edge that separates
+$\{4,5\}$ from the rest of the nodes. We'll have two trees to check:
+
+![](nni2.png)
+
+As mentioned above, the total cost for our current tree is 7. Do any of these 
+new trees do better?
+
+![](nni3.png)
+
+So tree 2 is worse, but tree 1 is just as good as our initial tree! I'm going
+to skip walking through all the other NNIs on other branches, so let's look
+at our final two equally parsimonious reconstructions (node labels blue, 
+branch lengths in orange):
+
+![](mptrees.png)
+
+Note that we can remove branches with length 0.
+
+### R Implementation
 We can do maximum parsimony reconstructions in R using the following code:
 
 ```{r, results='hide'}
 dend <- TreeLine(sequenceSet, method='MP')
 plot_tree_unrooted(dend, 'MP')
 ```
+
+Notice that this almost exactly matches one of our own reconstructions! Parsimony
+reconstructions can differ based on how you calculate parsimony, which can account
+for why the lengths in this plot are slightly different than ours. Using a different
+transition cost model (such as weighting transitions different than transversions)
+can lead to different results.
