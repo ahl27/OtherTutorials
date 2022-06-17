@@ -1,5 +1,5 @@
 ---
-title: "ComparingTrees"
+title: "Comparing Trees"
 author: Aidan Lakshman^[ahl27@pitt.edu]
 output: rmarkdown::html_vignette
 vignette: >
@@ -67,6 +67,8 @@ downloadthis::download_file(
   class = "hvr-grow-shadow"
 )
 ```
+
+&nbsp;
 
 &nbsp;
 
