@@ -151,8 +151,11 @@ calculated before. Now we can begin to create trees.</p>
 <hr>
 </div>
 <div class="section level2">
-<h2 id="upgmawpgma">UPGMA/WPGMA<a class="anchor" aria-label="anchor" href="#upgmawpgma"></a>
+<h2 id="ultrametric-trees">Ultrametric Trees<a class="anchor" aria-label="anchor" href="#ultrametric-trees"></a>
 </h2>
+<div class="section level3">
+<h3 id="upgma">UPGMA<a class="anchor" aria-label="anchor" href="#upgma"></a>
+</h3>
 <p>The simplest tree building method is the Unweighted Pair Group Method
 with Arithmetic Means (UPGMA). This is a hierarchical clustering
 algorithm that sequentially builds a tree from the bottom up. The
@@ -187,6 +190,7 @@ matrix is a single row and column.</li>
 means the tree is rooted and all leaves are equidistant from the root.
 This implies a molecular clock (rate of mutation is the same across all
 lineages of a tree).</p>
+</div>
 <div class="section level3">
 <h3 id="wpgma">WPGMA<a class="anchor" aria-label="anchor" href="#wpgma"></a>
 </h3>
@@ -268,7 +272,11 @@ the help page for <code>hclust</code> for other examples.</p>
 (NJ) method. This method also utilizes distance matrices, but proceeds
 from the top-down rather than UPGMA’s bottom-up approach. We’ll use the
 same distance matrix (multiplied by 10 as before for simpler
-visualization). The algorithm proceeds in the following steps:</p>
+visualization).</p>
+<div class="section level3">
+<h3 id="algorithm">Algorithm<a class="anchor" aria-label="anchor" href="#algorithm"></a>
+</h3>
+<p>The algorithm proceeds in the following steps:</p>
 <ol style="list-style-type: decimal">
 <li>Start with a star tree (all connected to a single root node), and
 record the row and column sums for each row/column of the matrix.</li>
@@ -324,15 +332,20 @@ need to figure out the</div>
 <p>branch lengths.</p>
 <div class="line-block"> We can do this in the exact same way as
 before.</div>
-<p><img src="nj4.png"><img src="nj5.png"> ### R Implementation</p>
+<p><img src="nj4.png"><img src="nj5.png"></p>
+</div>
+<div class="section level3">
+<h3 id="r-implementation-1">R Implementation<a class="anchor" aria-label="anchor" href="#r-implementation-1"></a>
+</h3>
 <p>Neighbor-Joining trees can be created R with the following commands.
 Note that the output is slightly different due to a different method for
 calculating the initial distance matrix.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">dend</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/DECIPHER/man/TreeLine.html" class="external-link">TreeLine</a></span><span class="op">(</span>myDistMatrix<span class="op">=</span><span class="va">dm</span>, method<span class="op">=</span><span class="st">'NJ'</span><span class="op">)</span>
-<span class="fu">plot_tree_unrooted</span><span class="op">(</span><span class="va">dend</span>, <span class="st">'NJ'</span><span class="op">)</span></code></pre></div>
+<span class="fu">plot_tree_unrooted</span><span class="op">(</span><span class="va">dend</span>, <span class="st">'Neighbor Joining'</span><span class="op">)</span></code></pre></div>
 <p><img src="BuildingTrees_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
 <hr>
+</div>
 </div>
 <div class="section level2">
 <h2 id="maximum-parsimony-trees">Maximum Parsimony Trees<a class="anchor" aria-label="anchor" href="#maximum-parsimony-trees"></a>
@@ -376,8 +389,8 @@ equally parsimonious). There are often multiple ways to construct
 ancestral states, but they should end up being equal. Look into Fitch
 Parsimony and/or Sankoff Parsimony for a more rigorous definition of how
 to find parsimonious ancestor states.</p>
-<p>So the star tree is the most parsimonious! Our tree now looks like
-this: <img src="mpn4.png"></p>
+<p>Back to the tutorial–the star tree is the most parsimonious! Our tree
+now looks like this: <img src="mpn4.png"></p>
 <p>Just to really drive the point home, let’s walk through adding
 sequence 4 to the tree. There are now 4 options where we can put this
 sequence: <img src="mpn5.png"></p>
@@ -425,13 +438,13 @@ so let’s look at our final two equally parsimonious reconstructions
 <p>Note that we can remove branches with length 0.</p>
 </div>
 <div class="section level3">
-<h3 id="r-implementation-1">R Implementation<a class="anchor" aria-label="anchor" href="#r-implementation-1"></a>
+<h3 id="r-implementation-2">R Implementation<a class="anchor" aria-label="anchor" href="#r-implementation-2"></a>
 </h3>
 <p>We can do maximum parsimony reconstructions in R using the following
 code:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">dend</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/DECIPHER/man/TreeLine.html" class="external-link">TreeLine</a></span><span class="op">(</span><span class="va">sequenceSet</span>, method<span class="op">=</span><span class="st">'MP'</span><span class="op">)</span>
-<span class="fu">plot_tree_unrooted</span><span class="op">(</span><span class="va">dend</span>, <span class="st">'MP'</span><span class="op">)</span></code></pre></div>
+<span class="fu">plot_tree_unrooted</span><span class="op">(</span><span class="va">dend</span>, <span class="st">'Maximum Parsimony'</span><span class="op">)</span></code></pre></div>
 <p><img src="BuildingTrees_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
 <p>Notice that this almost exactly matches one of our own
 reconstructions! Parsimony reconstructions can differ based on how you
