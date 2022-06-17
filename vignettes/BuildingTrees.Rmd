@@ -67,7 +67,9 @@ before. Now we can begin to create trees.
 
 ***
 
-## UPGMA/WPGMA
+## Ultrametric Trees
+
+### UPGMA
 
 The simplest tree building method is the Unweighted Pair Group Method
 with Arithmetic Means (UPGMA). This is a hierarchical clustering
@@ -183,6 +185,9 @@ Another common approach to building trees is the Neighbor-Joining (NJ)
 method. This method also utilizes distance matrices, but proceeds from
 the top-down rather than UPGMA's bottom-up approach. We'll use the same
 distance matrix (multiplied by 10 as before for simpler visualization).
+
+### Algorithm
+
 The algorithm proceeds in the following steps:
 
 1.  Start with a star tree (all connected to a single root node), and
@@ -240,6 +245,7 @@ branch lengths.
 
 ![](nj4.png)
 ![](nj5.png)
+
 ### R Implementation
 
 Neighbor-Joining trees can be created R with the following commands. Note that the output is
@@ -247,7 +253,7 @@ slightly different due to a different method for calculating the initial distanc
 
 ```{r, results='hide'}
 dend <- TreeLine(myDistMatrix=dm, method='NJ')
-plot_tree_unrooted(dend, 'NJ')
+plot_tree_unrooted(dend, 'Neighbor Joining')
 ```
 
 ***
@@ -295,7 +301,7 @@ ways to construct ancestral states, but they should end up being equal.
 Look into Fitch Parsimony and/or Sankoff Parsimony for a more rigorous definition
 of how to find parsimonious ancestor states.
 
-So the star tree is the most parsimonious! Our tree now looks like this:
+Back to the tutorial--the star tree is the most parsimonious! Our tree now looks like this:
 ![](mpn4.png)
 
 Just to really drive the point home, let's walk through adding sequence 4 to the
@@ -357,7 +363,7 @@ We can do maximum parsimony reconstructions in R using the following code:
 
 ```{r, results='hide'}
 dend <- TreeLine(sequenceSet, method='MP')
-plot_tree_unrooted(dend, 'MP')
+plot_tree_unrooted(dend, 'Maximum Parsimony')
 ```
 
 Notice that this almost exactly matches one of our own reconstructions! Parsimony
