@@ -98,7 +98,16 @@ Lakshman<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-co
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Package imports</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">DECIPHER</span><span class="op">)</span></span></code></pre></div>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://ape-package.ird.fr/" class="external-link">ape</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">DECIPHER</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Helper plotting function</span></span>
+<span><span class="va">plot_tree_unrooted</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">dend</span>, <span class="va">title</span><span class="op">)</span><span class="op">{</span></span>
+<span>  <span class="va">tf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/DECIPHER/man/WriteDendrogram.html" class="external-link">WriteDendrogram</a></span><span class="op">(</span><span class="va">dend</span>, file<span class="op">=</span><span class="va">tf</span>, quoteLabels<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span>
+<span>  <span class="va">predTree</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/ape/man/read.tree.html" class="external-link">read.tree</a></span><span class="op">(</span><span class="va">tf</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">predTree</span>, <span class="st">'unrooted'</span>, main<span class="op">=</span><span class="va">title</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
 <div class="section level2">
 <h2 id="distance-matrices">Distance Matrices<a class="anchor" aria-label="anchor" href="#distance-matrices"></a>
 </h2>
@@ -242,14 +251,14 @@ through above.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># UPGMA Tree</span></span>
 <span><span class="va">dend</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/dendrogram.html" class="external-link">as.dendrogram</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/hclust.html" class="external-link">hclust</a></span><span class="op">(</span><span class="va">dm</span><span class="op">*</span><span class="fl">5</span>, method<span class="op">=</span><span class="st">'average'</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">dend</span>, main<span class="op">=</span><span class="st">"UPGMA"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">dend</span><span class="op">)</span></span></code></pre></div>
 <p><img src="BuildingTrees_files/figure-html/unnamed-chunk-3-1.png" width="700"></p>
 <p>Implementing WPGMA trees is very similar to UPGMA trees (and gives
 the same result in this example):</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># WPGMA Tree</span></span>
 <span><span class="va">dend</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/dendrogram.html" class="external-link">as.dendrogram</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/hclust.html" class="external-link">hclust</a></span><span class="op">(</span><span class="va">dm</span><span class="op">*</span><span class="fl">5</span>, method<span class="op">=</span><span class="st">'mcquitty'</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">dend</span>, main<span class="op">=</span><span class="st">"WPGMA"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">dend</span><span class="op">)</span></span></code></pre></div>
 <p><img src="BuildingTrees_files/figure-html/unnamed-chunk-4-1.png" width="700"></p>
 <p>There are also other methods for combining the distance matrices–see
 the help page for <code>hclust</code> for other examples.</p>
@@ -333,7 +342,7 @@ Note that the output is slightly different due to a different method for
 calculating the initial distance matrix.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dend</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/DECIPHER/man/TreeLine.html" class="external-link">TreeLine</a></span><span class="op">(</span>myDistMatrix<span class="op">=</span><span class="va">dm</span>, method<span class="op">=</span><span class="st">'NJ'</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">dend</span>, main<span class="op">=</span><span class="st">'Neighbor Joining'</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">plot_tree_unrooted</span><span class="op">(</span><span class="va">dend</span>, <span class="st">'Neighbor Joining'</span><span class="op">)</span></span></code></pre></div>
 <p><img src="BuildingTrees_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
 <hr>
 </div>
@@ -435,7 +444,7 @@ so let’s look at our final two equally parsimonious reconstructions
 code:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dend</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/DECIPHER/man/TreeLine.html" class="external-link">TreeLine</a></span><span class="op">(</span><span class="va">sequenceSet</span>, method<span class="op">=</span><span class="st">'MP'</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">dend</span>, main<span class="op">=</span><span class="st">'Maximum Parsimony'</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">plot_tree_unrooted</span><span class="op">(</span><span class="va">dend</span>, <span class="st">'Maximum Parsimony'</span><span class="op">)</span></span></code></pre></div>
 <p><img src="BuildingTrees_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
 <p>Notice that this almost exactly matches one of our own
 reconstructions! Parsimony reconstructions can differ based on how you
