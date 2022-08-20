@@ -8,8 +8,8 @@
 <meta name="description" content="IntroPhylogenetics">
 <title>Comparing Trees • IntroPhylogenetics</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.1.0/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.1.0/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link href="../deps/bootstrap-5.1.3/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.1.3/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Comparing Trees">
 <meta property="og:description" content="IntroPhylogenetics">
@@ -102,17 +102,17 @@ topologies.</p>
 distances between trees: Robinson-Foulds (RF) Distance and
 Kuhner-Felsenstein (KF) distance.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Package imports</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://ape-package.ird.fr/" class="external-link">ape</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">DECIPHER</span><span class="op">)</span>
-
-<span class="co"># Helper plotting function</span>
-<span class="va">plot_tree_unrooted</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">dend</span>, <span class="va">title</span><span class="op">)</span><span class="op">{</span>
-  <span class="va">tf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span><span class="op">)</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/DECIPHER/man/WriteDendrogram.html" class="external-link">WriteDendrogram</a></span><span class="op">(</span><span class="va">dend</span>, file<span class="op">=</span><span class="va">tf</span>, quoteLabels<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span>
-  <span class="va">predTree</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/ape/man/read.tree.html" class="external-link">read.tree</a></span><span class="op">(</span><span class="va">tf</span><span class="op">)</span>
-  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">predTree</span>, <span class="st">'unrooted'</span>, main<span class="op">=</span><span class="va">title</span><span class="op">)</span>
-<span class="op">}</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># Package imports</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://ape-package.ird.fr/" class="external-link">ape</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">DECIPHER</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Helper plotting function</span></span>
+<span><span class="va">plot_tree_unrooted</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">dend</span>, <span class="va">title</span><span class="op">)</span><span class="op">{</span></span>
+<span>  <span class="va">tf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/DECIPHER/man/WriteDendrogram.html" class="external-link">WriteDendrogram</a></span><span class="op">(</span><span class="va">dend</span>, file<span class="op">=</span><span class="va">tf</span>, quoteLabels<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span>
+<span>  <span class="va">predTree</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/ape/man/read.tree.html" class="external-link">read.tree</a></span><span class="op">(</span><span class="va">tf</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">predTree</span>, <span class="st">'unrooted'</span>, main<span class="op">=</span><span class="va">title</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
 <div class="section level2">
 <h2 id="setup">Setup<a class="anchor" aria-label="anchor" href="#setup"></a>
 </h2>
@@ -152,25 +152,25 @@ phylogenetic trees using the three methods discussed previously.</p>
 <p> </p>
 <p> </p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># External data file, contains simulated alignment</span>
-<span class="va">simSeqsFile</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'extdata'</span>, <span class="st">'Simulated_v1.fas'</span>, package<span class="op">=</span><span class="st">'IntroPhylogenetics'</span>, mustWork<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>
-
-<span class="va">simAli</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/warning.html" class="external-link">suppressWarnings</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/Biostrings/man/XStringSet-io.html" class="external-link">readDNAStringSet</a></span><span class="op">(</span><span class="va">simSeqsFile</span><span class="op">)</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">25</span><span class="op">]</span>
-<span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">simAli</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">25</span>
-<span class="va">simDm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/DECIPHER/man/DistanceMatrix.html" class="external-link">DistanceMatrix</a></span><span class="op">(</span><span class="va">simAli</span>, type<span class="op">=</span><span class="st">'dist'</span>, penalizeGapGapMatches<span class="op">=</span><span class="cn">FALSE</span>, verbose<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span>
-
-<span class="va">UPGMAtree</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/dendrogram.html" class="external-link">as.dendrogram</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/hclust.html" class="external-link">hclust</a></span><span class="op">(</span><span class="va">simDm</span>, method<span class="op">=</span><span class="st">'average'</span><span class="op">)</span><span class="op">)</span>
-<span class="va">NJtree</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/DECIPHER/man/TreeLine.html" class="external-link">TreeLine</a></span><span class="op">(</span><span class="va">simAli</span>, myDistMatrix<span class="op">=</span><span class="va">simDm</span>, method<span class="op">=</span><span class="st">'NJ'</span><span class="op">)</span>
-<span class="va">MPtree</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/DECIPHER/man/TreeLine.html" class="external-link">TreeLine</a></span><span class="op">(</span><span class="va">simAli</span>, myDistMatrix<span class="op">=</span><span class="va">simDm</span>, method<span class="op">=</span><span class="st">'MP'</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># External data file, contains simulated alignment</span></span>
+<span><span class="va">simSeqsFile</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'extdata'</span>, <span class="st">'Simulated_v1.fas'</span>, package<span class="op">=</span><span class="st">'IntroPhylogenetics'</span>, mustWork<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">simAli</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/warning.html" class="external-link">suppressWarnings</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/Biostrings/man/XStringSet-io.html" class="external-link">readDNAStringSet</a></span><span class="op">(</span><span class="va">simSeqsFile</span><span class="op">)</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">25</span><span class="op">]</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">simAli</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">25</span></span>
+<span><span class="va">simDm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/DECIPHER/man/DistanceMatrix.html" class="external-link">DistanceMatrix</a></span><span class="op">(</span><span class="va">simAli</span>, type<span class="op">=</span><span class="st">'dist'</span>, penalizeGapGapMatches<span class="op">=</span><span class="cn">FALSE</span>, verbose<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">UPGMAtree</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/dendrogram.html" class="external-link">as.dendrogram</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/hclust.html" class="external-link">hclust</a></span><span class="op">(</span><span class="va">simDm</span>, method<span class="op">=</span><span class="st">'average'</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">NJtree</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/DECIPHER/man/TreeLine.html" class="external-link">TreeLine</a></span><span class="op">(</span><span class="va">simAli</span>, myDistMatrix<span class="op">=</span><span class="va">simDm</span>, method<span class="op">=</span><span class="st">'NJ'</span><span class="op">)</span></span>
+<span><span class="va">MPtree</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/DECIPHER/man/TreeLine.html" class="external-link">TreeLine</a></span><span class="op">(</span><span class="va">simAli</span>, myDistMatrix<span class="op">=</span><span class="va">simDm</span>, method<span class="op">=</span><span class="st">'MP'</span><span class="op">)</span></span></code></pre></div>
 <p>Visualizing the trees we’ve made:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">plot_tree_unrooted</span><span class="op">(</span><span class="va">UPGMAtree</span>, <span class="st">'UPGMA'</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">plot_tree_unrooted</span><span class="op">(</span><span class="va">UPGMAtree</span>, <span class="st">'UPGMA'</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ComparingTrees_files/figure-html/unnamed-chunk-4-1.png" width="700"></p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">plot_tree_unrooted</span><span class="op">(</span><span class="va">NJtree</span>, <span class="st">'NJ'</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">plot_tree_unrooted</span><span class="op">(</span><span class="va">NJtree</span>, <span class="st">'NJ'</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ComparingTrees_files/figure-html/unnamed-chunk-4-2.png" width="700"></p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">plot_tree_unrooted</span><span class="op">(</span><span class="va">MPtree</span>, <span class="st">'MP'</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">plot_tree_unrooted</span><span class="op">(</span><span class="va">MPtree</span>, <span class="st">'MP'</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ComparingTrees_files/figure-html/unnamed-chunk-4-3.png" width="700"></p>
 </div>
 <div class="section level2">
@@ -212,29 +212,29 @@ the RF distance is <span class="math inline">\(0.5\)</span>.</p>
 <h3 id="r-implementation">R implementation<a class="anchor" aria-label="anchor" href="#r-implementation"></a>
 </h3>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">RF_dist_external</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">dend1</span>, <span class="va">dend2</span><span class="op">)</span><span class="op">{</span>
-  <span class="va">tf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span><span class="op">)</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/DECIPHER/man/WriteDendrogram.html" class="external-link">WriteDendrogram</a></span><span class="op">(</span><span class="va">dend1</span>, file<span class="op">=</span><span class="va">tf</span>, quoteLabels<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span>
-  <span class="va">predTree1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/ape/man/read.tree.html" class="external-link">read.tree</a></span><span class="op">(</span><span class="va">tf</span><span class="op">)</span>
-  
-  <span class="va">tf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span><span class="op">)</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/DECIPHER/man/WriteDendrogram.html" class="external-link">WriteDendrogram</a></span><span class="op">(</span><span class="va">dend2</span>, file<span class="op">=</span><span class="va">tf</span>, quoteLabels<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span>
-  <span class="va">predTree2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/ape/man/read.tree.html" class="external-link">read.tree</a></span><span class="op">(</span><span class="va">tf</span><span class="op">)</span>
-  
-  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/ape/man/dist.topo.html" class="external-link">dist.topo</a></span><span class="op">(</span><span class="va">predTree1</span>, <span class="va">predTree2</span>, <span class="st">'PH85'</span><span class="op">)</span><span class="op">)</span>
-<span class="op">}</span>
-
-<span class="fu">RF_dist_external</span><span class="op">(</span><span class="va">UPGMAtree</span>, <span class="va">NJtree</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">##       tree1</span>
-<span class="co">## tree2    12</span></code></pre>
+<code class="sourceCode R"><span><span class="va">RF_dist_external</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">dend1</span>, <span class="va">dend2</span><span class="op">)</span><span class="op">{</span></span>
+<span>  <span class="va">tf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/DECIPHER/man/WriteDendrogram.html" class="external-link">WriteDendrogram</a></span><span class="op">(</span><span class="va">dend1</span>, file<span class="op">=</span><span class="va">tf</span>, quoteLabels<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span>
+<span>  <span class="va">predTree1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/ape/man/read.tree.html" class="external-link">read.tree</a></span><span class="op">(</span><span class="va">tf</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="va">tf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/DECIPHER/man/WriteDendrogram.html" class="external-link">WriteDendrogram</a></span><span class="op">(</span><span class="va">dend2</span>, file<span class="op">=</span><span class="va">tf</span>, quoteLabels<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span>
+<span>  <span class="va">predTree2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/ape/man/read.tree.html" class="external-link">read.tree</a></span><span class="op">(</span><span class="va">tf</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/ape/man/dist.topo.html" class="external-link">dist.topo</a></span><span class="op">(</span><span class="va">predTree1</span>, <span class="va">predTree2</span>, <span class="st">'PH85'</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="fu">RF_dist_external</span><span class="op">(</span><span class="va">UPGMAtree</span>, <span class="va">NJtree</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##       tree1</span></span>
+<span><span class="co">## tree2    12</span></span></code></pre>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">RF_dist_external</span><span class="op">(</span><span class="va">UPGMAtree</span>, <span class="va">MPtree</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">##       tree1</span>
-<span class="co">## tree2    20</span></code></pre>
+<code class="sourceCode R"><span><span class="fu">RF_dist_external</span><span class="op">(</span><span class="va">UPGMAtree</span>, <span class="va">MPtree</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##       tree1</span></span>
+<span><span class="co">## tree2    18</span></span></code></pre>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">RF_dist_external</span><span class="op">(</span><span class="va">NJtree</span>, <span class="va">MPtree</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">##       tree1</span>
-<span class="co">## tree2    14</span></code></pre>
+<code class="sourceCode R"><span><span class="fu">RF_dist_external</span><span class="op">(</span><span class="va">NJtree</span>, <span class="va">MPtree</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##       tree1</span></span>
+<span><span class="co">## tree2     8</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="drawbacks">Drawbacks<a class="anchor" aria-label="anchor" href="#drawbacks"></a>
@@ -294,29 +294,29 @@ small differences in topology and upweight large differences.</p>
 <h3 id="r-implementation-1">R Implementation<a class="anchor" aria-label="anchor" href="#r-implementation-1"></a>
 </h3>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">KF_dist_external</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">dend1</span>, <span class="va">dend2</span><span class="op">)</span><span class="op">{</span>
-  <span class="va">tf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span><span class="op">)</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/DECIPHER/man/WriteDendrogram.html" class="external-link">WriteDendrogram</a></span><span class="op">(</span><span class="va">dend1</span>, file<span class="op">=</span><span class="va">tf</span>, quoteLabels<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span>
-  <span class="va">predTree1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/ape/man/read.tree.html" class="external-link">read.tree</a></span><span class="op">(</span><span class="va">tf</span><span class="op">)</span>
-  
-  <span class="va">tf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span><span class="op">)</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/DECIPHER/man/WriteDendrogram.html" class="external-link">WriteDendrogram</a></span><span class="op">(</span><span class="va">dend2</span>, file<span class="op">=</span><span class="va">tf</span>, quoteLabels<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span>
-  <span class="va">predTree2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/ape/man/read.tree.html" class="external-link">read.tree</a></span><span class="op">(</span><span class="va">tf</span><span class="op">)</span>
-  
-  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/ape/man/dist.topo.html" class="external-link">dist.topo</a></span><span class="op">(</span><span class="va">predTree1</span>, <span class="va">predTree2</span>, method<span class="op">=</span><span class="st">'score'</span><span class="op">)</span><span class="op">)</span>
-<span class="op">}</span>
-
-<span class="fu">RF_dist_external</span><span class="op">(</span><span class="va">UPGMAtree</span>, <span class="va">NJtree</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">##       tree1</span>
-<span class="co">## tree2    12</span></code></pre>
+<code class="sourceCode R"><span><span class="va">KF_dist_external</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">dend1</span>, <span class="va">dend2</span><span class="op">)</span><span class="op">{</span></span>
+<span>  <span class="va">tf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/DECIPHER/man/WriteDendrogram.html" class="external-link">WriteDendrogram</a></span><span class="op">(</span><span class="va">dend1</span>, file<span class="op">=</span><span class="va">tf</span>, quoteLabels<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span>
+<span>  <span class="va">predTree1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/ape/man/read.tree.html" class="external-link">read.tree</a></span><span class="op">(</span><span class="va">tf</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="va">tf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/DECIPHER/man/WriteDendrogram.html" class="external-link">WriteDendrogram</a></span><span class="op">(</span><span class="va">dend2</span>, file<span class="op">=</span><span class="va">tf</span>, quoteLabels<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span>
+<span>  <span class="va">predTree2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/ape/man/read.tree.html" class="external-link">read.tree</a></span><span class="op">(</span><span class="va">tf</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/ape/man/dist.topo.html" class="external-link">dist.topo</a></span><span class="op">(</span><span class="va">predTree1</span>, <span class="va">predTree2</span>, method<span class="op">=</span><span class="st">'score'</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="fu">RF_dist_external</span><span class="op">(</span><span class="va">UPGMAtree</span>, <span class="va">NJtree</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##       tree1</span></span>
+<span><span class="co">## tree2    12</span></span></code></pre>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">RF_dist_external</span><span class="op">(</span><span class="va">UPGMAtree</span>, <span class="va">MPtree</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">##       tree1</span>
-<span class="co">## tree2    20</span></code></pre>
+<code class="sourceCode R"><span><span class="fu">RF_dist_external</span><span class="op">(</span><span class="va">UPGMAtree</span>, <span class="va">MPtree</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##       tree1</span></span>
+<span><span class="co">## tree2    18</span></span></code></pre>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">RF_dist_external</span><span class="op">(</span><span class="va">NJtree</span>, <span class="va">MPtree</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">##       tree1</span>
-<span class="co">## tree2    14</span></code></pre>
+<code class="sourceCode R"><span><span class="fu">RF_dist_external</span><span class="op">(</span><span class="va">NJtree</span>, <span class="va">MPtree</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##       tree1</span></span>
+<span><span class="co">## tree2     8</span></span></code></pre>
 </div>
 </div>
 <div class="section level2">
@@ -353,155 +353,155 @@ different results.</p>
 </h3>
 <p>This code block contains several helper functions used later.</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">flatdendrapply</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">dend</span>, <span class="va">NODEFUN</span>, <span class="va">LEAFFUN</span><span class="op">=</span><span class="va">NODEFUN</span>, <span class="va">INCLUDEROOT</span><span class="op">=</span><span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span><span class="op">{</span>
-  <span class="co">## Applies a function to each node (internal and leaf) of the tree</span>
-  <span class="co">## Returns a flat list</span>
-  <span class="va">val</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">dend</span>, 
-                \<span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span>
-                  <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NULL.html" class="external-link">is.null</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">'leaf'</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">{</span>
-                    <span class="va">v</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu">NODEFUN</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span><span class="op">)</span>
-                    <span class="kw">for</span> <span class="op">(</span> <span class="va">child</span> <span class="kw">in</span> <span class="va">x</span> <span class="op">)</span> <span class="va">v</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">v</span>, <span class="fu"><a href="https://rdrr.io/r/base/Recall.html" class="external-link">Recall</a></span><span class="op">(</span><span class="va">child</span><span class="op">)</span><span class="op">)</span>
-                    <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">v</span><span class="op">)</span>
-                  <span class="op">}</span> 
-                  <span class="kw">else</span> <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu">is</span><span class="op">(</span><span class="va">LEAFFUN</span>, <span class="st">'function'</span><span class="op">)</span><span class="op">)</span>
-                    <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
-                  <span class="kw">else</span> 
-                    <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu">LEAFFUN</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
-                <span class="op">}</span>
-  <span class="op">)</span>
-  <span class="va">retval</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="va">val</span>, recursive<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span>
-  <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="va">INCLUDEROOT</span><span class="op">)</span>
-    <span class="va">retval</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="cn">NULL</span>
-
-  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">retval</span><span class="op">)</span>
-<span class="op">}</span>
-
-<span class="va">isLeaf</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">dendNode</span><span class="op">)</span><span class="op">{</span>
-  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NULL.html" class="external-link">is.null</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">dendNode</span>, <span class="st">'leaf'</span><span class="op">)</span><span class="op">)</span> <span class="op">&amp;&amp;</span> <span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">dendNode</span>, <span class="st">'leaf'</span><span class="op">)</span><span class="op">)</span>
-<span class="op">}</span>
-
-<span class="va">equivPart</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">set1</span>, <span class="va">set2</span>, <span class="va">fullset</span><span class="op">)</span><span class="op">{</span>
-  <span class="co"># Checks if two partitions are equivalent</span>
-  <span class="va">inverseset1</span> <span class="op">&lt;-</span> <span class="va">fullset</span><span class="op">[</span><span class="op">!</span><span class="op">(</span><span class="va">fullset</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">set1</span><span class="op">)</span><span class="op">]</span>
-  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sets.html" class="external-link">setequal</a></span><span class="op">(</span><span class="va">set1</span>,<span class="va">set2</span><span class="op">)</span> <span class="op">||</span> <span class="fu"><a href="https://rdrr.io/r/base/sets.html" class="external-link">setequal</a></span><span class="op">(</span><span class="va">inverseset1</span>, <span class="va">set2</span><span class="op">)</span><span class="op">)</span>
-<span class="op">}</span>
-
-<span class="va">get_branch_length</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">dendNode</span><span class="op">)</span><span class="op">{</span>
-  <span class="co">## Helper function for KF distance, gets partition and branch length</span>
-  <span class="co">## of all branches Because of weirdness each node will return two values,</span>
-  <span class="co">## the result just needs some slight post-processing </span>
-  <span class="co">## (see KF_Distance function for example)</span>
-  <span class="kw">if</span><span class="op">(</span><span class="fu">isLeaf</span><span class="op">(</span><span class="va">dendNode</span><span class="op">)</span><span class="op">)</span><span class="op">{</span>
-    <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span>
-  <span class="op">}</span>
-  
-  <span class="va">h</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">dendNode</span>, <span class="st">'height'</span><span class="op">)</span>
-  <span class="va">n1</span> <span class="op">&lt;-</span> <span class="va">dendNode</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>
-  <span class="va">n2</span> <span class="op">&lt;-</span> <span class="va">dendNode</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span>
-  <span class="va">c1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">n1</span>, <span class="st">'height'</span><span class="op">)</span>
-  <span class="va">c2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">n2</span>, <span class="st">'height'</span><span class="op">)</span>
-  
-  <span class="kw">if</span><span class="op">(</span><span class="fu">isLeaf</span><span class="op">(</span><span class="va">n1</span><span class="op">)</span><span class="op">)</span>
-    <span class="va">labs1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">n1</span>, <span class="st">'label'</span><span class="op">)</span>
-  <span class="kw">else</span> 
-    <span class="va">labs1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="va">n1</span><span class="op">)</span>
-  
-  <span class="kw">if</span> <span class="op">(</span><span class="fu">isLeaf</span><span class="op">(</span><span class="va">n2</span><span class="op">)</span><span class="op">)</span>
-    <span class="va">labs2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">n2</span>, <span class="st">'label'</span><span class="op">)</span>
-  <span class="kw">else</span>
-    <span class="va">labs2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="va">n2</span><span class="op">)</span>
-
-  <span class="va">l1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>length<span class="op">=</span><span class="va">h</span><span class="op">-</span><span class="va">c1</span>, part<span class="op">=</span><span class="va">labs1</span><span class="op">)</span>
-  <span class="va">l2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>length<span class="op">=</span><span class="va">h</span><span class="op">-</span><span class="va">c2</span>, part<span class="op">=</span><span class="va">labs2</span><span class="op">)</span>
-  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">l1</span>, <span class="va">l2</span><span class="op">)</span><span class="op">)</span>
-<span class="op">}</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">flatdendrapply</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">dend</span>, <span class="va">NODEFUN</span>, <span class="va">LEAFFUN</span><span class="op">=</span><span class="va">NODEFUN</span>, <span class="va">INCLUDEROOT</span><span class="op">=</span><span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span><span class="op">{</span></span>
+<span>  <span class="co">## Applies a function to each node (internal and leaf) of the tree</span></span>
+<span>  <span class="co">## Returns a flat list</span></span>
+<span>  <span class="va">val</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">dend</span>, </span>
+<span>                \<span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span></span>
+<span>                  <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NULL.html" class="external-link">is.null</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">'leaf'</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
+<span>                    <span class="va">v</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu">NODEFUN</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span><span class="op">)</span></span>
+<span>                    <span class="kw">for</span> <span class="op">(</span> <span class="va">child</span> <span class="kw">in</span> <span class="va">x</span> <span class="op">)</span> <span class="va">v</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">v</span>, <span class="fu"><a href="https://rdrr.io/r/base/Recall.html" class="external-link">Recall</a></span><span class="op">(</span><span class="va">child</span><span class="op">)</span><span class="op">)</span></span>
+<span>                    <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">v</span><span class="op">)</span></span>
+<span>                  <span class="op">}</span> </span>
+<span>                  <span class="kw">else</span> <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu">is</span><span class="op">(</span><span class="va">LEAFFUN</span>, <span class="st">'function'</span><span class="op">)</span><span class="op">)</span></span>
+<span>                    <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span>                  <span class="kw">else</span> </span>
+<span>                    <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu">LEAFFUN</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span>                <span class="op">}</span></span>
+<span>  <span class="op">)</span></span>
+<span>  <span class="va">retval</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="va">val</span>, recursive<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span>
+<span>  <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="va">INCLUDEROOT</span><span class="op">)</span></span>
+<span>    <span class="va">retval</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="cn">NULL</span></span>
+<span></span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">retval</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="va">isLeaf</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">dendNode</span><span class="op">)</span><span class="op">{</span></span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NULL.html" class="external-link">is.null</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">dendNode</span>, <span class="st">'leaf'</span><span class="op">)</span><span class="op">)</span> <span class="op">&amp;&amp;</span> <span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">dendNode</span>, <span class="st">'leaf'</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="va">equivPart</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">set1</span>, <span class="va">set2</span>, <span class="va">fullset</span><span class="op">)</span><span class="op">{</span></span>
+<span>  <span class="co"># Checks if two partitions are equivalent</span></span>
+<span>  <span class="va">inverseset1</span> <span class="op">&lt;-</span> <span class="va">fullset</span><span class="op">[</span><span class="op">!</span><span class="op">(</span><span class="va">fullset</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">set1</span><span class="op">)</span><span class="op">]</span></span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sets.html" class="external-link">setequal</a></span><span class="op">(</span><span class="va">set1</span>,<span class="va">set2</span><span class="op">)</span> <span class="op">||</span> <span class="fu"><a href="https://rdrr.io/r/base/sets.html" class="external-link">setequal</a></span><span class="op">(</span><span class="va">inverseset1</span>, <span class="va">set2</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="va">get_branch_length</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">dendNode</span><span class="op">)</span><span class="op">{</span></span>
+<span>  <span class="co">## Helper function for KF distance, gets partition and branch length</span></span>
+<span>  <span class="co">## of all branches Because of weirdness each node will return two values,</span></span>
+<span>  <span class="co">## the result just needs some slight post-processing </span></span>
+<span>  <span class="co">## (see KF_Distance function for example)</span></span>
+<span>  <span class="kw">if</span><span class="op">(</span><span class="fu">isLeaf</span><span class="op">(</span><span class="va">dendNode</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
+<span>    <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span></span>
+<span>  <span class="op">}</span></span>
+<span>  </span>
+<span>  <span class="va">h</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">dendNode</span>, <span class="st">'height'</span><span class="op">)</span></span>
+<span>  <span class="va">n1</span> <span class="op">&lt;-</span> <span class="va">dendNode</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
+<span>  <span class="va">n2</span> <span class="op">&lt;-</span> <span class="va">dendNode</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span></span>
+<span>  <span class="va">c1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">n1</span>, <span class="st">'height'</span><span class="op">)</span></span>
+<span>  <span class="va">c2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">n2</span>, <span class="st">'height'</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="kw">if</span><span class="op">(</span><span class="fu">isLeaf</span><span class="op">(</span><span class="va">n1</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="va">labs1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">n1</span>, <span class="st">'label'</span><span class="op">)</span></span>
+<span>  <span class="kw">else</span> </span>
+<span>    <span class="va">labs1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="va">n1</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="kw">if</span> <span class="op">(</span><span class="fu">isLeaf</span><span class="op">(</span><span class="va">n2</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="va">labs2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">n2</span>, <span class="st">'label'</span><span class="op">)</span></span>
+<span>  <span class="kw">else</span></span>
+<span>    <span class="va">labs2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="va">n2</span><span class="op">)</span></span>
+<span></span>
+<span>  <span class="va">l1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>length<span class="op">=</span><span class="va">h</span><span class="op">-</span><span class="va">c1</span>, part<span class="op">=</span><span class="va">labs1</span><span class="op">)</span></span>
+<span>  <span class="va">l2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>length<span class="op">=</span><span class="va">h</span><span class="op">-</span><span class="va">c2</span>, part<span class="op">=</span><span class="va">labs2</span><span class="op">)</span></span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">l1</span>, <span class="va">l2</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="robinson-foulds-distance">Robinson-Foulds Distance<a class="anchor" aria-label="anchor" href="#robinson-foulds-distance"></a>
 </h3>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">RF_Distance</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">dend1</span>, <span class="va">dend2</span><span class="op">)</span><span class="op">{</span>
-  <span class="co"># Get all partitions</span>
-  <span class="va">part1</span> <span class="op">&lt;-</span> <span class="fu">flatdendrapply</span><span class="op">(</span><span class="va">dend1</span>, <span class="va">unlist</span>, <span class="cn">NULL</span><span class="op">)</span>
-  <span class="va">part2</span> <span class="op">&lt;-</span> <span class="fu">flatdendrapply</span><span class="op">(</span><span class="va">dend2</span>, <span class="va">unlist</span>, <span class="cn">NULL</span><span class="op">)</span>
-  <span class="va">allmembers</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="va">dend1</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="va">dend2</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
-  
-  <span class="co"># Calculate tree distance</span>
-  <span class="va">A</span> <span class="op">&lt;-</span> <span class="va">B</span> <span class="op">&lt;-</span> <span class="fl">0</span>
-  <span class="kw">for</span> <span class="op">(</span> <span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_along</a></span><span class="op">(</span><span class="va">part1</span><span class="op">)</span><span class="op">)</span>
-    <span class="va">A</span> <span class="op">&lt;-</span> <span class="va">A</span> <span class="op">+</span> <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/any.html" class="external-link">any</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="va">part2</span>, \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu">equivPart</span><span class="op">(</span><span class="va">part1</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span>, <span class="va">x</span>, <span class="va">allmembers</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
-  
-  <span class="kw">for</span> <span class="op">(</span> <span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_along</a></span><span class="op">(</span><span class="va">part2</span><span class="op">)</span><span class="op">)</span>
-    <span class="va">B</span> <span class="op">&lt;-</span> <span class="va">B</span> <span class="op">+</span> <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/any.html" class="external-link">any</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="va">part1</span>, \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu">equivPart</span><span class="op">(</span><span class="va">part2</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span>, <span class="va">x</span>, <span class="va">allmembers</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
-  
-  <span class="co"># This implementation normalizes to get a distance out of 1</span>
-  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="op">(</span><span class="va">A</span><span class="op">+</span><span class="va">B</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">part1</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">part2</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
-<span class="op">}</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">RF_Distance</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">dend1</span>, <span class="va">dend2</span><span class="op">)</span><span class="op">{</span></span>
+<span>  <span class="co"># Get all partitions</span></span>
+<span>  <span class="va">part1</span> <span class="op">&lt;-</span> <span class="fu">flatdendrapply</span><span class="op">(</span><span class="va">dend1</span>, <span class="va">unlist</span>, <span class="cn">NULL</span><span class="op">)</span></span>
+<span>  <span class="va">part2</span> <span class="op">&lt;-</span> <span class="fu">flatdendrapply</span><span class="op">(</span><span class="va">dend2</span>, <span class="va">unlist</span>, <span class="cn">NULL</span><span class="op">)</span></span>
+<span>  <span class="va">allmembers</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="va">dend1</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="va">dend2</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="co"># Calculate tree distance</span></span>
+<span>  <span class="va">A</span> <span class="op">&lt;-</span> <span class="va">B</span> <span class="op">&lt;-</span> <span class="fl">0</span></span>
+<span>  <span class="kw">for</span> <span class="op">(</span> <span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_along</a></span><span class="op">(</span><span class="va">part1</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="va">A</span> <span class="op">&lt;-</span> <span class="va">A</span> <span class="op">+</span> <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/any.html" class="external-link">any</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="va">part2</span>, \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu">equivPart</span><span class="op">(</span><span class="va">part1</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span>, <span class="va">x</span>, <span class="va">allmembers</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="kw">for</span> <span class="op">(</span> <span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_along</a></span><span class="op">(</span><span class="va">part2</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="va">B</span> <span class="op">&lt;-</span> <span class="va">B</span> <span class="op">+</span> <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/any.html" class="external-link">any</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="va">part1</span>, \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu">equivPart</span><span class="op">(</span><span class="va">part2</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span>, <span class="va">x</span>, <span class="va">allmembers</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="co"># This implementation normalizes to get a distance out of 1</span></span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="op">(</span><span class="va">A</span><span class="op">+</span><span class="va">B</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">part1</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">part2</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="kuhner-felsenstein-distance">Kuhner-Felsenstein Distance<a class="anchor" aria-label="anchor" href="#kuhner-felsenstein-distance"></a>
 </h3>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">KF_Distance</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">dend1</span>, <span class="va">dend2</span><span class="op">)</span><span class="op">{</span>
-  <span class="co"># Get all branch lengths and partitions</span>
-  <span class="va">part1</span> <span class="op">&lt;-</span> <span class="fu">flatdendrapply</span><span class="op">(</span><span class="va">dend1</span>, <span class="va">get_branch_length</span>, <span class="cn">NULL</span><span class="op">)</span>
-  <span class="va">part2</span> <span class="op">&lt;-</span> <span class="fu">flatdendrapply</span><span class="op">(</span><span class="va">dend2</span>, <span class="va">get_branch_length</span>, <span class="cn">NULL</span><span class="op">)</span>
-  
-  <span class="co"># Each function call returns a length of list two, we just want the members</span>
-  <span class="va">part1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="va">part1</span>, recursive<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span>
-  <span class="va">part2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="va">part2</span>, recursive<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span>
-  
-  <span class="co"># Root is split into two branches, need to combine</span>
-  <span class="va">part1</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">length</span> <span class="op">&lt;-</span> <span class="va">part1</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">length</span> <span class="op">+</span> <span class="va">part1</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">length</span>
-  <span class="va">part2</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">length</span> <span class="op">&lt;-</span> <span class="va">part2</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">length</span> <span class="op">+</span> <span class="va">part2</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">length</span>
-  <span class="va">part1</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">part2</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="cn">NULL</span>
-  
-  <span class="va">allmembers</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="va">dend1</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="va">dend2</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
-  
-  <span class="co"># For each</span>
-  <span class="va">treedist</span> <span class="op">&lt;-</span> <span class="fl">0</span>
-  <span class="kw">for</span> <span class="op">(</span> <span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_along</a></span><span class="op">(</span><span class="va">part1</span><span class="op">)</span><span class="op">)</span><span class="op">{</span>
-    <span class="va">check</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="va">part2</span>, \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu">equivPart</span><span class="op">(</span><span class="va">part1</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">part</span>, <span class="va">x</span><span class="op">$</span><span class="va">part</span>, <span class="va">allmembers</span><span class="op">)</span><span class="op">)</span>
-    <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/any.html" class="external-link">any</a></span><span class="op">(</span><span class="va">check</span><span class="op">)</span><span class="op">)</span><span class="op">{</span>
-      <span class="va">loc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="va">check</span><span class="op">)</span>
-      <span class="va">treedist</span> <span class="op">&lt;-</span> <span class="va">treedist</span> <span class="op">+</span> <span class="op">(</span><span class="va">part1</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">length</span> <span class="op">-</span> <span class="va">part2</span><span class="op">[[</span><span class="va">loc</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">length</span><span class="op">)</span><span class="op">**</span><span class="fl">2</span>
-    <span class="op">}</span>
-  <span class="op">}</span>
-  <span class="kw">for</span> <span class="op">(</span> <span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_along</a></span><span class="op">(</span><span class="va">part2</span><span class="op">)</span><span class="op">)</span><span class="op">{</span>
-    <span class="va">check</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="va">part1</span>, \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu">equivPart</span><span class="op">(</span><span class="va">part2</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">part</span>, <span class="va">x</span><span class="op">$</span><span class="va">part</span>, <span class="va">allmembers</span><span class="op">)</span><span class="op">)</span>
-    <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/any.html" class="external-link">any</a></span><span class="op">(</span><span class="va">check</span><span class="op">)</span><span class="op">)</span><span class="op">{</span>
-      <span class="va">loc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="va">check</span><span class="op">)</span>
-      <span class="va">treedist</span> <span class="op">&lt;-</span> <span class="va">treedist</span> <span class="op">+</span> <span class="op">(</span><span class="va">part2</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">length</span> <span class="op">-</span> <span class="va">part1</span><span class="op">[[</span><span class="va">loc</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">length</span><span class="op">)</span><span class="op">**</span><span class="fl">2</span>
-    <span class="op">}</span>
-  <span class="op">}</span>
-  
-  <span class="co">## divided by two since duplicates will be added twice</span>
-  <span class="co">## probably worth reworking at some point to avoid adding duplicates twice,</span>
-  <span class="co">## this is just a quick fix</span>
-  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="va">treedist</span><span class="op">/</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span>
-<span class="op">}</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">KF_Distance</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">dend1</span>, <span class="va">dend2</span><span class="op">)</span><span class="op">{</span></span>
+<span>  <span class="co"># Get all branch lengths and partitions</span></span>
+<span>  <span class="va">part1</span> <span class="op">&lt;-</span> <span class="fu">flatdendrapply</span><span class="op">(</span><span class="va">dend1</span>, <span class="va">get_branch_length</span>, <span class="cn">NULL</span><span class="op">)</span></span>
+<span>  <span class="va">part2</span> <span class="op">&lt;-</span> <span class="fu">flatdendrapply</span><span class="op">(</span><span class="va">dend2</span>, <span class="va">get_branch_length</span>, <span class="cn">NULL</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="co"># Each function call returns a length of list two, we just want the members</span></span>
+<span>  <span class="va">part1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="va">part1</span>, recursive<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span>
+<span>  <span class="va">part2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="va">part2</span>, recursive<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="co"># Root is split into two branches, need to combine</span></span>
+<span>  <span class="va">part1</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">length</span> <span class="op">&lt;-</span> <span class="va">part1</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">length</span> <span class="op">+</span> <span class="va">part1</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">length</span></span>
+<span>  <span class="va">part2</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">length</span> <span class="op">&lt;-</span> <span class="va">part2</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">length</span> <span class="op">+</span> <span class="va">part2</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">length</span></span>
+<span>  <span class="va">part1</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">part2</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="cn">NULL</span></span>
+<span>  </span>
+<span>  <span class="va">allmembers</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="va">dend1</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="va">dend2</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="co"># For each</span></span>
+<span>  <span class="va">treedist</span> <span class="op">&lt;-</span> <span class="fl">0</span></span>
+<span>  <span class="kw">for</span> <span class="op">(</span> <span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_along</a></span><span class="op">(</span><span class="va">part1</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
+<span>    <span class="va">check</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="va">part2</span>, \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu">equivPart</span><span class="op">(</span><span class="va">part1</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">part</span>, <span class="va">x</span><span class="op">$</span><span class="va">part</span>, <span class="va">allmembers</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/any.html" class="external-link">any</a></span><span class="op">(</span><span class="va">check</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
+<span>      <span class="va">loc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="va">check</span><span class="op">)</span></span>
+<span>      <span class="va">treedist</span> <span class="op">&lt;-</span> <span class="va">treedist</span> <span class="op">+</span> <span class="op">(</span><span class="va">part1</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">length</span> <span class="op">-</span> <span class="va">part2</span><span class="op">[[</span><span class="va">loc</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">length</span><span class="op">)</span><span class="op">**</span><span class="fl">2</span></span>
+<span>    <span class="op">}</span></span>
+<span>  <span class="op">}</span></span>
+<span>  <span class="kw">for</span> <span class="op">(</span> <span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_along</a></span><span class="op">(</span><span class="va">part2</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
+<span>    <span class="va">check</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="va">part1</span>, \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu">equivPart</span><span class="op">(</span><span class="va">part2</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">part</span>, <span class="va">x</span><span class="op">$</span><span class="va">part</span>, <span class="va">allmembers</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/any.html" class="external-link">any</a></span><span class="op">(</span><span class="va">check</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
+<span>      <span class="va">loc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="va">check</span><span class="op">)</span></span>
+<span>      <span class="va">treedist</span> <span class="op">&lt;-</span> <span class="va">treedist</span> <span class="op">+</span> <span class="op">(</span><span class="va">part2</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">length</span> <span class="op">-</span> <span class="va">part1</span><span class="op">[[</span><span class="va">loc</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">length</span><span class="op">)</span><span class="op">**</span><span class="fl">2</span></span>
+<span>    <span class="op">}</span></span>
+<span>  <span class="op">}</span></span>
+<span>  </span>
+<span>  <span class="co">## divided by two since duplicates will be added twice</span></span>
+<span>  <span class="co">## probably worth reworking at some point to avoid adding duplicates twice,</span></span>
+<span>  <span class="co">## this is just a quick fix</span></span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="va">treedist</span><span class="op">/</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">RFDists</span> <span class="op">&lt;-</span> <span class="va">KFDists</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">0</span>, nrow<span class="op">=</span><span class="fl">3</span>, ncol<span class="op">=</span><span class="fl">3</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">RFDists</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">KFDists</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">RFDists</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">KFDists</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'UPGMA'</span>, <span class="st">'NJ'</span>, <span class="st">'MP'</span><span class="op">)</span>
-
-<span class="va">RFDists</span><span class="op">[</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">RFDists</span><span class="op">[</span><span class="fl">2</span>,<span class="fl">1</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu">RF_Distance</span><span class="op">(</span><span class="va">UPGMAtree</span>, <span class="va">NJtree</span><span class="op">)</span>
-<span class="va">RFDists</span><span class="op">[</span><span class="fl">1</span>,<span class="fl">3</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">RFDists</span><span class="op">[</span><span class="fl">3</span>,<span class="fl">1</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu">RF_Distance</span><span class="op">(</span><span class="va">UPGMAtree</span>, <span class="va">MPtree</span><span class="op">)</span>
-<span class="va">RFDists</span><span class="op">[</span><span class="fl">2</span>,<span class="fl">3</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">RFDists</span><span class="op">[</span><span class="fl">3</span>,<span class="fl">2</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu">RF_Distance</span><span class="op">(</span><span class="va">NJtree</span>, <span class="va">MPtree</span><span class="op">)</span>
-<span class="va">KFDists</span><span class="op">[</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">KFDists</span><span class="op">[</span><span class="fl">2</span>,<span class="fl">1</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu">KF_Distance</span><span class="op">(</span><span class="va">UPGMAtree</span>, <span class="va">NJtree</span><span class="op">)</span>
-<span class="va">KFDists</span><span class="op">[</span><span class="fl">1</span>,<span class="fl">3</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">KFDists</span><span class="op">[</span><span class="fl">3</span>,<span class="fl">1</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu">KF_Distance</span><span class="op">(</span><span class="va">UPGMAtree</span>, <span class="va">MPtree</span><span class="op">)</span>
-<span class="va">KFDists</span><span class="op">[</span><span class="fl">2</span>,<span class="fl">3</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">KFDists</span><span class="op">[</span><span class="fl">3</span>,<span class="fl">2</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu">KF_Distance</span><span class="op">(</span><span class="va">NJtree</span>, <span class="va">MPtree</span><span class="op">)</span>
-
-<span class="va">RFDists</span></code></pre></div>
-<pre><code><span class="co">##           UPGMA        NJ        MP</span>
-<span class="co">## UPGMA 0.0000000 0.2608696 0.4347826</span>
-<span class="co">## NJ    0.2608696 0.0000000 0.3043478</span>
-<span class="co">## MP    0.4347826 0.3043478 0.0000000</span></code></pre>
+<code class="sourceCode R"><span><span class="va">RFDists</span> <span class="op">&lt;-</span> <span class="va">KFDists</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">0</span>, nrow<span class="op">=</span><span class="fl">3</span>, ncol<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">RFDists</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">KFDists</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">RFDists</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">KFDists</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'UPGMA'</span>, <span class="st">'NJ'</span>, <span class="st">'MP'</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">RFDists</span><span class="op">[</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">RFDists</span><span class="op">[</span><span class="fl">2</span>,<span class="fl">1</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu">RF_Distance</span><span class="op">(</span><span class="va">UPGMAtree</span>, <span class="va">NJtree</span><span class="op">)</span></span>
+<span><span class="va">RFDists</span><span class="op">[</span><span class="fl">1</span>,<span class="fl">3</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">RFDists</span><span class="op">[</span><span class="fl">3</span>,<span class="fl">1</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu">RF_Distance</span><span class="op">(</span><span class="va">UPGMAtree</span>, <span class="va">MPtree</span><span class="op">)</span></span>
+<span><span class="va">RFDists</span><span class="op">[</span><span class="fl">2</span>,<span class="fl">3</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">RFDists</span><span class="op">[</span><span class="fl">3</span>,<span class="fl">2</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu">RF_Distance</span><span class="op">(</span><span class="va">NJtree</span>, <span class="va">MPtree</span><span class="op">)</span></span>
+<span><span class="va">KFDists</span><span class="op">[</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">KFDists</span><span class="op">[</span><span class="fl">2</span>,<span class="fl">1</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu">KF_Distance</span><span class="op">(</span><span class="va">UPGMAtree</span>, <span class="va">NJtree</span><span class="op">)</span></span>
+<span><span class="va">KFDists</span><span class="op">[</span><span class="fl">1</span>,<span class="fl">3</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">KFDists</span><span class="op">[</span><span class="fl">3</span>,<span class="fl">1</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu">KF_Distance</span><span class="op">(</span><span class="va">UPGMAtree</span>, <span class="va">MPtree</span><span class="op">)</span></span>
+<span><span class="va">KFDists</span><span class="op">[</span><span class="fl">2</span>,<span class="fl">3</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">KFDists</span><span class="op">[</span><span class="fl">3</span>,<span class="fl">2</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu">KF_Distance</span><span class="op">(</span><span class="va">NJtree</span>, <span class="va">MPtree</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">RFDists</span></span></code></pre></div>
+<pre><code><span><span class="co">##           UPGMA        NJ        MP</span></span>
+<span><span class="co">## UPGMA 0.0000000 0.2608696 0.3913043</span></span>
+<span><span class="co">## NJ    0.2608696 0.0000000 0.1739130</span></span>
+<span><span class="co">## MP    0.3913043 0.1739130 0.0000000</span></span></code></pre>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">KFDists</span></code></pre></div>
-<pre><code><span class="co">##           UPGMA        NJ        MP</span>
-<span class="co">## UPGMA 0.0000000 0.9712953 0.9367571</span>
-<span class="co">## NJ    0.9712953 0.0000000 0.3417885</span>
-<span class="co">## MP    0.9367571 0.3417885 0.0000000</span></code></pre>
+<code class="sourceCode R"><span><span class="va">KFDists</span></span></code></pre></div>
+<pre><code><span><span class="co">##           UPGMA        NJ        MP</span></span>
+<span><span class="co">## UPGMA 0.0000000 0.9712953 1.0576254</span></span>
+<span><span class="co">## NJ    0.9712953 0.0000000 0.3221109</span></span>
+<span><span class="co">## MP    1.0576254 0.3221109 0.0000000</span></span></code></pre>
 <hr>
 </div>
 </div>
@@ -519,7 +519,7 @@ different results.</p>
 
 <div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
     </footer>

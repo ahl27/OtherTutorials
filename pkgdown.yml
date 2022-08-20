@@ -1,11 +1,11 @@
-pandoc: 2.17.1.1
-pkgdown: 2.0.4
+pandoc: '2.18'
+pkgdown: 2.0.6
 pkgdown_sha: ~
 articles:
   BuildingTrees: BuildingTrees.html
   ComparingTrees: ComparingTrees.html
   IntroPhylogenetics: IntroPhylogenetics.html
-last_built: 2022-06-17T16:44Z
+last_built: 2022-08-20T04:42Z
 urls:
   reference: https://www.ahl27.com/IntroPhylogenetics/reference
   article: https://www.ahl27.com/IntroPhylogenetics/articles
