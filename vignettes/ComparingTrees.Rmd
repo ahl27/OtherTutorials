@@ -187,16 +187,77 @@ RF_dist_external(UPGMAtree, MPtree)
 RF_dist_external(NJtree, MPtree)
 ```
 
+## Generalized Robinson-Foulds Distance
+
+As mentioned before, RF distance has a number of drawbacks. Correcting these
+has led to a family of metrics referred to as "Generalized Robinson-Foulds Distances".
+These metrics attempt to measure differences in partitions not as binary
+values, but as continuous measures to incorporate *how* different a given 
+partition is from another. Two of the most successful of these measures are the
+information-theoretic generalized RF Distance measures, Phylogenetic Information
+Content and Mutual Clustering Information. Description of these metrics is sourced
+from [Smith (2020)](https://dro.dur.ac.uk/31189/1/31189.pdf).
+
+RF Distance always operates on partitions. Let a given partition be defined as 
+$S = A|B$, where $A$ and $B$ are disjoint leaf sets. In classic RF Distance, 
+if we have an $S$ such that no identical $S$ exists in the other tree, we add one
+to the distance.
+
+### Phylogenetic Information Content
+
+In Phylogenetic Information Content, we instead score each pair of partitions
+using the probability we would encounter a similar partition by chance. For a given
+set of $n$ genomes, there are $(2n-5)!!$ possible unrooted binary trees. Here
+$x!!$ is the double factorial, defined as $x!! = x * (x-2)!!$ with $1!!=0!!=1$.
+Then for a given pair of splits $S_1 = A_1|B_1$ and $S_2 = A_2|B_2$ on a 
+tree with $n$ leaves, the probability of a randomly chosen binary tree containing
+these two splits is then:
+
+\begin{align*}
+P(S_1,S_2) = \frac{(2(|B_1|+1)-5)!!(2(|A_2|+1)-5)!!(2(|A_1|-|A_2|+2)-5)!!}{(2n-5)!!}
+\end{align*}
+
+To obtain shared phylogenetic information, for each pair of splits we set 
+$h = 0$ if $S_1$ and $S_2$ conflict, and $h(S_1) + h(S_2) + h(S_1,S_2)$ with
+$h(S_1,S_2) = -\log(P(S_1,S_2))$. Summing this value across an optimal pairing of
+nodes results in the Shared Phylogenetic Information Score.
+
+### Mutual Clustering Information
+
+Mutual Clustering Information is similar to Shared Phylogenetic Information in that
+it quantifies the similarity of a given partition, but this metric instead uses
+mutual information of the partition rather than a p-value-like measure. 
+
+Let $P(A) = \frac{|A|}{n}$, and $P(A_1,A_2) = \frac{|A_1 \cap A_2|}{n}$. Then
+the mutual clustering information between two splits $S_1 = A_1|B_1$ and $S_2 = A_2|B_2$
+is given as:
+
+\begin{align*}
+I(S_1, S_2) = &P(A_1,A_2)\log\frac{P(A_1,A_2)}{P(A_1)P(A_2)} + \\
+&P(A_1,B_2)\log\frac{P(A_1,B_2)}{P(A_1)P(B_2)} + \\
+&P(B_1,A_2)\log\frac{P(B_1,A_2)}{P(B_1)P(A_2)} + \\
+&P(B_1,B_2)\log\frac{P(B_1,B_2)}{P(B_1)P(B_2)}
+\end{align*}
+
+The individual entropy of a given split $h(S)$ is given as $-[P(A)\log P(A) +P(B)\log P(B)]$.
+Summing $I$ over an optimal pairing of splits produces the mutual clustering information score.
+This can be converted into a distance by taking:
+
+\begin{align*}
+CID = \sum_{S_1 \in T_1} h(S_1) + \sum_{S_2 \in T_2} h(S_2) - 
+\sum{(s_1,s_2) \in Pairing} I(s_1, s_2)
+\end{align*}
 
 ## Other Metrics
 
 These are two commonly used metrics, but many more are implemented in the `TreeDist` package. Notable recent tree distance measures include:
 
-- `TreeDist::TreeDistance` methods, using generalized RF distance from Smith (2020)
+- `TreeDist::TreeDistance` methods, using generalized RF distance from Smith (2020). This metric is also implemented in `SynExtend`.
 - `TreeDist::JaccardRobinsonFoulds` and `TreeDist:NyeSimilarity`, both generalized RF distances.
 - `TreeDist::KendallColijn`, a distance that measures difference in path lengths between pairs of leaves
 - `TreeDist::MASTSize`, a distance that measures the largest agreement subtree between two trees
 
+A comprehensive evaluation of many of these metrics is available in [this paper](https://dro.dur.ac.uk/31189/1/31189.pdf).
 ***
 
 ## Manual Implementations
@@ -337,9 +398,21 @@ KF_Distance <- function(dend1, dend2){
 }
 ```
 
+### Generalized RF Distance
 ```{r}
-RFDists <- KFDists <- matrix(0, nrow=3, ncol=3)
-rownames(RFDists) <- rownames(KFDists) <- colnames(RFDists) <- colnames(KFDists) <- c('UPGMA', 'NJ', 'MP')
+GRF <- function(dend1, dend2){
+  require(SynExtend)
+  return(GeneralizedRF(dend1, dend2))
+}
+```
+
+### Comparison
+
+```{r}
+RFDists <- KFDists <- GRFDists <- matrix(0, nrow=3, ncol=3)
+rownames(RFDists) <- rownames(KFDists) <- rownames(GRFDists) <-
+  colnames(RFDists) <- colnames(KFDists) <- colnames(GRFDists) <-
+  c('UPGMA', 'NJ', 'MP')
 
 RFDists[1,2] <- RFDists[2,1] <- RF_Distance(UPGMAtree, NJtree)
 RFDists[1,3] <- RFDists[3,1] <- RF_Distance(UPGMAtree, MPtree)
@@ -347,9 +420,13 @@ RFDists[2,3] <- RFDists[3,2] <- RF_Distance(NJtree, MPtree)
 KFDists[1,2] <- KFDists[2,1] <- KF_Distance(UPGMAtree, NJtree)
 KFDists[1,3] <- KFDists[3,1] <- KF_Distance(UPGMAtree, MPtree)
 KFDists[2,3] <- KFDists[3,2] <- KF_Distance(NJtree, MPtree)
+#GRFDists[1,2] <- GRFDists[2,1] <- GRF(UPGMAtree, NJtree)
+#GRFDists[1,3] <- GRFDists[3,1] <- GRF(UPGMAtree, MPtree)
+#GRFDists[2,3] <- GRFDists[3,2] <- GRF(NJtree, MPtree)
 
 RFDists
 KFDists
+#GRFDists
 ```
 
 ***
