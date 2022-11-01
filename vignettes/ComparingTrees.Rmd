@@ -233,10 +233,10 @@ the mutual clustering information between two splits $S_1 = A_1|B_1$ and $S_2 = 
 is given as:
 
 \begin{align*}
-I(S_1, S_2) = &P(A_1,A_2)\log\frac{P(A_1,A_2)}{P(A_1)P(A_2)} + \\
-&P(A_1,B_2)\log\frac{P(A_1,B_2)}{P(A_1)P(B_2)} + \\
-&P(B_1,A_2)\log\frac{P(B_1,A_2)}{P(B_1)P(A_2)} + \\
-&P(B_1,B_2)\log\frac{P(B_1,B_2)}{P(B_1)P(B_2)}
+I(S_1, S_2) = P(A_1,A_2)&\log\frac{P(A_1,A_2)}{P(A_1)P(A_2)} +
+P(A_1,B_2)\log\frac{P(A_1,B_2)}{P(A_1)P(B_2)} + \\ & \\
+&P(B_1,A_2)\log\frac{P(B_1,A_2)}{P(B_1)P(A_2)} +
+P(B_1,B_2)\log\frac{P(B_1,B_2)}{P(B_1)P(B_2)}
 \end{align*}
 
 The individual entropy of a given split $h(S)$ is given as $-[P(A)\log P(A) +P(B)\log P(B)]$.
@@ -244,9 +244,21 @@ Summing $I$ over an optimal pairing of splits produces the mutual clustering inf
 This can be converted into a distance by taking:
 
 \begin{align*}
-CID = \sum_{S_1 \in T_1} h(S_1) + \sum_{S_2 \in T_2} h(S_2) - 
-\sum{(s_1,s_2) \in Pairing} I(s_1, s_2)
+CID = \frac{\sum_{S_1 \in T_1} h(S_1) + \sum_{S_2 \in T_2} h(S_2) - 
+\sum_{(s_1,s_2) \in Pairing} I(s_1, s_2)}{\sum_{S_1 \in T_1} h(S_1) + \sum_{S_2 \in T_2} h(S_2)}
 \end{align*}
+
+Where $S_i \in T_i$ is the splits in the first tree and $Pairing$ is an optimal
+pairing of splits between the two trees.
+
+### R Implementation
+```{r, eval=FALSE}
+library(SynExtend)
+
+GeneralizedRF(UPGMAtree, NJtree)
+GeneralizedRF(UPGMAtree, MPtree)
+GeneralizedRF(NJtree, MPtree)
+```
 
 ## Other Metrics
 
