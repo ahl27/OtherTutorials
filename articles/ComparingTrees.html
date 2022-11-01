@@ -230,7 +230,7 @@ the RF distance is <span class="math inline">\(0.5\)</span>.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">RF_dist_external</span><span class="op">(</span><span class="va">UPGMAtree</span>, <span class="va">MPtree</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##       tree1</span></span>
-<span><span class="co">## tree2    18</span></span></code></pre>
+<span><span class="co">## tree2    16</span></span></code></pre>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">RF_dist_external</span><span class="op">(</span><span class="va">NJtree</span>, <span class="va">MPtree</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##       tree1</span></span>
@@ -312,7 +312,7 @@ small differences in topology and upweight large differences.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">RF_dist_external</span><span class="op">(</span><span class="va">UPGMAtree</span>, <span class="va">MPtree</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##       tree1</span></span>
-<span><span class="co">## tree2    18</span></span></code></pre>
+<span><span class="co">## tree2    16</span></span></code></pre>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">RF_dist_external</span><span class="op">(</span><span class="va">NJtree</span>, <span class="va">MPtree</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##       tree1</span></span>
@@ -458,11 +458,13 @@ measuring how many NNIs are required to transform one tree into another.
 <div class="section level2">
 <h2 id="manual-implementations">Manual Implementations<a class="anchor" aria-label="anchor" href="#manual-implementations"></a>
 </h2>
-<p>I wrote implementations of both distances from scratch to illustrate
-how these functions are working under the hood. Note that external
-packages incorporate some optimizations I didn’t implement that lead to
-different results. The best of these is <code>GeneralizedRF()</code>,
-available through <code>SynExtend</code>.</p>
+<p>I wrote implementations of RF, KF, and GRF distances from scratch to
+illustrate how these functions are working under the hood. Note that
+external packages incorporate some optimizations for RF/KF I didn’t
+implement that lead to different results. The best of these is
+<code>GeneralizedRF()</code>, available through <code>SynExtend</code>
+(not shown here since it is significantly longer than the other two
+methods).</p>
 <div class="section level3">
 <h3 id="helper-functions">Helper functions<a class="anchor" aria-label="anchor" href="#helper-functions"></a>
 </h3>
@@ -626,15 +628,15 @@ available through <code>SynExtend</code>.</p>
 <span></span>
 <span><span class="va">RFDists</span></span></code></pre></div>
 <pre><code><span><span class="co">##           UPGMA        NJ        MP</span></span>
-<span><span class="co">## UPGMA 0.0000000 0.2608696 0.3913043</span></span>
+<span><span class="co">## UPGMA 0.0000000 0.2608696 0.3478261</span></span>
 <span><span class="co">## NJ    0.2608696 0.0000000 0.2608696</span></span>
-<span><span class="co">## MP    0.3913043 0.2608696 0.0000000</span></span></code></pre>
+<span><span class="co">## MP    0.3478261 0.2608696 0.0000000</span></span></code></pre>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">KFDists</span></span></code></pre></div>
 <pre><code><span><span class="co">##           UPGMA        NJ        MP</span></span>
-<span><span class="co">## UPGMA 0.0000000 0.9712953 1.0394699</span></span>
-<span><span class="co">## NJ    0.9712953 0.0000000 0.3452422</span></span>
-<span><span class="co">## MP    1.0394699 0.3452422 0.0000000</span></span></code></pre>
+<span><span class="co">## UPGMA 0.0000000 0.9712953 1.0726076</span></span>
+<span><span class="co">## NJ    0.9712953 0.0000000 0.3829318</span></span>
+<span><span class="co">## MP    1.0726076 0.3829318 0.0000000</span></span></code></pre>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#GRFDists</span></span></code></pre></div>
 <hr>
