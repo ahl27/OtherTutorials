@@ -11,9 +11,13 @@ editor_options:
     wrap: 72
 ---
 
-Making trees is nice, but how do we compare them? Comparing trees is a difficult problem, since they can contain significantly different topologies.
+Making trees is nice, but how do we compare them? Comparing trees is a
+difficult problem, since they can contain significantly different
+topologies.
 
-In this discussion I'll cover two common ways of calculating distances between trees: Robinson-Foulds (RF) Distance and Kuhner-Felsenstein (KF) distance.
+In this discussion I'll cover two common ways of calculating distances
+between trees: Robinson-Foulds (RF) Distance and Kuhner-Felsenstein (KF)
+distance.
 
 ```{r setup, include=TRUE, warning=FALSE, message=FALSE}
 # Package imports
@@ -31,7 +35,10 @@ plot_tree_unrooted <- function(dend, title){
 
 ## Setup
 
-We'll start with a slightly larger test dataset so that we can more clearly see differences between tree constructions. The following codeblocks read in a set of 25 simulated alignments, then constructs phylogenetic trees using the three methods discussed previously.
+We'll start with a slightly larger test dataset so that we can more
+clearly see differences between tree constructions. The following
+codeblocks read in a set of 25 simulated alignments, then constructs
+phylogenetic trees using the three methods discussed previously.
 
 ```{css echo=FALSE}
 .hvr-grow-shadow {
@@ -52,7 +59,6 @@ We'll start with a slightly larger test dataset so that we can more clearly see 
 }
 ```
 
-
 ```{r echo=FALSE}
 fname <- system.file('extdata', 'Simulated_v1.fas', package='IntroPhylogenetics')
 link <- "https://github.com/ahl27/IntroPhylogenetics/blob/5347f97d4ad861a3055dbaa505205b5ce68ef93c/inst/extdata/Simulated_v1.fas"
@@ -68,9 +74,9 @@ downloadthis::download_file(
 )
 ```
 
-&nbsp;
+ 
 
-&nbsp;
+ 
 
 ```{r, results='hide'}
 # External data file, contains simulated alignment
@@ -85,7 +91,6 @@ NJtree <- TreeLine(simAli, myDistMatrix=simDm, method='NJ')
 MPtree <- TreeLine(simAli, myDistMatrix=simDm, method='MP')
 ```
 
-
 Visualizing the trees we've made:
 
 ```{r}
@@ -96,26 +101,44 @@ plot_tree_unrooted(MPtree, 'MP')
 
 ## Partitions
 
-Before we dive into tree distances, it's important to understand the concept of
-partitions. In a bifurcating unrooted tree, every edge divides the set of leaf nodes into two sets. These form the basis of many tree comparison algorithms. Let's look at a toy example:
+Before we dive into tree distances, it's important to understand the
+concept of partitions. In a bifurcating unrooted tree, every edge
+divides the set of leaf nodes into two sets. These form the basis of
+many tree comparison algorithms. Let's look at a toy example:
 
 ![](part1.png)
 
-Note how each numbered edge of the tree splits the labeled leaf nodes into two distinct groups to either side of it. Leaf edges trivially split the tree into a partition of just the leaf and everything else, but internal edges split the leaves into more interesting partitions.
+Note how each numbered edge of the tree splits the labeled leaf nodes
+into two distinct groups to either side of it. Leaf edges trivially
+split the tree into a partition of just the leaf and everything else,
+but internal edges split the leaves into more interesting partitions.
 
 ## RF Distance
 
-Robinson-Foulds (RF) distance measures the similarity of these partitions in a tree. Let's look at a toy example with two small trees and their internal partitions labeled (internal edges circled in green):
+Robinson-Foulds (RF) distance measures the similarity of these
+partitions in a tree. Let's look at a toy example with two small trees
+and their internal partitions labeled (internal edges circled in green):
 
 ![](part2.png)
 
-Now let $A$ be the number of partitions unique to the first tree, and $B$ the number of partitions unique to the second tree. The RF distance (also called the symmetric difference metric) is simply the quantity $(A+B)$.
+Now let $A$ be the number of partitions unique to the first tree, and
+$B$ the number of partitions unique to the second tree. The RF distance
+(also called the symmetric difference metric) is simply the quantity
+$(A+B)$.
 
-For this example, note that edge 2 is an identical partition to edge II. Thus, the first tree has one unique partition, and the second tree has one unique partition, so the RF distance is $1+1=2$. 
+For this example, note that edge 2 is an identical partition to edge II.
+Thus, the first tree has one unique partition, and the second tree has
+one unique partition, so the RF distance is $1+1=2$.
 
-Some implementations change the metric slightly by scaling it, either by dividing by two or scaling the metric to have a maximum value of 1. The latter operation can be done by dividing by the maximum possible score, which is just the sum of the total number of branches. In this case, the total number of internal branches is 4 (2 from each tree), so the RF distance is $0.5$.
+Some implementations change the metric slightly by scaling it, either by
+dividing by two or scaling the metric to have a maximum value of 1. The
+latter operation can be done by dividing by the maximum possible score,
+which is just the sum of the total number of branches. In this case, the
+total number of internal branches is 4 (2 from each tree), so the RF
+distance is $0.5$.
 
 ### R implementation
+
 ```{r, warning=FALSE}
 RF_dist_external <- function(dend1, dend2){
   tf <- tempfile()
@@ -136,39 +159,61 @@ RF_dist_external(NJtree, MPtree)
 
 ### Drawbacks
 
-RF distance is widely used, but has some common issues that should be kept in mind while using it:
+RF distance is widely used, but has some common issues that should be
+kept in mind while using it:
 
-- Lacks sensitivity
-  - Similar trees can receive the same value
-  - Range of values depends on tree shape
-  - Doesn't look at branch length
-- Can't recognize similar clades (any difference increases distance score)
-- Original implementation assumes bifurcating, unrooted tree with same leaf set
-- Distance is not immediately statistically interpretable (larger $\neq$ significant)
+-   Lacks sensitivity
+    -   Similar trees can receive the same value
+    -   Range of values depends on tree shape
+    -   Doesn't look at branch length
+-   Can't recognize similar clades (any difference increases distance
+    score)
+-   Original implementation assumes bifurcating, unrooted tree with same
+    leaf set
+-   Distance is not immediately statistically interpretable (larger
+    $\neq$ significant)
 
-Some of these drawbacks have been accounted for with subsequent optimization, and 'generalized RF distances' have been created that can account for similar sets while working on multifurcating trees with different leaf sets.
+Some of these drawbacks have been accounted for with subsequent
+optimization, and 'generalized RF distances' have been created that can
+account for similar sets while working on multifurcating trees with
+different leaf sets.
 
-***
+------------------------------------------------------------------------
 
 ## KF Distance
 
-The Kuhner-Felsenstein (KF) distance attempts to incorporate branch lengths into the RF distance to gain a richer description of the differences between two trees. 
+The Kuhner-Felsenstein (KF) distance attempts to incorporate branch
+lengths into the RF distance to gain a richer description of the
+differences between two trees.
 
-Recall that the RF distance is the number of unique (non-shared) partitions in the tree. The KF distance is instead taken as the sum of the squared difference of branch lengths for each equivalent partition in the two trees. If a partition is a unique to a particular tree, it is taken as having a branch length of 0 in the other tree. Below is an updated version of our previous example with branch lengths added in pink (partitions labeled):
+Recall that the RF distance is the number of unique (non-shared)
+partitions in the tree. The KF distance is instead taken as the sum of
+the squared difference of branch lengths for each equivalent partition
+in the two trees. If a partition is a unique to a particular tree, it is
+taken as having a branch length of 0 in the other tree. Below is an
+updated version of our previous example with branch lengths added in
+pink (partitions labeled):
 
 ![](part3.png)
 
-Here we will also examine the leaf branches, but since the leaf set is the same and branch lengths are identical, all of these branches cancel each other out. One pair of branches is an equivalent partition (2 and II), and the other two are unique. The KF distance is then:
+Here we will also examine the leaf branches, but since the leaf set is
+the same and branch lengths are identical, all of these branches cancel
+each other out. One pair of branches is an equivalent partition (2 and
+II), and the other two are unique. The KF distance is then:
 
+```{=tex}
 \begin{align*}
 KF(Tr1, Tr2) &= (len(1) - 0)^2 + (0 - len(I))^2 + (len(2) - len(II))^2 \\
 &= (2-0)^2 + (0-6)^2 + (2-3)^2 \\
 &= 41
 \end{align*}
-
-The advantages of this over RF distance is that it can incorporate branch lengths in addition to topology, which allows it to downweight small differences in topology and upweight large differences.
+```
+The advantages of this over RF distance is that it can incorporate
+branch lengths in addition to topology, which allows it to downweight
+small differences in topology and upweight large differences.
 
 ### R Implementation
+
 ```{r, warning=FALSE}
 KF_dist_external <- function(dend1, dend2){
   tf <- tempfile()
@@ -189,69 +234,78 @@ RF_dist_external(NJtree, MPtree)
 
 ## Generalized Robinson-Foulds Distance
 
-As mentioned before, RF distance has a number of drawbacks. Correcting these
-has led to a family of metrics referred to as "Generalized Robinson-Foulds Distances".
-These metrics attempt to measure differences in partitions not as binary
-values, but as continuous measures to incorporate *how* different a given 
-partition is from another. Two of the most successful of these measures are the
-information-theoretic generalized RF Distance measures, Phylogenetic Information
-Content and Mutual Clustering Information. Description of these metrics is sourced
+As mentioned before, RF distance has a number of drawbacks. Correcting
+these has led to a family of metrics referred to as "Generalized
+Robinson-Foulds Distances". These metrics attempt to measure differences
+in partitions not as binary values, but as continuous measures to
+incorporate *how* different a given partition is from another. Two of
+the most successful of these measures are the information-theoretic
+generalized RF Distance measures, Phylogenetic Information Content and
+Mutual Clustering Information. Description of these metrics is sourced
 from [Smith (2020)](https://dro.dur.ac.uk/31189/1/31189.pdf).
 
-RF Distance always operates on partitions. Let a given partition be defined as 
-$S = A|B$, where $A$ and $B$ are disjoint leaf sets. In classic RF Distance, 
-if we have an $S$ such that no identical $S$ exists in the other tree, we add one
-to the distance.
+RF Distance always operates on partitions. Let a given partition be
+defined as $S = A|B$, where $A$ and $B$ are disjoint leaf sets. In
+classic RF Distance, if we have an $S$ such that no identical $S$ exists
+in the other tree, we add one to the distance.
 
 ### Phylogenetic Information Content
 
-In Phylogenetic Information Content, we instead score each pair of partitions
-using the probability we would encounter a similar partition by chance. For a given
-set of $n$ genomes, there are $(2n-5)!!$ possible unrooted binary trees. Here
-$x!!$ is the double factorial, defined as $x!! = x * (x-2)!!$ with $1!!=0!!=1$.
-Then for a given pair of splits $S_1 = A_1|B_1$ and $S_2 = A_2|B_2$ on a 
-tree with $n$ leaves, the probability of a randomly chosen binary tree containing
-these two splits is then:
+In Phylogenetic Information Content, we instead score each pair of
+partitions using the probability we would encounter a similar partition
+by chance. For a given set of $n$ genomes, there are $(2n-5)!!$ possible
+unrooted binary trees. Here $x!!$ is the double factorial, defined as
+$x!! = x * (x-2)!!$ with $1!!=0!!=1$. Then for a given pair of splits
+$S_1 = A_1|B_1$ and $S_2 = A_2|B_2$ on a tree with $n$ leaves, the
+probability of a randomly chosen binary tree containing these two splits
+is then:
 
+```{=tex}
 \begin{align*}
 P(S_1,S_2) = \frac{(2(|B_1|+1)-5)!!(2(|A_2|+1)-5)!!(2(|A_1|-|A_2|+2)-5)!!}{(2n-5)!!}
 \end{align*}
-
-To obtain shared phylogenetic information, for each pair of splits we set 
-$h = 0$ if $S_1$ and $S_2$ conflict, and $h(S_1) + h(S_2) + h(S_1,S_2)$ with
-$h(S_1,S_2) = -\log(P(S_1,S_2))$. Summing this value across an optimal pairing of
-nodes results in the Shared Phylogenetic Information Score.
+```
+To obtain shared phylogenetic information, for each pair of splits we
+set $h = 0$ if $S_1$ and $S_2$ conflict, and
+$h(S_1) + h(S_2) + h(S_1,S_2)$ with $h(S_1,S_2) = -\log(P(S_1,S_2))$.
+Summing this value across an optimal pairing of nodes results in the
+Shared Phylogenetic Information Score.
 
 ### Mutual Clustering Information
 
-Mutual Clustering Information is similar to Shared Phylogenetic Information in that
-it quantifies the similarity of a given partition, but this metric instead uses
-mutual information of the partition rather than a p-value-like measure. 
+Mutual Clustering Information is similar to Shared Phylogenetic
+Information in that it quantifies the similarity of a given partition,
+but this metric instead uses mutual information of the partition rather
+than a p-value-like measure.
 
-Let $P(A) = \frac{|A|}{n}$, and $P(A_1,A_2) = \frac{|A_1 \cap A_2|}{n}$. Then
-the mutual clustering information between two splits $S_1 = A_1|B_1$ and $S_2 = A_2|B_2$
-is given as:
+Let $P(A) = \frac{|A|}{n}$, and $P(A_1,A_2) = \frac{|A_1 \cap A_2|}{n}$.
+Then the mutual clustering information between two splits
+$S_1 = A_1|B_1$ and $S_2 = A_2|B_2$ is given as:
 
+```{=tex}
 \begin{align*}
 I(S_1, S_2) = P(A_1,A_2)\log&\frac{P(A_1,A_2)}{P(A_1)P(A_2)} +
 P(A_1,B_2)\log\frac{P(A_1,B_2)}{P(A_1)P(B_2)} + \\
 &P(B_1,A_2)\log\frac{P(B_1,A_2)}{P(B_1)P(A_2)} +
 P(B_1,B_2)\log\frac{P(B_1,B_2)}{P(B_1)P(B_2)}
 \end{align*}
+```
+The individual entropy of a given split $h(S)$ is given as
+$-[P(A)\log P(A) +P(B)\log P(B)]$. Summing $I$ over an optimal pairing
+of splits produces the mutual clustering information score. This can be
+converted into a distance by taking:
 
-The individual entropy of a given split $h(S)$ is given as $-[P(A)\log P(A) +P(B)\log P(B)]$.
-Summing $I$ over an optimal pairing of splits produces the mutual clustering information score.
-This can be converted into a distance by taking:
-
+```{=tex}
 \begin{align*}
 CID = \frac{\sum_{S_1 \in T_1} h(S_1) + \sum_{S_2 \in T_2} h(S_2) - 
 \sum_{(s_1,s_2) \in Pairing} I(s_1, s_2)}{\sum_{S_1 \in T_1} h(S_1) + \sum_{S_2 \in T_2} h(S_2)}
 \end{align*}
-
-Where $S_i \in T_i$ is the splits in the first tree and $Pairing$ is an optimal
-pairing of splits between the two trees.
+```
+Where $S_i \in T_i$ is the splits in the first tree and $Pairing$ is an
+optimal pairing of splits between the two trees.
 
 ### R Implementation
+
 ```{r, eval=FALSE}
 library(SynExtend)
 
@@ -262,30 +316,43 @@ GeneralizedRF(NJtree, MPtree)
 
 ## Other Metrics
 
-These are two commonly used metrics, but many more are implemented in the `TreeDist` package. Notable other tree distance measures include:
+These are two commonly used metrics, but many more are implemented in
+the `TreeDist` package. Notable other tree distance measures include:
 
-- Jaccard-Robinson-Foulds, a Generalized RF distance similar to CMI but using
-Jaccard Distance of the splits rather than mutual information (B&ouml;cker et al., 2013).
-- The Path Difference Metric, taken as the Euclidean distance of the vector formed from
-taking the upper triangle of the Cophenetic Distance matrices (Steel and Penny, 1993).
-- MAST and MASTI, which takes the **M**aximal **A**greeing **S**ub**T**ree of the two trees.
-MAST looks at the number of leaves in this tree, whereas MASTI uses the phylogenetic information
-(MAST: Kao et al., 2001; MASTI: Smith 2020).
-- SPR distance, measuring the number of prunes and regrafts required to transform
-one tree into another (Hein 1990).
-- Quartet distance, a distance based on number of quartets that agree between
-the two trees (Estabrook et al., 1985).
-- Nearest Neighbor Interchange (NNI) distance, measuring how many NNIs are required
-to transform one tree into another (Li et al., 1996).
+-   **Jaccard-Robinson-Foulds**: Generalized RF distance similar to CMI,
+    but using Jaccard Distance of the splits rather than mutual
+    information.
+    -   (Böcker et al., 2013)
+-   **Path Difference Metric**: Euclidean distance of the
+    vector formed from taking the upper triangle of the Cophenetic
+    Distance matrices.
+    -   (Steel and Penny, 1993)
+-   **MAST(I)**: **M**aximal **A**greeing
+    **S**ub**T**ree of the two trees. MAST looks at the number of leaves
+    in this tree, whereas MASTI uses phylogenetic information content.
+    -   (MAST: Kao et al., 2001; MASTI: Smith 2020a).
+-   **Subtree Prune and Regraft (SPR) Distance**: number of SPR operations required
+    to transform one tree into another.
+    -   (Hein 1990)
+-   **Quartet Divergence**: number of quartets that agree
+    between the two trees.
+    -   (Estabrook et al., 1985)
+-   **Nearest Neighbor Interchange (NNI) distance**: measuring how many NNIs
+    are required to transform one tree into another.
+    -   (Li et al., 1996)
 
-A comprehensive evaluation of many of these metrics is available in [this paper](https://dro.dur.ac.uk/31189/1/31189.pdf).
+A comprehensive evaluation of many of these metrics is available in
+[this paper](https://dro.dur.ac.uk/31189/1/31189.pdf).
 
-***
+------------------------------------------------------------------------
 
 ## Manual Implementations
 
-I wrote implementations of both distances from scratch to illustrate how these functions are working under the hood. Note that external packages incorporate some optimizations I didn't implement that lead to different results. The best of these is `GeneralizedRF()`, 
-available through `SynExtend`.
+I wrote implementations of both distances from scratch to illustrate how
+these functions are working under the hood. Note that external packages
+incorporate some optimizations I didn't implement that lead to different
+results. The best of these is `GeneralizedRF()`, available through
+`SynExtend`.
 
 ### Helper functions
 
@@ -422,6 +489,7 @@ KF_Distance <- function(dend1, dend2){
 ```
 
 ### Generalized RF Distance
+
 ```{r}
 GRF <- function(dend1, dend2){
   require(SynExtend)
@@ -452,4 +520,4 @@ KFDists
 #GRFDists
 ```
 
-***
+------------------------------------------------------------------------
