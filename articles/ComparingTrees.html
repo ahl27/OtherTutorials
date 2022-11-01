@@ -234,7 +234,7 @@ the RF distance is <span class="math inline">\(0.5\)</span>.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">RF_dist_external</span><span class="op">(</span><span class="va">NJtree</span>, <span class="va">MPtree</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##       tree1</span></span>
-<span><span class="co">## tree2     8</span></span></code></pre>
+<span><span class="co">## tree2    12</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="drawbacks">Drawbacks<a class="anchor" aria-label="anchor" href="#drawbacks"></a>
@@ -281,12 +281,12 @@ pink (partitions labeled):</p>
 is the same and branch lengths are identical, all of these branches
 cancel each other out. One pair of branches is an equivalent partition
 (2 and II), and the other two are unique. The KF distance is then:</p>
-<p><span class="math display">\[\begin{align*}
+<span class="math display">\[\begin{align*}
 KF(Tr1, Tr2) &amp;= (len(1) - 0)^2 + (0 - len(I))^2 + (len(2) -
 len(II))^2 \\
 &amp;= (2-0)^2 + (0-6)^2 + (2-3)^2 \\
 &amp;= 41
-\end{align*}\]</span></p>
+\end{align*}\]</span>
 <p>The advantages of this over RF distance is that it can incorporate
 branch lengths in addition to topology, which allows it to downweight
 small differences in topology and upweight large differences.</p>
@@ -316,7 +316,7 @@ small differences in topology and upweight large differences.</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">RF_dist_external</span><span class="op">(</span><span class="va">NJtree</span>, <span class="va">MPtree</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##       tree1</span></span>
-<span><span class="co">## tree2     8</span></span></code></pre>
+<span><span class="co">## tree2    12</span></span></code></pre>
 </div>
 </div>
 <div class="section level2">
@@ -347,10 +347,10 @@ possible unrooted binary trees. Here <span class="math inline">\(x!!\)</span> is
 <span class="math inline">\(x!! = x * (x-2)!!\)</span> with <span class="math inline">\(1!!=0!!=1\)</span>. Then for a given pair of
 splits <span class="math inline">\(S_1 = A_1|B_1\)</span> and <span class="math inline">\(S_2 = A_2|B_2\)</span> on a tree with <span class="math inline">\(n\)</span> leaves, the probability of a randomly
 chosen binary tree containing these two splits is then:</p>
-<p><span class="math display">\[\begin{align*}
+<span class="math display">\[\begin{align*}
 P(S_1,S_2) =
 \frac{(2(|B_1|+1)-5)!!(2(|A_2|+1)-5)!!(2(|A_1|-|A_2|+2)-5)!!}{(2n-5)!!}
-\end{align*}\]</span></p>
+\end{align*}\]</span>
 <p>To obtain shared phylogenetic information, for each pair of splits we
 set <span class="math inline">\(h = 0\)</span> if <span class="math inline">\(S_1\)</span> and <span class="math inline">\(S_2\)</span> conflict, and <span class="math inline">\(h(S_1) + h(S_2) + h(S_1,S_2)\)</span> with <span class="math inline">\(h(S_1,S_2) = -\log(P(S_1,S_2))\)</span>. Summing
 this value across an optimal pairing of nodes results in the Shared
@@ -367,21 +367,21 @@ than a p-value-like measure.</p>
 <span class="math inline">\(P(A_1,A_2) = \frac{|A_1 \cap
 A_2|}{n}\)</span>. Then the mutual clustering information between two
 splits <span class="math inline">\(S_1 = A_1|B_1\)</span> and <span class="math inline">\(S_2 = A_2|B_2\)</span> is given as:</p>
-<p><span class="math display">\[\begin{align*}
+<span class="math display">\[\begin{align*}
 I(S_1, S_2) = P(A_1,A_2)\log&amp;\frac{P(A_1,A_2)}{P(A_1)P(A_2)} +
 P(A_1,B_2)\log\frac{P(A_1,B_2)}{P(A_1)P(B_2)} + \\
 &amp;P(B_1,A_2)\log\frac{P(B_1,A_2)}{P(B_1)P(A_2)} +
 P(B_1,B_2)\log\frac{P(B_1,B_2)}{P(B_1)P(B_2)}
-\end{align*}\]</span></p>
+\end{align*}\]</span>
 <p>The individual entropy of a given split <span class="math inline">\(h(S)\)</span> is given as <span class="math inline">\(-[P(A)\log P(A) +P(B)\log P(B)]\)</span>. Summing
 <span class="math inline">\(I\)</span> over an optimal pairing of splits
 produces the mutual clustering information score. This can be converted
 into a distance by taking:</p>
-<p><span class="math display">\[\begin{align*}
+<span class="math display">\[\begin{align*}
 CID = \frac{\sum_{S_1 \in T_1} h(S_1) + \sum_{S_2 \in T_2} h(S_2) -
 \sum_{(s_1,s_2) \in Pairing} I(s_1, s_2)}{\sum_{S_1 \in T_1} h(S_1) +
 \sum_{S_2 \in T_2} h(S_2)}
-\end{align*}\]</span></p>
+\end{align*}\]</span>
 <p>Where <span class="math inline">\(S_i \in T_i\)</span> is the splits
 in the first tree and <span class="math inline">\(Pairing\)</span> is an
 optimal pairing of splits between the two trees.</p>
@@ -404,23 +404,52 @@ optimal pairing of splits between the two trees.</p>
 the <code>TreeDist</code> package. Notable other tree distance measures
 include:</p>
 <ul>
-<li>Jaccard-Robinson-Foulds, a Generalized RF distance similar to CMI
-but using Jaccard Distance of the splits rather than mutual information
-(Böcker et al., 2013).</li>
-<li>The Path Difference Metric, taken as the Euclidean distance of the
+<li>
+<strong>Jaccard-Robinson-Foulds</strong>: Generalized RF distance
+similar to CMI, but using Jaccard Distance of the splits rather than
+mutual information.
+<ul>
+<li>(Böcker et al., 2013)</li>
+</ul>
+</li>
+<li>
+<strong>Path Difference Metric</strong>: Euclidean distance of the
 vector formed from taking the upper triangle of the Cophenetic Distance
-matrices (Steel and Penny, 1993).</li>
-<li>MAST and MASTI, which takes the <strong>M</strong>aximal
+matrices.
+<ul>
+<li>(Steel and Penny, 1993)</li>
+</ul>
+</li>
+<li>
+<strong>MAST(I)</strong>: <strong>M</strong>aximal
 <strong>A</strong>greeing <strong>S</strong>ub<strong>T</strong>ree of
 the two trees. MAST looks at the number of leaves in this tree, whereas
-MASTI uses the phylogenetic information (MAST: Kao et al., 2001; MASTI:
-Smith 2020).</li>
-<li>SPR distance, measuring the number of prunes and regrafts required
-to transform one tree into another (Hein 1990).</li>
-<li>Quartet distance, a distance based on number of quartets that agree
-between the two trees (Estabrook et al., 1985).</li>
-<li>Nearest Neighbor Interchange (NNI) distance, measuring how many NNIs
-are required to transform one tree into another (Li et al., 1996).</li>
+MASTI uses phylogenetic information content.
+<ul>
+<li>(MAST: Kao et al., 2001; MASTI: Smith 2020a).</li>
+</ul>
+</li>
+<li>
+<strong>Subtree Prune and Regraft (SPR) Distance</strong>: number of
+SPR operations required to transform one tree into another.
+<ul>
+<li>(Hein 1990)</li>
+</ul>
+</li>
+<li>
+<strong>Quartet Divergence</strong>: number of quartets that agree
+between the two trees.
+<ul>
+<li>(Estabrook et al., 1985)</li>
+</ul>
+</li>
+<li>
+<strong>Nearest Neighbor Interchange (NNI) distance</strong>:
+measuring how many NNIs are required to transform one tree into another.
+<ul>
+<li>(Li et al., 1996)</li>
+</ul>
+</li>
 </ul>
 <p>A comprehensive evaluation of many of these metrics is available in
 <a href="https://dro.dur.ac.uk/31189/1/31189.pdf" class="external-link">this paper</a>.</p>
@@ -598,14 +627,14 @@ available through <code>SynExtend</code>.</p>
 <span><span class="va">RFDists</span></span></code></pre></div>
 <pre><code><span><span class="co">##           UPGMA        NJ        MP</span></span>
 <span><span class="co">## UPGMA 0.0000000 0.2608696 0.3913043</span></span>
-<span><span class="co">## NJ    0.2608696 0.0000000 0.1739130</span></span>
-<span><span class="co">## MP    0.3913043 0.1739130 0.0000000</span></span></code></pre>
+<span><span class="co">## NJ    0.2608696 0.0000000 0.2608696</span></span>
+<span><span class="co">## MP    0.3913043 0.2608696 0.0000000</span></span></code></pre>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">KFDists</span></span></code></pre></div>
 <pre><code><span><span class="co">##           UPGMA        NJ        MP</span></span>
-<span><span class="co">## UPGMA 0.0000000 0.9712953 1.0481212</span></span>
-<span><span class="co">## NJ    0.9712953 0.0000000 0.3221824</span></span>
-<span><span class="co">## MP    1.0481212 0.3221824 0.0000000</span></span></code></pre>
+<span><span class="co">## UPGMA 0.0000000 0.9712953 1.0394699</span></span>
+<span><span class="co">## NJ    0.9712953 0.0000000 0.3452422</span></span>
+<span><span class="co">## MP    1.0394699 0.3452422 0.0000000</span></span></code></pre>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#GRFDists</span></span></code></pre></div>
 <hr>
