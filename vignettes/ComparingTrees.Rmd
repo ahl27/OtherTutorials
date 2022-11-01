@@ -78,7 +78,7 @@ simSeqsFile <- system.file('extdata', 'Simulated_v1.fas', package='IntroPhylogen
 
 simAli <- suppressWarnings(readDNAStringSet(simSeqsFile))[1:25]
 names(simAli) <- 1:25
-simDm <- DistanceMatrix(simAli, type='dist', penalizeGapGapMatches=FALSE, verbose=FALSE)
+simDm <- DistanceMatrix(simAli, type='dist', verbose=FALSE)
 
 UPGMAtree <- as.dendrogram(hclust(simDm, method='average'))
 NJtree <- TreeLine(simAli, myDistMatrix=simDm, method='NJ')
