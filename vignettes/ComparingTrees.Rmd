@@ -348,11 +348,11 @@ A comprehensive evaluation of many of these metrics is available in
 
 ## Manual Implementations
 
-I wrote implementations of both distances from scratch to illustrate how
+I wrote implementations of RF, KF, and GRF distances from scratch to illustrate how
 these functions are working under the hood. Note that external packages
-incorporate some optimizations I didn't implement that lead to different
+incorporate some optimizations for RF/KF I didn't implement that lead to different
 results. The best of these is `GeneralizedRF()`, available through
-`SynExtend`.
+`SynExtend` (not shown here since it is significantly longer than the other two methods).
 
 ### Helper functions
 
