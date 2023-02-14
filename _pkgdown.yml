@@ -27,7 +27,7 @@ navbar:
       aria-label: My Website
     intro:
       text: Overview
-      href: https://www.ahl27.com/othertutorials
+      href: https://www.ahl27.com/OtherTutorials
     articles:
       text: Tutorials
       menu:

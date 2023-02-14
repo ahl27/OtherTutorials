@@ -10,16 +10,9 @@ editor_options:
   markdown: 
     wrap: 72
 ---
----
-title: "Multiple Testing Correction"
-format: html
-toc: true
-toc-location: right
-smooth-scroll: true
-theme: united
-editor: source
----
-
+```{r setup, include=TRUE, warning=FALSE, message=FALSE}
+options(rmarkdown.html_vignette.check_title = FALSE)
+```
 Statistical tests typically follow the same formula: we have a null hypothesis $H_0$ and an alternative hypothesis $H_A$, and then we do some math and determine a p-value $p$. Here $p$ represents the probability of obtaining results at least as the ones observed assuming the null hypothesis is true. In other words, how likely are we to observe a result this extreme purely due to chance? If $p < \alpha$ for some significance level $\alpha$ (typically 0.05), then we reject $H_0$ in favor of $H_A$. For example, if we roll a dice and get two sixes in a row, that would be surprising, but not *that* surprising. However, if we got 25 sixes in a row, we'd start to question if the die is actually fair.
 
 ![](dice_illustration.png)

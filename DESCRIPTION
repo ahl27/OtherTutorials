@@ -23,5 +23,5 @@ Suggests:
     rmarkdown,
     pkgdown
 URL: https://www.ahl27.com/othertutorials/
-BugReports: https://github.com/ahl27/IntroPhylogenetics/issues/new/choose
+BugReports: https://github.com/ahl27/OtherTutorials/issues/new/choose
 VignetteBuilder: knitr

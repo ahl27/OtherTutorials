@@ -20,6 +20,8 @@ between trees: Robinson-Foulds (RF) Distance and Kuhner-Felsenstein (KF)
 distance.
 
 ```{r setup, include=TRUE, warning=FALSE, message=FALSE}
+options(rmarkdown.html_vignette.check_title = FALSE)
+
 # Package imports
 library(ape)
 library(DECIPHER)
@@ -61,7 +63,7 @@ phylogenetic trees using the three methods discussed previously.
 
 ```{r echo=FALSE}
 fname <- system.file('extdata', 'Simulated_v1.fas', package='IntroPhylogenetics')
-link <- "https://github.com/ahl27/IntroPhylogenetics/blob/5347f97d4ad861a3055dbaa505205b5ce68ef93c/inst/extdata/Simulated_v1.fas"
+link <- "https://github.com/ahl27/OtherTutorials/blob/81c21c2cec651993311e44f47eee7b5caaeb1a1a/inst/extdata/Simulated_v1.fas"
 downloadthis::download_file(
   path = fname,
   output_name = "Simulated_v1",
