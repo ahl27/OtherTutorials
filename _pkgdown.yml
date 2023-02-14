@@ -1,4 +1,4 @@
-url: https://www.ahl27.com/othertutorials
+url: https://www.ahl27.com/OtherTutorials
 
 template:
   bootstrap: 5
@@ -19,7 +19,7 @@ navbar:
   components:
     github:
       icon: fa-github
-      href: https://github.com/ahl27/IntroPhylogenetics
+      href: https://github.com/ahl27/OtherTutorials
       aria-label: GitHub
     home:
       icon: fa-home
@@ -32,11 +32,11 @@ navbar:
       text: Tutorials
       menu:
         - text: Building Trees
-          href: https://www.ahl27.com/othertutorials/articles/BuildingTrees.html
+          href: https://www.ahl27.com/OtherTutorials/articles/BuildingTrees.html
         - text: Comparing Trees
-          href: https://www.ahl27.com/othertutorials/articles/ComparingTrees.html
+          href: https://www.ahl27.com/OtherTutorials/articles/ComparingTrees.html
         - text: Multiple Testing Correction
-          href: https://www.ahl27.com/othertutorials/articles/MultipleTesting.html
+          href: https://www.ahl27.com/OtherTutorials/articles/MultipleTesting.html
     homepage:
       text: Back to Website
       href: https://www.ahl27.com/tutorials
