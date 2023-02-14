@@ -1,5 +1,5 @@
-Package: IntroPhylogenetics
-Title: Introduction to Phylogeitics
+Package: LakshmanTutorials
+Title: LakshmanTutorials
 Version: 1.0.0
 Authors@R: 
     person(given = "Aidan",
@@ -7,7 +7,7 @@ Authors@R:
            role = c("aut", "cre"),
            email = "ahl27@pitt.edu",
            comment = c(ORCID = "0000-0002-9465-6785"))
-Description: This package contains an interactive tutorial to phylogenetics, including creating and comparing phylogenetic trees. I may add more elements in the future depending on where my research takes me. 
+Description: This package contains various tutorials I've written throughout my PhD.
 License: file LICENSE
 Encoding: UTF-8
 LazyData: true
@@ -22,6 +22,6 @@ Suggests:
     knitr,
     rmarkdown,
     pkgdown
-URL: https://www.ahl27.com/IntroPhylogenetics/
+URL: https://www.ahl27.com/othertutorials/
 BugReports: https://github.com/ahl27/IntroPhylogenetics/issues/new/choose
 VignetteBuilder: knitr

@@ -2,7 +2,7 @@
 
 This repository serves as a place for me to put all the miscellaneous tutorials I've written for conferences, lab meetings, or any other settings. So far, I've included a basic introduction to common methods used in phylogenetics. I'll keep this page updated with new tutorials as I make them!
 
-To jump into tutorials, check out the "Lessons" tab on the top bar. If you want to return to my website, you can either click [here](https://ahl27.com/) or click on "Back to Website" in the top bar.
+To jump into tutorials, check out the "Tutorials" tab on the top bar. If you want to return to my website, you can either click [here](https://ahl27.com/) or click on "Back to Website" in the top bar.
 
 Please let me know if there are any issues or things that aren't clear in these tutorials! The main goal of any tutorial is to be useful to readers, so I'm always interested in feedback. Feel free to send me an email at ahl27@pitt.edu, or [open an issue on the GitHub Repository](https://github.com/ahl27/IntroPhylogenetics/issues/new). Thank you!
 

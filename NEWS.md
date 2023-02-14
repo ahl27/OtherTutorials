@@ -1,3 +1,8 @@
+# Version 2.0
+### General Notes
+* Adds new multiple testing correction tutorials
+* Updates to webpage to make it more general for future expansion
+
 # Version 1.1
 
 ### General Notes
