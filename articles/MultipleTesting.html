@@ -168,6 +168,12 @@ Type I errors, but lower statistical power.</p>
 <div class="section level2">
 <h2 id="minimizing-fwer-for-multiple-hypotheses">Minimizing FWER for Multiple Hypotheses<a class="anchor" aria-label="anchor" href="#minimizing-fwer-for-multiple-hypotheses"></a>
 </h2>
+<p>The first group of methods deal with minimizing FWER for a set of
+multiple hypotheses. The drug testing example from earlier is a perfect
+example. Another example would be testing if a set of SNPs have a
+significant association with a particular disease–each null hypothesis
+<span class="math inline">\(H_i\)</span> is that SNP <span class="math inline">\(i\)</span> is not significantly associated with
+the disease.</p>
 <div class="section level3">
 <h3 id="bonferroni-correction">Bonferroni Correction<a class="anchor" aria-label="anchor" href="#bonferroni-correction"></a>
 </h3>
@@ -239,14 +245,21 @@ such that <span class="math inline">\(p_k &lt; \frac{\bar
 <em>groups</em> of p-values are statistically significant, rather than
 examining individual p-values and null hypotheses. Thus, these methods
 are ideal for situations where several statistical tests are conducted
-on the same overall null hypothesis.</p>
+on the same overall null hypothesis. An example of this kind of problem
+is testing whether a new curriculum improves students’ scores on
+standardized tests. Each statistical test looks at paired experiment and
+control classrooms, and investigates if the performance of the
+experimental group is significantly different than the control. The null
+hypotheses is the same for all groups, that the new curriculum does not
+significantly impact outcomes.</p>
+<p>Most of these methods test whether <em>groups</em> of p-values are
+statistically significant, rather than examining individual scores.</p>
 <div class="section level3">
 <h3 id="fishers-method">Fisher’s Method<a class="anchor" aria-label="anchor" href="#fishers-method"></a>
 </h3>
-<p>Fisher’s Method is different from previously mentioned methods in
-that it tests whether <em>groups</em> of p-values are statistically
-significant, rather than examining individual methods. The method
-calculates a test statistic as:</p>
+<p>Fisher’s Method is one of the simplest methods for multiple testing
+correction in the single hypothesis case. The method calculates a test
+statistic as:</p>
 <p><span class="math display">\[ \chi_{2n}^2 \sim -2\sum_{i=1}^n \log
 {p_i} \]</span> This formula follows from the fact that, under
 independent unbiased statistical tests, the distribution of p-values
