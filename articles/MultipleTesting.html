@@ -97,8 +97,6 @@ Lakshman<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-co
 
     
     
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>rmarkdown.html_vignette.check_title <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <p>Statistical tests typically follow the same formula: we have a null
 hypothesis <span class="math inline">\(H_0\)</span> and an alternative
 hypothesis <span class="math inline">\(H_A\)</span>, and then we do some
@@ -253,7 +251,10 @@ experimental group is significantly different than the control. The null
 hypotheses is the same for all groups, that the new curriculum does not
 significantly impact outcomes.</p>
 <p>Most of these methods test whether <em>groups</em> of p-values are
-statistically significant, rather than examining individual scores.</p>
+statistically significant, rather than examining individual scores.
+These methods will determine if the overall findings are significant,
+while those from the previous section determine if specific tests are
+significant.</p>
 <div class="section level3">
 <h3 id="fishers-method">Fisher’s Method<a class="anchor" aria-label="anchor" href="#fishers-method"></a>
 </h3>
@@ -365,9 +366,14 @@ remaining null hypotheses cannot be rejected.</p>
 the line <span class="math inline">\(y=\frac{\alpha}{n}x\)</span>. All
 points below the line correspond to hypotheses that are rejected, and
 all points above fail to reject.</p>
-<p><img src="MultipleTesting_files/figure-html/unnamed-chunk-2-1.png" width="700">
-Here the green points are those that we can reject the null hypothesis
-for, and red are those we cannot.</p>
+<p><img src="MultipleTesting_files/figure-html/unnamed-chunk-2-1.png" width="700"></p>
+<p>Here the green points are those that we can reject the null
+hypothesis for, and red are those we cannot. Note that some green points
+fall above the line–this is because we reject for all p-values less than
+the greatest point that falls below the line, even if those smaller
+points don’t fall below the line. In this example, the eighth point is
+the largest less than or equal to the line, and so we can reject the
+hypotheses corresponding to the first eight points.</p>
 <p>Benjamini-Hochberg is valid when all tests are independent and for
 some cases of dependence, but isn’t universally valid. If there is a
 concern of dependence between values, use Benjamini-Yekutieli or HMP
@@ -383,13 +389,17 @@ the same, but modify our bound by checking for the largest <span class="math inl
 defined as follows:</p>
 <ul>
 <li>If tests are independent or positively correlated, <span class="math inline">\(c(n) = 1\)</span>.</li>
-<li>Otherwise, <span class="math inline">\(c(n) = \sum_{i=1}^n
-n^{-1}\)</span>, the <span class="math inline">\(n^{th}\)</span>
-harmonic number.</li>
+<li>For arbitrary dependence, <span class="math inline">\(c(n) =
+\sum_{i=1}^n n^{-1}\)</span>, the <span class="math inline">\(n^{th}\)</span> harmonic number.</li>
 </ul>
-<p>For large values of <span class="math inline">\(n\)</span>, <span class="math inline">\(c(n) \approx \ln(n) + 0.57721 +
+<p>If necessary, the <span class="math inline">\(n^{th}\)</span>
+harmonic number can be approximated with <span class="math inline">\(c(n) \approx \ln(n) + 0.57721 +
 (2n)^{-1}\)</span>. The constant comes from the Euler-Mascheroni
-constant (truncated here).</p>
+constant (truncated here). This approximation can be useful for large
+values of <span class="math inline">\(n\)</span>.</p>
+<p>The harmonic number can be used if you’re unsure whether the data are
+dependent or independent; under a scenario of independence the rejection
+criteria will be slightly conservative.</p>
 </div>
 </div>
 <div class="section level2">
