@@ -10,7 +10,7 @@ editor_options:
   markdown: 
     wrap: 72
 ---
-```{r setup, include=TRUE, warning=FALSE, message=FALSE}
+```{r setup, include=TRUE, warning=FALSE, message=FALSE, echo=FALSE}
 options(rmarkdown.html_vignette.check_title = FALSE)
 ```
 Statistical tests typically follow the same formula: we have a null hypothesis $H_0$ and an alternative hypothesis $H_A$, and then we do some math and determine a p-value $p$. Here $p$ represents the probability of obtaining results at least as the ones observed assuming the null hypothesis is true. In other words, how likely are we to observe a result this extreme purely due to chance? If $p < \alpha$ for some significance level $\alpha$ (typically 0.05), then we reject $H_0$ in favor of $H_A$. For example, if we roll a dice and get two sixes in a row, that would be surprising, but not *that* surprising. However, if we got 25 sixes in a row, we'd start to question if the die is actually fair.
@@ -104,7 +104,7 @@ A subtly different test is the Hochberg step-up procedure, which is uniformly mo
 ## Minimizing FWER for One Hypothesis
 These methods are slightly different in that they tests whether *groups* of p-values are statistically significant, rather than examining individual p-values and null hypotheses. Thus, these methods are ideal for situations where several statistical tests are conducted on the same overall null hypothesis. An example of this kind of problem is testing whether a new curriculum improves students' scores on standardized tests. Each statistical test looks at paired experiment and control classrooms, and investigates if the performance of the experimental group is significantly different than the control. The null hypotheses is the same for all groups, that the new curriculum does not significantly impact outcomes.
 
-Most of these methods test whether *groups* of p-values are statistically significant, rather than examining individual scores. 
+Most of these methods test whether *groups* of p-values are statistically significant, rather than examining individual scores. These methods will determine if the overall findings are significant, while those from the previous section determine if specific tests are significant. 
 
 ### Fisher's Method
 Fisher's Method is one of the simplest methods for multiple testing correction in the single hypothesis case. The method calculates a test statistic as:
@@ -181,7 +181,8 @@ plot(x,y,col=cols, type='p', pch=19, xlab="Index", ylab="p-value", xlim=c(0,25),
 lines(x, divlin, col="#1E88E5", type='l', lwd=1)
 
 ```
-Here the green points are those that we can reject the null hypothesis for, and red are those we cannot.
+
+Here the green points are those that we can reject the null hypothesis for, and red are those we cannot. Note that some green points fall above the line--this is because we reject for all p-values less than the greatest point that falls below the line, even if those smaller points don't fall below the line. In this example, the eighth point is the largest less than or equal to the line, and so we can reject the hypotheses corresponding to the first eight points.
 
 Benjamini-Hochberg is valid when all tests are independent and for some cases of dependence, but isn't universally valid. If there is a concern of dependence between values, use Benjamini-Yekutieli or HMP instead.
 
@@ -192,9 +193,11 @@ Benjamini-Yekutieli improves on Benjamini-Hochberg by allowing for good performa
 $c(n)$ is a new parameter that is defined as follows:
 
 * If tests are independent or positively correlated, $c(n) = 1$.
-* Otherwise, $c(n) = \sum_{i=1}^n n^{-1}$, the $n^{th}$ harmonic number.
+* For arbitrary dependence, $c(n) = \sum_{i=1}^n n^{-1}$, the $n^{th}$ harmonic number.
 
-For large values of $n$, $c(n) \approx \ln(n) + 0.57721 + (2n)^{-1}$. The constant comes from the Euler-Mascheroni constant (truncated here).
+If necessary, the $n^{th}$ harmonic number can be approximated with $c(n) \approx \ln(n) + 0.57721 + (2n)^{-1}$. The constant comes from the Euler-Mascheroni constant (truncated here). This approximation can be useful for large values of $n$. 
+
+The harmonic number can be used if you're unsure whether the data are dependent or independent; under a scenario of independence the rejection criteria will be slightly conservative.
 
 ## Conclusions
 
