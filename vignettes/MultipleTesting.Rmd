@@ -68,6 +68,8 @@ Corrections that minimize FDR result in higher statistical power at the cost of 
 
 ## Minimizing FWER for Multiple Hypotheses
 
+The first group of methods deal with minimizing FWER for a set of multiple hypotheses. The drug testing example from earlier is a perfect example. Another example would be testing if a set of SNPs have a significant association with a particular disease--each null hypothesis $H_i$ is that SNP $i$ is not significantly associated with the disease. 
+
 ### Bonferroni Correction
 
 Bonferroni correction is one of the simplest ways to minimize FWER across multiple tests. The motivation for this method comes from [Boole's Inequality](https://en.wikipedia.org/wiki/Boole%27s_inequality), which implies the following result for $n$ *independent* tests:
@@ -100,10 +102,12 @@ Holm-Bonferroni notably does not require each statistical test to be independent
 A subtly different test is the Hochberg step-up procedure, which is uniformly more powerful than Holm-Bonferroni but requires each test to be statistically independent or positively dependent. The procedure is the same as Holm-Bonferroni, but instead of iteratively testing p-values, we find the maximal $k$ such that $p_k < \frac{\bar \alpha}{n+1-k}$, then reject null hypotheses $H_1,\dots,H_k$.
 
 ## Minimizing FWER for One Hypothesis
-These methods are slightly different in that they tests whether *groups* of p-values are statistically significant, rather than examining individual p-values and null hypotheses. Thus, these methods are ideal for situations where several statistical tests are conducted on the same overall null hypothesis.
+These methods are slightly different in that they tests whether *groups* of p-values are statistically significant, rather than examining individual p-values and null hypotheses. Thus, these methods are ideal for situations where several statistical tests are conducted on the same overall null hypothesis. An example of this kind of problem is testing whether a new curriculum improves students' scores on standardized tests. Each statistical test looks at paired experiment and control classrooms, and investigates if the performance of the experimental group is significantly different than the control. The null hypotheses is the same for all groups, that the new curriculum does not significantly impact outcomes.
+
+Most of these methods test whether *groups* of p-values are statistically significant, rather than examining individual scores. 
 
 ### Fisher's Method
-Fisher's Method is different from previously mentioned methods in that it tests whether *groups* of p-values are statistically significant, rather than examining individual methods. The method calculates a test statistic as:
+Fisher's Method is one of the simplest methods for multiple testing correction in the single hypothesis case. The method calculates a test statistic as:
 
 $$ \chi_{2n}^2 \sim -2\sum_{i=1}^n \log {p_i} $$
 This formula follows from the fact that, under independent unbiased statistical tests, the distribution of p-values should be uniformly distributed on $[0,1]$. A negative log-transform of a uniformly distributed variable produces an exponential distribution, and scaling it by two yields a chi-squared distributions with two degrees of freedom. Summing $n$ chi-squared distributions with two degrees of freedom produces a chi-squared distribution with $2n$ degrees of freedom. From this statistic and distribution, it is simple to calculate an overall p-value for the set of statistical tests. 
