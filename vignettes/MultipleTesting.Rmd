@@ -52,6 +52,7 @@ text(2.9, 0.05, substitute(paste(bold("Type I Error"))),cex=0.75, col=cols[1])
 lines(c(2.2,2.9), c(0.01,0.043), col=cols[1], lwd=1.5)
 lines(c(0,1.2), c(0.043, 0.01), col=cols[2], lwd=1.5)
 
+text(cutoff+0.02, 0.4, substitute(paste(bold("Rejection  Threshold"))),cex=0.55, col='black')
 text(0, 0.25, substitute(paste(bold("Null Hypothesis"))),cex=0.55, col=cols[1])
 text(3, 0.25, substitute(paste(bold("Alternate Hypothesis"))),cex=0.55, col=cols[2])
 ```
